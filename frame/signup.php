@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
-
-<!-- Mirrored from fasto.dexignzone.com/xhtml/page-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jun 2022 09:05:34 GMT -->
 <head>
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,5 +75,4 @@
     <script src="js/styleSwitcher.js"></script>
 </body>
 
-<!-- Mirrored from fasto.dexignzone.com/xhtml/page-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jun 2022 09:05:34 GMT -->
 </html>

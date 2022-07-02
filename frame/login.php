@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
-
-<!-- Mirrored from fasto.dexignzone.com/xhtml/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jun 2022 09:04:28 GMT -->
 <head>
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,7 +51,7 @@
 												</div>
                                             </div>
                                             <div class="form-group">
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
+                                                <a href="?page=reset">Forgot Password?</a>
                                             </div>
                                         </div>
                                         <div class="text-center">
@@ -85,5 +83,4 @@
     <script src="js/styleSwitcher.js"></script>
 </body>
 
-<!-- Mirrored from fasto.dexignzone.com/xhtml/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jun 2022 09:04:29 GMT -->
 </html>
