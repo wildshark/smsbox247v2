@@ -1,5 +1,12 @@
 <?php
 
+$server = [
+    "host" => "localhost",
+    "user" => "root",
+    "pwd" => "",
+    "dbname" => "sms247"
+];
+
 $_PAGE = [
     "login"=>"frame/login.php",
     "signup"=>"frame/signup.php",
@@ -8,9 +15,10 @@ $_PAGE = [
 ];
 
 $_MODULES = [
-    "admin"=>"modules/admin",
+    "admin"=>"modules/admin.php",
     "client"=>"modules/client.php",
-    "page"=>"modules/page.php"
+    "page"=>"modules/page.php",
+    "modules"=>"modules/modules.php"
 ];
 
 ?>

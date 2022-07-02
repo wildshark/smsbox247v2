@@ -1,12 +1,18 @@
 {
-    "dbconn":{
-        "host":"localhost",
-        "user":"root",
-        "passwd":"",
-        "dbname":""
+    "portal":{
+        "company":"",
+        "country":"",
+        "city":"",
+        "address":"",
+        "email":"",
+        "mobile":""             
+    },
+    "admin":{
+        "username":"admin@admin.com",
+        "password":"admin"
     },
     "setup":{
-        
+        "api":"rrrrfgdfgdgdfgdgdgdfgdfgdfgdfgdf",
+        "sender_id":""
     }
-
 }
