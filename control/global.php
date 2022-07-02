@@ -11,8 +11,6 @@ $_MODULES = [
     "admin"=>"modules/admin",
     "client"=>"modules/client.php",
     "page"=>"modules/page.php"
-
 ];
-
 
 ?>
