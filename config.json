@@ -1,0 +1,12 @@
+{
+    "dbconn":{
+        "host":"localhost",
+        "user":"root",
+        "passwd":"",
+        "dbname":""
+    },
+    "setup":{
+        
+    }
+
+}
