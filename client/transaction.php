@@ -9,15 +9,13 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>File Name</th>
                             <th>Date</th>
-                            <th>Spend</th>
-                            <th>Balance</th>
-                            <th>Action</th>
+                            <th>Invoice No.</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
-                       <?=BulkContact($contact)?>
+                       <?=ClientTransaction($transaction)?>
                     </tbody>
                 </table>
             </div>

@@ -57,6 +57,89 @@ switch($_REQUEST['submit']){
             $url['token'] = md5($token); 
         }
     break;
+
+    case"quick-sms";
+        $mobile= $_REQUEST['to-mobile'];
+        $msg = $_REQUEST['message'];
+        $sender = $_REQUEST['sender-id'];
+        if(is_array($mobile)){
+            echo "ok";
+        }else{
+            echo "fail";
+        }
+        exit;
+    break;
+
+    case"bulk-sms";
+        $id = $_REQUEST['to-group'];
+        $msg = $_REQUEST['message'];
+        $sender = $_REQUEST['sender-id'];
+        
+        $data = Contact::View($_CONN,$_REQUEST['to-group']);
+        var_dump($data);
+        exit;
+    break;
+
+    case"add-contact";
+        $R[] = $_SESSION['uID'];
+        $R[] = $_REQUEST['group-name'];
+        $response = Contact::addFileName($_CONN,$R);
+        if($response == false){
+            $url['client'] = "group";
+            $url['err'] = 4004;
+        }else{
+            // Allowed mime types
+            $fileMimes = array(
+                'text/x-comma-separated-values',
+                'text/comma-separated-values',
+                'application/octet-stream',
+                'application/vnd.ms-excel',
+                'application/x-csv',
+                'text/x-csv',
+                'text/csv',
+                'application/csv',
+                'application/excel',
+                'application/vnd.msexcel',
+                'text/plain'
+            );
+        
+            // Validate whether selected file is a CSV file
+            if (!empty($_FILES['upload-file']['name']) && in_array($_FILES['upload-file']['type'], $fileMimes))
+            {
+        
+                // Open uploaded CSV file with read-only mode
+                $csvFile = fopen($_FILES['upload-file']['tmp_name'], 'r');
+        
+                // Skip the first line
+                fgetcsv($csvFile);
+        
+                // Parse data from CSV file line by line
+                while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE){
+                    // Get row data
+                    $result = Contact::addList($_CONN,$response,$getData);
+                        
+                }
+        
+                // Close opened CSV file    
+                fclose($csvFile);
+
+                if($result == false){
+                    $url['client'] = "contact";
+                    $url['contact'] = $response;
+                    $url['err'] = 4004;
+                }else{
+                    $url['client'] = "contact";
+                    $url['contact'] = $response;
+                    $url['err'] = 2000;
+                }
+            }else{
+                $url['client'] = "contact";
+                $url['contact'] = $_SESSION['gID'];
+                $url['err'] = 5000;
+                //echo "Please select valid file";
+            }
+        }
+    break;
 }
 
 header("location: ?".http_build_query($url));

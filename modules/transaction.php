@@ -2,13 +2,21 @@
 
 class Transaction{
 
-    public static function ledger($conn,$r){
+    public static function ledger($conn,$id){
 
-        $sql = "SELECT * FROM `ledger` LIMIT 0,1000";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        if($id === "*.all"){
+            $sql = "SELECT * FROM `ledger` LIMIT 0,1000";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $sql ="SELECT ledger.* FROM ledger WHERE ledger.paid > 0 AND ledger.userID =:id ORDER BY ledger.creditID DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([':id'=>$id]);
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        return $data;
     }
 
     public static function debit($conn,$request){
@@ -34,14 +42,27 @@ class Transaction{
            $stmt = $conn->prepare($sql);
            $stmt->execute();
            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+           if($data == false){
+                $data = [
+                    "paid"=>0,
+                    "spend"=>0,
+                    "bal"=>0
+                ];
+           }
         }else{
-            $sql = "SELECT ledger.userID, sum(ledger.paid) AS paid, sum(ledger.spend) AS spend, sum(ledger.paid - ledger.spend) AS bal FROM ledger INNER JOIN user_account ON ledger.userID = user_account.userID WHERE ledger.userID = ?";
+            $sql = "SELECT ledger.userID, sum(ledger.paid) AS paid, sum(ledger.spend) AS spend, sum(ledger.paid - ledger.spend) AS bal FROM ledger INNER JOIN user_account ON ledger.userID = user_account.userID WHERE ledger.userID =:id";
             $stmt = $conn->prepare($sql);
-            $stmt->execute($request);
+            $stmt->execute([":id"=>$request]);
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($data == false){
+                $data = [
+                    "paid"=>0,
+                    "spend"=>0,
+                    "bal"=>0
+                ];
+           }
         }
         return $data;
     }
-
 }
 ?>

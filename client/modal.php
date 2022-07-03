@@ -6,15 +6,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="post" action="index.php">
                     <div class="form-group">
                         <label class="text-black font-w500">To Mobile Number</label>
                         <input type="text" name="to-mobile" class="form-control">
                     </div>
                     <div class="form-group">
                         <label class="text-black font-w500">Sender ID</label>
-                        <div class="cal-icon"><input type="text" name="sender-id" class="form-control"><i
-                                class="far fa-calendar-alt"></i></div>
+                        <input type="text" name="sender-id" class="form-control">
                     </div>
                     <div class="form-group">
                         <label class="text-black font-w500">Message</label>
@@ -37,19 +36,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="post" action="index.php">
                     <div class="form-group">
                         <label class="text-black font-w500">To Mobile Number</label>
-                        <input type="text" name="to-mobile" class="form-control">
+                        <select name="to-group" class="default-select form-control">
+                            <?=cmbGroupContact($cmbGroupContact);?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="text-black font-w500">Sender ID</label>
-                        <div class="cal-icon"><input type="text" name="sender-id" class="form-control"><i
-                                class="far fa-calendar-alt"></i></div>
+                        <input type="text" name="sender-id" class="form-control">
                     </div>
                     <div class="form-group">
                         <label class="text-black font-w500">Message</label>
-                        <textarea type="text" name="msg" class="form-control"></textarea>
+                        <textarea type="text" name="message" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <button type="submit" name="submit" value="bulk-sms" class="btn btn-primary">SEND</button>
@@ -68,18 +68,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="post" action="index.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="text-black font-w500">Group Name</label>
-                        <div class="cal-icon"><input type="text" name="sender-id" class="form-control"><i
-                                class="far fa-calendar-alt"></i></div>
+                        <input type="text" name="group-name" class="form-control">
                     </div>
                     <div class="form-group">
                         <label class="text-black font-w500">Upload csv or execl</label>
-                        <input type="text" name="to-mobile" class="form-control">
+                        <input type="file" name="upload-file" class="form-control">
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="submit" value="group-contact" class="btn btn-primary">SEND</button>
+                        <button type="submit" name="submit" value="add-contact" class="btn btn-primary">SEND</button>
                     </div>
                 </form>
             </div>

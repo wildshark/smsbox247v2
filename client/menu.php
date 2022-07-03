@@ -14,13 +14,13 @@
             <span class="nav-text">Bulk SMS</span>
         </a>
     </li>
-    <li><a href="?client=contact" class="ai-icon" aria-expanded="false">
+    <li><a href="?client=group" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
             <span class="nav-text">Contact</span>
         </a>
     </li>
 
-    <li><a href="?=ledger" class="ai-icon" aria-expanded="false">
+    <li><a href="?client=ledger" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
             <span class="nav-text">Account</span>
         </a>
