@@ -194,29 +194,55 @@ function BulkContact($list){
 function ClientTransaction($list){
 
     $data ="";
-    foreach($list as $r){
+    if($list == false){
+        $data="";
+    }else{
+         foreach($list as $r){
 
-        if(!isset($n)){
-            $n = 1;
-        }else{
-            $n = $n + 1;
+            if(!isset($n)){
+                $n = 1;
+            }else{
+                $n = $n + 1;
+            }
+
+            $date = $r['tranDate'];
+            $ref = $r['ref'];
+            $amount = number_format($r['paid'],2);
+        
+            $data.="
+                <tr>
+                    <td>{$n}</td>
+                    <td>{$date}</td>
+                    <td>{$ref}</td>
+                    <td>{$amount}</td>											
+                </tr>";
         }
-
-        $date = $r['tranDate'];
-        $ref = $r['ref'];
-        $amount = number_format($r['paid'],2);
-     
-        $data.="
-        <tr>
-            <td>{$n}</td>
-            <td>{$date}</td>
-            <td>{$ref}</td>
-            <td>{$amount}</td>											
-        </tr>";
     }
+   
 
     return $data;
 }
 
-
+function EventLog($log){
+    
+    $data="";
+    if($log == false){
+        $data ="";
+    }else{
+        foreach($log as $r){
+        $date = $r['cDate'];
+        $details = $r['details'];
+        $css = $r['badge_color'];
+        $data.="
+            <li>
+                <div class='timeline-badge $css'></div>
+                <a class='timeline-panel text-muted' href='javascript:void(0);'>
+                    <span>$date</span>
+                    <h6 class='mb-0'>$details</h6>
+                </a>
+            </li>";
+        }
+    }
+    return $data;
+}
 ?>

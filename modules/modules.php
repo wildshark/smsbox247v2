@@ -19,6 +19,11 @@ switch($_REQUEST['submit']){
                 setcookie("token",$token);
                 setcookie("username",$response['username']);
                 setcookie("account",$response['account']);
+
+                $R[] = $_SESSION['uID'];
+                $R[] = "User Logged In";
+                $R[] = "info";
+                $log = UserAccount::AddEventLog($_CONN,$R);
                 $url['client'] = "dashboard";
                 $url['token'] = md5($token); 
             } 
@@ -53,6 +58,12 @@ switch($_REQUEST['submit']){
             setcookie("token",$token);
             setcookie("username",$response['username']);
             setcookie("account",$response['account']);
+
+            $R[] = $_SESSION['uID'];
+            $R[] = "User Sign Up";
+            $R[] = "info";
+            $log = UserAccount::AddEventLog($_CONN,$R);
+
             $url['client'] = "dashboard";
             $url['token'] = md5($token); 
         }
@@ -62,22 +73,44 @@ switch($_REQUEST['submit']){
         $mobile= $_REQUEST['to-mobile'];
         $msg = $_REQUEST['message'];
         $sender = $_REQUEST['sender-id'];
-        if(is_array($mobile)){
-            echo "ok";
+        $arr = array($mobile);
+ 
+        if (preg_match('/,/', $mobile)) {
+            // string contains characters other than |
+            $m = explode(",",$mobile);
+            $total = count($m);
+        }elseif(preg_match('/;/', $mobile)){
+            $m = explode(",",$mobile);
+            $total = count($m);
         }else{
-            echo "fail";
+            $m = $_REQUEST['to-mobile'];
+            $total = 1;
         }
-        exit;
+        //sms gatewaye
+        if($sms === false){
+            $R[] = $_SESSION['uID'];
+            $R[] = "Send SMS unsccessfull";
+            $R[] = "danger";
+        }else{
+            $R[] = $_SESSION['uID'];
+            $R[] = "Send $total SMS sccessfull";
+            $R[] = "success";
+        }
+    
+        $log = UserAccount::AddEventLog($_CONN,$R);
     break;
 
     case"bulk-sms";
-        $id = $_REQUEST['to-group'];
+        $_ID = $_REQUEST['to-group'];
         $msg = $_REQUEST['message'];
         $sender = $_REQUEST['sender-id'];
-        
-        $data = Contact::View($_CONN,$_REQUEST['to-group']);
-        var_dump($data);
-        exit;
+        $data = Contact::View($_CONN,$_ID);
+        $total = count($data);
+        $n ="";
+        foreach($data as $i){
+            $n.=$i['mobile'].",";
+        }
+        //sms gatewaye
     break;
 
     case"add-contact";
@@ -123,21 +156,36 @@ switch($_REQUEST['submit']){
                 // Close opened CSV file    
                 fclose($csvFile);
 
+                
                 if($result == false){
                     $url['client'] = "contact";
                     $url['contact'] = $response;
                     $url['err'] = 4004;
+                    
+                    $R[] = $_SESSION['uID'];
+                    $R[] = "Upload Contact file failed";
+                    $R[] = "warning";
                 }else{
                     $url['client'] = "contact";
                     $url['contact'] = $response;
                     $url['err'] = 2000;
+
+                    $R[] = $_SESSION['uID'];
+                    $R[] = "Upload Contact fill successful";
+                    $R[] = "success";
                 }
             }else{
                 $url['client'] = "contact";
                 $url['contact'] = $_SESSION['gID'];
                 $url['err'] = 5000;
                 //echo "Please select valid file";
+
+                $R[] = $_SESSION['uID'];
+                $R[] = "Upload was unsccessful, invalid file";
+                $R[] = "danger";
             }
+
+            $log = UserAccount::AddEventLog($_CONN,$R);
         }
     break;
 }

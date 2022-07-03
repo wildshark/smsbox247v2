@@ -17,6 +17,9 @@ $cmbGroupContact = Contact::List($_CONN,$_SESSION['uID']);
 switch($_REQUEST['client']){
 
     case"dashboard";
+        $t = Transaction::balance($_CONN,$_SESSION['uID']);
+        $balance = $t['bal'];
+        $logs = UserAccount::EventLogs($_CONN,$_SESSION['uID']);
         require($_PAGE['dashboard']);
     break;
 

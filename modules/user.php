@@ -2,6 +2,21 @@
 
 class UserAccount{
 
+    public static function AddEventLog($conn,$request){
+
+        $sql ="INSERT INTO `event`(`userID`, `details`,`badge_color`) VALUES (?,?,?)";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
+
+    public static function EventLogs($conn,$request){
+
+        $sql = "SELECT `event`.* FROM `event` WHERE `event`.userID =:id LIMIT 0, 10";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([":id"=>$request]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);   
+    }
+
     public static function login($conn,$login){
 
         $sql = "SELECT user_account.* FROM user_account WHERE user_account.username = :user AND user_account.passwd = :pwd";
