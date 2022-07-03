@@ -1,7 +1,7 @@
 <div class="col-12">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Contact</h4>
+            <h4 class="card-title">Profile Datatable</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -9,15 +9,15 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>File Name</th>
-                            <th>Date</th>
+                            <th>Username</th>
+                            <th>Deposite</th>
                             <th>Spend</th>
                             <th>Balance</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                       <?=BulkContact($contact)?>
+                       <?=LedgerSheet($ledger)?>
                     </tbody>
                 </table>
             </div>

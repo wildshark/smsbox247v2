@@ -4,22 +4,48 @@ class UserAccount{
 
     public static function login($conn,$login){
 
-        $sql = "SELECT user_account.* FROM user_account WHERE user_account.username = ? AND user_account.passwd = ?";
+        $sql = "SELECT user_account.* FROM user_account WHERE user_account.username = :user AND user_account.passwd = :pwd";
         $stmt = $conn->prepare($sql);
-        $stmt->execute($login);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute([
+            ":user"=>$login['username'],
+            ":pwd"=>$login['password']
+        ]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($data === false){
+            $sql = "SELECT user_account.* FROM user_account WHERE user_account.email = :user AND user_account.passwd = :pwd";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ":user"=>$login['username'],
+                ":pwd"=>$login['password']
+            ]);
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return $data;
     }
 
     public static function register($conn,$r){
 
-        $sql ="INSERT INTO `user_account`(`username`, `passwd`, `email`, `api_key`) VALUES (:user, :pwd, :email, :ukey)";
+        $sql ="INSERT INTO `user_account`(`account`,`username`, `passwd`, `email`, `api_key`) VALUES (:account, :user, :pwd, :email, :ukey)";
         $stmt = $conn->prepare($sql);
-        return  $stmt->execute([
-            ':user'=>$r['username'],
-            ':pwd'=>$r['password'],
-            ':email'=>$r['email'],
-            ':ukey'=> md5($r['email']."$".$r['password'])
+        $data = $stmt->execute([
+            ':account' => time(),
+            ':user' => $r['username'],
+            ':pwd' => $r['password'],
+            ':email' => $r['email'],
+            ':ukey' => md5($r['email']."$".$r['password'])
         ]);
+
+        if($data == false){
+            $data = false;
+        }else{
+            $sql = "SELECT * FROM `user_account` WHERE `userID`=:id";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ':id' =>$conn->lastInsertId()
+            ]);
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return $data;
     }
 
     public static function profile($conn,$r){

@@ -23,7 +23,7 @@ class Contact{
         return $stmt->execute($request);
     }
 
-    public static function view($conn,$request){
+    public static function List($conn,$request){
 
         if($request ===  "*.all"){
             $sql ="SELECT * FROM `contact_main` ORDER BY `addressID` DESC LIMIT 0,1000";
@@ -31,10 +31,10 @@ class Contact{
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }else{
-            $sql ="SELECT * FROM `contact_main` WHERE `addressID`=?";
+            $sql ="SELECT * FROM `contact_main` WHERE `userID`=:id";
             $stmt = $conn->prepare($sql);
-            $stmt->execute($request);
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->execute([":id"=>$request]);
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         return $data;
     }

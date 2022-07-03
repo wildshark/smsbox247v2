@@ -1,7 +1,10 @@
 <?php
-$_SESSION['token'] = $_REQUEST['token'];
-
-switch($_REQUEST['_cp']){
+if(!isset($_SESSION['token'])){
+    $_SESSION['token'] = $_REQUEST['token'];
+}
+$_SESSION['portal'] ="cp";
+$_PAGE['menu'] = "admin/menu.php";
+switch($_REQUEST['cp']){
 
     case"dashboard";
         require($_PAGE['dashboard']);
@@ -14,6 +17,8 @@ switch($_REQUEST['_cp']){
     break;
 
     case"ledger";
+        $ledger = Transaction::balance($_CONN,"*.all");
+        $view = "admin/ledger.php";
         require($_PAGE['table']);
     break;
 

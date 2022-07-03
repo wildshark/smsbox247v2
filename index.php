@@ -21,10 +21,12 @@ try {
 
     if(!isset($_REQUEST['submit'])){
         if(!isset($_REQUEST['page'])){
-            if(!isset($_REQUEST['_cp'])){
-                if(!isset($_REQUEST['main'])){
+            if(!isset($_REQUEST['cp'])){
+                if(!isset($_REQUEST['client'])){
                     session_destroy();
+                    unset($_COOKIE);
                     require($_PAGE['login']);
+                    exit(0);
                 }else{
                     require($_MODULES['client']);
                 }
