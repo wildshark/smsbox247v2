@@ -22,7 +22,7 @@ switch($_REQUEST['submit']){
     case'signup';
         if(false == UserAccount::register($_CONN,$_REQUEST)){
             $url['_user'] = "signup-failed";
-        }else{
+          }else{
             $json = [
                 "username"=>$_REQUEST['email'],
                 "password"=>$_REQUEST['password']
@@ -32,7 +32,7 @@ switch($_REQUEST['submit']){
             setcookie("token",$token);
             $url['main'] = "dashboard";
             $url['token'] = md5($token);
-        }
+          }
     break;
 
 }

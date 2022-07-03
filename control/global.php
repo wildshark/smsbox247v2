@@ -4,7 +4,7 @@ $server = [
     "host" => "localhost",
     "user" => "root",
     "pwd" => "",
-    "dbname" => "sms247"
+    "dbname" => "sms247box"
 ];
 
 $_PAGE = [
@@ -12,6 +12,8 @@ $_PAGE = [
     "signup"=>"frame/signup.php",
     "reset"=>"frame/reset.php",
     "dashboard"=>"frame/dashboard.php",
+    "table"=>"frame/table.php",
+    "form"=>"frame/form.php"
 ];
 
 $_MODULES = [

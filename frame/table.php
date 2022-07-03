@@ -943,7 +943,7 @@
                 <!-- row -->
 
                 <div class="row">
-                    <?php require($_PAGE['view']);?>                    
+                    <?php require($view);?>                    
 				</div>
             </div>
         </div>

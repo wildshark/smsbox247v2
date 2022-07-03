@@ -8,6 +8,8 @@ switch($_REQUEST['_cp']){
     break;
 
     case"user";
+        $profile  = UserAccount::profile($_CONN,"*.all");
+        $view = "admin/profile.php";
         require($_PAGE['table']);
     break;
 
