@@ -5,7 +5,21 @@ switch($_REQUEST['submit']){
     case'login';
         $admin = config("admin");
         if(($_REQUEST['email'] != $admin->username) ||($_REQUEST['password'] != $admin->password)){
-            $url['_user'] = "user-zero";
+            $response = UserAccount::login($conn,$_REQUEST);
+            if($response == false){
+               $url['_user'] = "user-zero"; 
+            }else{
+                $json = [
+                    "username"=>$_REQUEST['email'],
+                    "password"=>$_REQUEST['password']
+                ];
+                $_SESSION['userID'] = $response['usserID'];
+                $token = md5(json_encode($json));
+                $token = password_hash($token,PASSWORD_DEFAULT);
+                setcookie("token",$token);
+                $url['_cp'] = "dashboard";
+                $url['token'] = md5($token); 
+            } 
         }else{
             $json = [
                 "username"=>$_REQUEST['email'],

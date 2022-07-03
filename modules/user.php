@@ -2,8 +2,12 @@
 
 class UserAccount{
 
-    public static function login($conn,$r){
+    public static function login($conn,$login){
 
+        $sql = "SELECT user_account.* FROM user_account WHERE user_account.username = ? AND user_account.passwd = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($login);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function register($conn,$r){
@@ -34,9 +38,7 @@ class UserAccount{
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return $data;
-    }
-
-    
+    }   
 
 }
 ?>

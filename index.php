@@ -7,6 +7,7 @@ include("control/function.php");
 
 include("modules/user.php");
 include("modules/transaction.php");
+include("modules/contact.php");
 
 $_URL = config("api");
 
@@ -39,10 +40,5 @@ try {
 }catch(PDOException $e) {
     echo 'PDO Connection: ',  $e->getMessage();
 }
-
-
-
-
-
 
 ?>
