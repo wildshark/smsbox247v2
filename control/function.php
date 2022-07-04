@@ -1,30 +1,44 @@
 <?php
 
-function config($str){
 
-    if(!file_exists("config.json")){
-        echo "No config file";
-        exit();
-    }else{
-        $j = json_decode(file_get_contents("config.json"));
 
-        switch($str){
+function time_elapsed($datetime, $full = false) {
 
-            case"admin";
-                return $j->admin;
-            break;
-
-            case"api";
-                return $j->setup->api;
-            break;
-
-            case"price";
-                return $j->setup->price;
-            break;
+    $now = time();
+    $ago = strtotime($datetime);
+    
+    $diff   = $now - $ago; 
+    
+    $string = array(
+        'year'  => 31104000,
+        'month' => 2592000,
+        'week'  => 604800,
+        'day'   => 86400,
+        'hour'  => 3600,
+        'minute'=> 60,
+        'second'=>  1
+    );
+    
+    $data = array();
+    
+    foreach ($string as $k => $v) {
+    
+        if($diff > $v){
+            $count    = round($diff / $v);
+            $data[$k] = $count . (($count > 1) ? ' ' . $k .'s' : ' ' . $k);
+            $diff     = $diff % $v;
         }
-
     }
+    
+    if (!$full) $data = array_slice($data, 0, 1);
+       return $data ? implode(', ', $data) . ' ago' : 'just now';
 }
+//echo time_elapsed('2016-01-18 13:07:30', true); 
+          // 2 years, 1 month, 2 weeks, 6 days, 25 seconds ago
+   // echo time_elapsed('2016-01-18 13:07:30'); 
+         // 2 years ago
+    
+    
 
 function cmbGroupContact($list){
 
@@ -134,7 +148,7 @@ function ContactFileSheet($list){
         }
 
         $file = $r['file_name'];
-        $date = $r['create_date'];
+        $date = time_elapsed($r['create_date']);
         $id = $r['addressID'];
      
         $data.="
@@ -234,7 +248,7 @@ function EventLog($list){
         $data ="";
     }else{
         foreach($list as $r){
-        $date = $r['cDate'];
+        $date =time_elapsed($r['cDate']);
         $details = $r['details'];
         $css = $r['badge_color'];
         $data.="
@@ -258,7 +272,8 @@ function ClientSMSLog($list){
     }else{
        
         foreach($list as $r){
-        $date = $r['create_date'];
+        $date =time_elapsed($r['create_date']);
+        //$date = time_since($date);
         $sms = $r['sms_to'];
         $details = $r['sms_msg'];
         if($r['statusID'] == 1){

@@ -15,7 +15,7 @@ $_PAGE['modal'] = "client/modal.php";
 $cmbGroupContact = Contact::List($_CONN,$_SESSION['uID']);
 
 $t = Transaction::balance($_CONN,$_SESSION['uID']);
-$balance = number_format($t['bal'],2);
+$balance ="Available SMS " .number_format($t['bal'],2)." GHS";
 
 switch($_REQUEST['client']){
 

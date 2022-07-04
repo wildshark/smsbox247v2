@@ -110,12 +110,11 @@
         ***********************************-->
         <div class="deznav">
             <div class="deznav-scroll">
-				<a class="add-project-sidebar" href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#addProjectSidebar" >+ New Project</a>
 				<?php require($_PAGE['menu'])?>
-				<div class="copyright">
+				<!--div class="copyright">
 					<p><strong>Fasto Saas Admin Dashboard</strong> © 2022 All Rights Reserved</p>
 					<p class="fs-12">Made with <span class="heart"></span> by DexignZone</p>
-				</div>
+				</div-->
 			</div>
         </div>
         <!--**********************************

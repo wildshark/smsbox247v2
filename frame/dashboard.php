@@ -107,10 +107,10 @@
         <div class="deznav">
             <div class="deznav-scroll">
 				<?php require($_PAGE['menu'])?>
-				<div class="copyright">
+				<!--div class="copyright">
 					<p><strong>Fasto Saas Admin Dashboard</strong> © 2022 All Rights Reserved</p>
 					<p class="fs-12">Made with <span class="heart"></span> by DexignZone</p>
-				</div>
+				</div-->
 			</div>
         </div>
         <!--**********************************
