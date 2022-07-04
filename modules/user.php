@@ -11,7 +11,7 @@ class UserAccount{
 
     public static function EventLogs($conn,$request){
 
-        $sql = "SELECT `event`.* FROM `event` WHERE `event`.userID =:id LIMIT 0, 10";
+        $sql = "SELECT `event`.* FROM `event` WHERE `event`.userID =:id  ORDER BY `eventID` DESC LIMIT 0, 10";
         $stmt = $conn->prepare($sql);
         $stmt->execute([":id"=>$request]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);   
@@ -63,9 +63,9 @@ class UserAccount{
         return $data;
     }
 
-    public static function profile($conn,$r){
+    public static function profile($conn,$id){
 
-        if($r === "*.all"){
+        if($id === "*.all"){
             $sql = "SELECT * FROM `user_account` ORDER BY `userID` DESC LIMIT 0,1000";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
@@ -74,12 +74,19 @@ class UserAccount{
             $sql = "SELECT * FROM `user_account` WHERE `userID`= :id";
             $stmt = $conn->prepare($sql);
             $stmt->execute([
-                ":id"=>$r
+                ":id"=>$id
             ]);
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return $data;
-    }   
+    }  
+    
+    public static function ChangePassword($conn,$request){
+
+        $sql ="UPDATE `user_account` SET `passwd` = ? WHERE `userID` = ?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
 
 }
 ?>

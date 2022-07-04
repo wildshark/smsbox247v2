@@ -17,6 +17,10 @@ function config($str){
             case"api";
                 return $j->setup->api;
             break;
+
+            case"price";
+                return $j->setup->price;
+            break;
         }
 
     }
@@ -223,13 +227,13 @@ function ClientTransaction($list){
     return $data;
 }
 
-function EventLog($log){
+function EventLog($list){
     
     $data="";
-    if($log == false){
+    if($list == false){
         $data ="";
     }else{
-        foreach($log as $r){
+        foreach($list as $r){
         $date = $r['cDate'];
         $details = $r['details'];
         $css = $r['badge_color'];
@@ -244,5 +248,48 @@ function EventLog($log){
         }
     }
     return $data;
+
+}
+
+function ClientSMSLog($list){
+    $data="";
+    if($list == false){
+        $data ="";
+    }else{
+       
+        foreach($list as $r){
+        $date = $r['create_date'];
+        $sms = $r['sms_to'];
+        $details = $r['sms_msg'];
+        if($r['statusID'] == 1){
+            $css = "badge-danger";
+            $str = "Pending";
+        }else{
+            $css = "badge-success";
+            $str = "Successful";
+        }
+        if(!isset($n)){
+            $n = 1;
+        }else{
+            $n = $n + 1;
+        }
+        $data.="
+            <div class='media mb-3 pb-3 border-bottom'>
+                <div class='image-bx me-sm-4 me-2'>
+                    <!--img src='images/profile/Untitled-1.jpg' alt='' class='rounded-circle img-1'>
+                    <span class='active'></span-->
+                </div>
+                <div class='media-body d-sm-flex justify-content-between d-block align-items-center'>
+                    <div class='me-sm-3 me-0'>
+                        <h6 class='fs-16 font-w600 mb-sm-2 mb-0'><a href='messages.html'class='text-black'>$sms</a></h6>
+                        <p class='text-black mb-1'>$details</p>
+                        <span class='fs-14'>$date</span>
+                    </div>
+                </div>
+            </div>";
+        }
+    }
+    return $data;
+
 }
 ?>

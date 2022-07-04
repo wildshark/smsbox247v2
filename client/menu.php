@@ -20,9 +20,9 @@
         </a>
     </li>
 
-    <li><a href="?client=ledger" class="ai-icon" aria-expanded="false">
+    <li><a href="?client=sms-log" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
-            <span class="nav-text">Account</span>
+            <span class="nav-text">SMS Logs</span>
         </a>
     </li>
 </ul>

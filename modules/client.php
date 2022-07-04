@@ -14,28 +14,33 @@ $_PAGE['menu'] = "client/menu.php";
 $_PAGE['modal'] = "client/modal.php";
 $cmbGroupContact = Contact::List($_CONN,$_SESSION['uID']);
 
+$t = Transaction::balance($_CONN,$_SESSION['uID']);
+$balance = number_format($t['bal'],2);
+
 switch($_REQUEST['client']){
 
     case"dashboard";
-        $t = Transaction::balance($_CONN,$_SESSION['uID']);
-        $balance = $t['bal'];
+        $title = "Dashboard";
         $logs = UserAccount::EventLogs($_CONN,$_SESSION['uID']);
         require($_PAGE['dashboard']);
     break;
 
     case"profile";
+        $title = "Profile";
         $profile  = UserAccount::profile($_CONN,$_SESSION['uID']);
         $view = "client/profile.php";
-        require($_PAGE['table']);
+        require($_PAGE['form']);
     break;
 
     case"group";
+        $title = "Group Contact";
         $group = Contact::List($_CONN,$_SESSION['uID']);
         $view = "client/group.php";
         require($_PAGE['table']);
     break;
 
     case"contact";
+        $title ="Contact  List";
         $_SESSION['gID'] = $_GET['contact'];
         $contact = Contact::View($_CONN,$_GET['contact']);
         $view = "client/contact.php";
@@ -43,8 +48,16 @@ switch($_REQUEST['client']){
     break;
 
     case"ledger";
+        $title ="TopUp";
         $transaction = Transaction::ledger($_CONN,$_SESSION['uID']);
         $view = "client/transaction.php";
+        require($_PAGE['table']);
+    break;
+
+    case"sms-log";
+        $title ="SMS Log";
+        $smsLog = Message::ViewLog($_CONN,$_SESSION['uID']);
+        $view = "client/smslog.php";
         require($_PAGE['table']);
     break;
 

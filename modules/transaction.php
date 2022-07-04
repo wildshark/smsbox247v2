@@ -21,7 +21,7 @@ class Transaction{
 
     public static function debit($conn,$request){
 
-        $sql ="INSERT INTO `ledger`(`userID`, `ref`, `paid`) VALUES (?,?,?)";
+        $sql ="INSERT INTO `ledger`(`userID`, ,`ref`, `paid`) VALUES (?,?,?)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
 
@@ -29,7 +29,7 @@ class Transaction{
 
     public static function credit($conn,$request){
 
-        $sql = "INSERT INTO `ledger`(`userID`, `ref`, `spend`) VALUES (?,?,?)";
+        $sql = "INSERT INTO `sms247box`.`ledger`(`userID`, `ref`, `details`, `spend`) VALUES (?,?,?,?)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
 

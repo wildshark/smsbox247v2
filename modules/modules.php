@@ -20,10 +20,10 @@ switch($_REQUEST['submit']){
                 setcookie("username",$response['username']);
                 setcookie("account",$response['account']);
 
-                $R[] = $_SESSION['uID'];
-                $R[] = "User Logged In";
-                $R[] = "info";
-                $log = UserAccount::AddEventLog($_CONN,$R);
+                $_LOG[] = $_SESSION['uID'];
+                $_LOG[] = "User Logged In";
+                $_LOG[] = "info";
+                $log = UserAccount::AddEventLog($_CONN,$_LOG);
                 $url['client'] = "dashboard";
                 $url['token'] = md5($token); 
             } 
@@ -59,45 +59,90 @@ switch($_REQUEST['submit']){
             setcookie("username",$response['username']);
             setcookie("account",$response['account']);
 
-            $R[] = $_SESSION['uID'];
-            $R[] = "User Sign Up";
-            $R[] = "info";
-            $log = UserAccount::AddEventLog($_CONN,$R);
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "User Sign Up";
+            $_LOG[] = "info";
+            $log = UserAccount::AddEventLog($_CONN,$_LOG);
 
             $url['client'] = "dashboard";
             $url['token'] = md5($token); 
         }
     break;
 
+    case"change-password";
+        $_PWD[] = $_REQUEST['password'];
+        $_PWD[] = $_SESSION['uID'];
+        if(false == UserAccount::ChangePassword($_CONN,$_PWD)){
+            $url['client'] = "profile";
+            $url['err'] = "failed";
+        }else{
+            $url['client'] = "profile";
+            $url['err'] = "success";
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "Change Password";
+            $_LOG[] = "info";
+            $log = UserAccount::AddEventLog($_CONN,$_LOG);
+        }
+    break;
+
     case"quick-sms";
-        $mobile= $_REQUEST['to-mobile'];
+        
+        $to_mobile= $_REQUEST['to-mobile'];
         $msg = $_REQUEST['message'];
-        $sender = $_REQUEST['sender-id'];
-        $arr = array($mobile);
- 
-        if (preg_match('/,/', $mobile)) {
+
+        if(!isset($_REQUEST['sender-id'])){
+            $sender ="test";
+        }else{
+            $sender = $_REQUEST['sender-id'];
+        }
+         
+        if (preg_match('/,/', $to_mobile)) {
             // string contains characters other than |
-            $m = explode(",",$mobile);
+            $m = explode(",",$to_mobile);
             $total = count($m);
-        }elseif(preg_match('/;/', $mobile)){
-            $m = explode(",",$mobile);
+        }elseif(preg_match('/;/', $to_mobile)){
+            $m = explode(",",$to_mobile);
             $total = count($m);
         }else{
             $m = $_REQUEST['to-mobile'];
             $total = 1;
         }
         //sms gatewaye
-        if($sms === false){
-            $R[] = $_SESSION['uID'];
-            $R[] = "Send SMS unsccessfull";
-            $R[] = "danger";
+        $legder = Transaction::balance($_CONN,$_SESSION['uID']);
+        if($legder['bal'] < 1){
+            $url['client'] = "dashboard";
+            $url['err'] = "Your fund is low, topup and try again";
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "insfu funds to send sms";
+            $_LOG[] = "warning";
         }else{
-            $R[] = $_SESSION['uID'];
-            $R[] = "Send $total SMS sccessfull";
-            $R[] = "success";
-        }
-    
-        $log = UserAccount::AddEventLog($_CONN,$R);
+            $price = config("price");
+            $amt = $total * $price;
+            $CR[] = $_SESSION['uID'];
+            $CR[] = time();
+            $CR[] = "Send $total SMS @ $price GHS";
+            $CR[] = $amt;
+            $legder = Transaction::credit($_CONN,$CR);
+            if($legder == false){
+                $url['client'] = "dashboard";
+                $url['err'] = "Unable to credit account";
+            }else{
+                echo"send sms";
+                $_SMS[] = $_SESSION['uID'];
+                $_SMS[] = $to_mobile;
+                $_SMS[] = $msg;
+                $smslog = Message::Log($_CONN,$_SMS);
+                $_LOG[] = $_SESSION['uID'];
+                $_LOG[] = "Send SMS unsccessful";
+                $_LOG[] = "success"; 
+                
+                $url['client'] = "dashboard";
+                $url['err'] = "Sent Successful";
+            }
+        }    
+        $log = UserAccount::AddEventLog($_CONN,$_LOG);
     break;
 
     case"bulk-sms";
@@ -162,17 +207,17 @@ switch($_REQUEST['submit']){
                     $url['contact'] = $response;
                     $url['err'] = 4004;
                     
-                    $R[] = $_SESSION['uID'];
-                    $R[] = "Upload Contact file failed";
-                    $R[] = "warning";
+                    $_LOG[] = $_SESSION['uID'];
+                    $_LOG[] = "Upload Contact file failed";
+                    $_LOG[] = "warning";
                 }else{
                     $url['client'] = "contact";
                     $url['contact'] = $response;
                     $url['err'] = 2000;
 
-                    $R[] = $_SESSION['uID'];
-                    $R[] = "Upload Contact fill successful";
-                    $R[] = "success";
+                    $_LOG[] = $_SESSION['uID'];
+                    $_LOG[] = "Upload Contact fill successful";
+                    $_LOG[] = "success";
                 }
             }else{
                 $url['client'] = "contact";
@@ -180,12 +225,12 @@ switch($_REQUEST['submit']){
                 $url['err'] = 5000;
                 //echo "Please select valid file";
 
-                $R[] = $_SESSION['uID'];
-                $R[] = "Upload was unsccessful, invalid file";
-                $R[] = "danger";
+                $_LOG[] = $_SESSION['uID'];
+                $_LOG[] = "Upload was unsccessful, invalid file";
+                $_LOG[] = "danger";
             }
 
-            $log = UserAccount::AddEventLog($_CONN,$R);
+            $log = UserAccount::AddEventLog($_CONN,$_LOG);
         }
     break;
 }
