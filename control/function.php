@@ -340,4 +340,81 @@ function ClientSMSLog($list){
     return $data;
 
 }
+
+function sms_schedule($list){
+    $data ="";
+    foreach($list as $r){
+
+        if(!isset($n)){
+            $n = 1;
+        }else{
+            $n = $n + 1;
+        }
+        
+        $model="MDL".uniqid();
+        
+        $ref = $r['schedule_ref'];
+        $date = time_elapsed($r['created_date']);
+        $created = $r['created_date'];
+        $scheDate = $r['schedule_date'];
+        $scheTime = $r['schedule_time'];
+        $id = $r['scheduleID'];
+        $msg = $r['sms_msg'];
+        $mobile = $r['sms_mobile'];
+
+        $count_char = strlen($msg);
+
+        $timeID =$r['schedule_date'];
+        $timeID = strtotime($timeID);
+        $clock = time();
+
+        if($clock > $timeID){
+            $status = "done";
+        }else{
+            $status = "waiting";
+        }
+
+       
+
+        $data.="
+        <tr>
+            <td>{$n}</td>
+            <td>{$date}</td>
+            <td>{$ref}</td>
+            <td>{$scheDate}</td>
+            <td>{$scheTime}</td>
+
+            <td>
+                <div class='d-flex'>
+                    <a href='javascript:void(0)' data-bs-toggle='modal' data-bs-target='#$model' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
+                    <a href='?client=delete&ui=group&id=$id' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                </div>
+                <div class='modal fade' id='$model'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title'>Schedule ID: $ref</h5>
+                                <button type='button' class='btn-close' data-bs-dismiss='modal'></button>
+                            </div>
+                            <div class='modal-body'>
+                                <div class='row justify-content-between'>
+                                    <h6>Last Modified $created</h6>
+                                    <h6>Schedule Date $scheDate</h6>
+                                    <h6>Schedule Time $scheTime</h6>
+
+                                    <h6>Status $status</h6>
+
+                                    <p class='text-justify'>Message: <br>$msg</p>
+                                    <p class='text-justify'>Message To: <br>$mobile</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>												
+        </tr>";
+    }
+
+    return $data;
+}
 ?>

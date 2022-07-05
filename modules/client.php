@@ -55,6 +55,13 @@ switch($_REQUEST['client']){
         require($_PAGE['table']);
     break;
 
+    case"schedule";
+        $title ="Schedule SMS";
+        $schedule = Message::ListSchedule($_CONN,$_SESSION['uID']);
+        $view = "client/schedule.php";
+        require($_PAGE['table']);
+    break;
+
     case"sms-log";
         $title ="SMS Log";
         $smsLog = Message::ViewLog($_CONN,$_SESSION['uID']);

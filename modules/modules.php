@@ -251,6 +251,10 @@ switch($_REQUEST['submit']){
             $url['err'] = 2010;
         }
     break;
+
+    case"";
+
+    break;
 }
 
 header("location: ?".http_build_query($url));

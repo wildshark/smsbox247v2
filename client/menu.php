@@ -14,12 +14,17 @@
             <span class="nav-text">Bulk SMS</span>
         </a>
     </li>
+    <li><a href="?client=schedule" class="ai-icon" aria-expanded="false">
+            <i class="flaticon-admin"></i>
+            <span class="nav-text">SMS Schedule</span>
+        </a>
+    </li>
     <li><a href="?client=group" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
             <span class="nav-text">Contact</span>
         </a>
     </li>
-
+    
     <li><a href="?client=sms-log" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
             <span class="nav-text">SMS Logs</span>

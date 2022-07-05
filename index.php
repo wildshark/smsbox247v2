@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('UTC');
 session_start();
 
 include("control/global.php");
