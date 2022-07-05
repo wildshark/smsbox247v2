@@ -74,10 +74,10 @@ switch($_REQUEST['submit']){
         $_PWD[] = $_SESSION['uID'];
         if(false == UserAccount::ChangePassword($_CONN,$_PWD)){
             $url['client'] = "profile";
-            $url['err'] = "failed";
+            $url['err'] = 2001;
         }else{
             $url['client'] = "profile";
-            $url['err'] = "success";
+            $url['err'] = 2001;
 
             $_LOG[] = $_SESSION['uID'];
             $_LOG[] = "Change Password";
@@ -112,7 +112,7 @@ switch($_REQUEST['submit']){
         $legder = Transaction::balance($_CONN,$_SESSION['uID']);
         if($legder['bal'] < 1){
             $url['client'] = "dashboard";
-            $url['err'] = "Your fund is low, topup and try again";
+            $url['err'] = 2003;
 
             $_LOG[] = $_SESSION['uID'];
             $_LOG[] = "insfu funds to send sms";
@@ -127,7 +127,7 @@ switch($_REQUEST['submit']){
             $legder = Transaction::credit($_CONN,$CR);
             if($legder == false){
                 $url['client'] = "dashboard";
-                $url['err'] = "Unable to credit account";
+                $url['err'] = 2004;
             }else{
                 echo"send sms";
                 $_SMS[] = $_SESSION['uID'];
@@ -139,7 +139,7 @@ switch($_REQUEST['submit']){
                 $_LOG[] = "success"; 
                 
                 $url['client'] = "dashboard";
-                $url['err'] = "Sent Successful";
+                $url['err'] = 2005;
             }
         }    
         $log = UserAccount::AddEventLog($_CONN,$_LOG);
@@ -205,7 +205,7 @@ switch($_REQUEST['submit']){
                 if($result == false){
                     $url['client'] = "contact";
                     $url['contact'] = $response;
-                    $url['err'] = 4004;
+                    $url['err'] = 2006;
                     
                     $_LOG[] = $_SESSION['uID'];
                     $_LOG[] = "Upload Contact file failed";
@@ -213,16 +213,16 @@ switch($_REQUEST['submit']){
                 }else{
                     $url['client'] = "contact";
                     $url['contact'] = $response;
-                    $url['err'] = 2000;
+                    $url['err'] = 2007;
 
                     $_LOG[] = $_SESSION['uID'];
-                    $_LOG[] = "Upload Contact fill successful";
+                    $_LOG[] = "Upload Contact file successful";
                     $_LOG[] = "success";
                 }
             }else{
                 $url['client'] = "contact";
                 $url['contact'] = $_SESSION['gID'];
-                $url['err'] = 5000;
+                $url['err'] = 2008;
                 //echo "Please select valid file";
 
                 $_LOG[] = $_SESSION['uID'];
@@ -231,6 +231,24 @@ switch($_REQUEST['submit']){
             }
 
             $log = UserAccount::AddEventLog($_CONN,$_LOG);
+        }
+    
+    break;
+
+    case"topup-account";
+        $q[] = $_SESSION['uID'];
+        $q[] = time();
+        $q[] = $_REQUEST['details'];
+        $q[] = $_REQUEST['amount'];
+        $response = Transaction::debit($_CONN,$q);
+        if($response == false){
+            $url['cp']="ledger-details";
+            $url['u'] = $_SESSION['uID'];
+            $url['err'] = 2009;
+        }else{
+            $url['cp']="ledger-details";
+            $url['u'] = $_SESSION['uID'];
+            $url['err'] = 2010;
         }
     break;
 }

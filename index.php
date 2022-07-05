@@ -12,13 +12,9 @@ include("modules/message.php");
 
 $_URL = config("api");
 
-$host = $server['host'];
-$dbname = $server['dbname'];
-$username = $server['user'];
-$password = $server['pwd'];
-
+$_CONN = connection($_HOST);
 try {
-    $_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    //$_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
     if(!isset($_REQUEST['submit'])){
         if(!isset($_REQUEST['page'])){

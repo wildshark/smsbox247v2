@@ -17,7 +17,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                       <?=LedgerSheet($ledger)?>
+                       <?=MainLedgerSheet($ledger)?>
                     </tbody>
                 </table>
             </div>

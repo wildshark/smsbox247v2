@@ -22,6 +22,7 @@ switch($_REQUEST['client']){
     case"dashboard";
         $title = "Dashboard";
         $logs = UserAccount::EventLogs($_CONN,$_SESSION['uID']);
+        $view = "client/dashboard.php";
         require($_PAGE['dashboard']);
     break;
 

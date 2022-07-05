@@ -2,6 +2,21 @@
 
 class UserAccount{
 
+    public static function total($conn){
+
+        $sql ="SELECT count(user_account.userID) as total FROM user_account";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($data == false){
+            $total = 0;
+        }else{
+            $total = $data['total'];
+        }
+
+        return $total;
+    }
+
     public static function AddEventLog($conn,$request){
 
         $sql ="INSERT INTO `event`(`userID`, `details`,`badge_color`) VALUES (?,?,?)";

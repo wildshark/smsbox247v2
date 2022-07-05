@@ -1,7 +1,5 @@
 <?php
 
-
-
 function time_elapsed($datetime, $full = false) {
 
     $now = time();
@@ -34,12 +32,10 @@ function time_elapsed($datetime, $full = false) {
        return $data ? implode(', ', $data) . ' ago' : 'just now';
 }
 //echo time_elapsed('2016-01-18 13:07:30', true); 
-          // 2 years, 1 month, 2 weeks, 6 days, 25 seconds ago
-   // echo time_elapsed('2016-01-18 13:07:30'); 
-         // 2 years ago
+    // 2 years, 1 month, 2 weeks, 6 days, 25 seconds ago
+// echo time_elapsed('2016-01-18 13:07:30'); 
+    // 2 years ago
     
-    
-
 function cmbGroupContact($list){
 
     $data = "";
@@ -99,7 +95,7 @@ function profile($list){
     return $data;
 }
 
-function LedgerSheet($list){
+function MainLedgerSheet($list){
 
     $data ="";
     foreach($list as $r){
@@ -113,7 +109,9 @@ function LedgerSheet($list){
         if(!isset($r['username'])){
             $r['username'] ="Null";
         }
-
+        //$url['pp'] = $r;
+        //$d = http_build_query($url);
+        $d = $r['userID'];
         $paid = number_format($r['paid'],2);
         $spend = number_format($r['spend'],2);
         $balance = number_format($r['bal'],2);
@@ -126,7 +124,42 @@ function LedgerSheet($list){
             <td>{$balance}</td>
             <td>
                 <div class='d-flex'>
-                    <a href='javascript:void(0);' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
+                    <a href='?cp=ledger-details&u=$d' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
+                    <a href='javascript:void(0);' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                </div>												
+            </td>												
+        </tr>";
+    }
+
+    return $data;
+}
+
+function DetailsLedgerSheet($list){
+
+    $data ="";
+    foreach($list as $r){
+
+        if(!isset($n)){
+            $n = 1;
+        }else{
+            $n = $n + 1;
+        }
+
+        $date = date("d-m-Y",strtotime($r['tranDate']));
+        $ref = $r['ref'];
+        $details = $r['details'];
+        $paid = number_format($r['paid'],2);
+        $spend = number_format($r['spend'],2);
+        $data.="
+        <tr>
+            <td>{$n}</td>
+            <td>{$date}</td>
+            <td>{$ref}</td>
+            <td>{$details}</td>
+            <td>{$paid}</td>
+            <td>{$spend}</td>
+            <td>
+                <div class='d-flex'>
                     <a href='javascript:void(0);' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
                 </div>												
             </td>												

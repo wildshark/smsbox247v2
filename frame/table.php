@@ -92,7 +92,8 @@
                         </div>
                         <ul class="navbar-nav header-right">
 							<li class="nav-item">
-								<?=$balance?>
+                                <?=$balance?></br>
+                                <?=date('D d, M Y')?>
 							</li>
                             <li class="nav-item dropdown header-profile">
                                 <?=UserMenu()?>
@@ -129,7 +130,7 @@
 			<div class="container-fluid">
 				<!-- Add Project -->
 				<?php require($_PAGE['modal'])?>
-                <div class="row page-titles mx-0">
+                <!--div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
                             <h4>Hi, welcome back!</h4>
@@ -142,12 +143,10 @@
                             <li class="breadcrumb-item active"><a href="javascript:void(0)">Datatable</a></li>
                         </ol>
                     </div>
-                </div>
+                </div-->
                 <!-- row -->
-
-                <div class="row">
-                    <?php require($view);?>                    
-				</div>
+                <?=MessageBox()?>
+                <?php require($view);?>                    
             </div>
         </div>
         <!--**********************************

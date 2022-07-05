@@ -1,6 +1,6 @@
 <ul class="metismenu" id="menu">
     <li><a href="?client=dashboard" class="ai-icon" aria-expanded="false">
-            <i class="flaticon-admin"></i>
+            <i class="flaticon-layout"></i>
             <span class="nav-text">Dashboard</span>
         </a>
     </li>

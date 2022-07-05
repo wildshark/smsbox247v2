@@ -1,9 +1,9 @@
 <?php
 
-$server = [
-    "host" => "localhost",
-    "user" => "root",
-    "pwd" => "",
+$_HOST  = [
+    "host" => "localhost",//"sql.qshark.ml",
+    "user" => "root",//"quaye",
+    "pwd" => "",//"quaye8282",
     "dbname" => "sms247box"
 ];
 
@@ -50,6 +50,86 @@ function UserMenu(){
             <span class='ms-2'>Logout </span>
         </a>
     </div>";
+}
+
+function MessageBox(){
+
+    if(!isset($_GET['err'])){
+        $MsgBox ="";
+    }else{
+        switch($_GET['err']){
+
+            case 2001;
+                $title ="Error!";
+                $msg = "Change password failed.";
+                $css = "alert-danger";
+            break;
+
+            case 2002;
+                $title ="Success!";
+                $msg = "Change password Successful.";
+                $css = "alert-success";
+            break;
+
+            case 2003;
+                $title ="Informaation!";
+                $msg="Your fund is low, topup and try again.";
+                $css = "alert-info";
+            break;
+
+            case 2004;
+                $title ="Error!";
+                $msg="Unable to credit account.";
+                $css = "alert-danger";
+            break;
+
+            case 2005;
+                $title ="Success!";
+                $msg = "Message send Successful.";
+                $css = "alert-success";
+            break;
+
+            case 2006;
+                $title ="Error!";
+                $msg = "Upload contact file failed.";
+                $css = "alert-danger";
+            break;
+
+            case 2007;
+                $title ="Success!";
+                $msg ="Upload Contact file successful.";
+                $css = "alert-success";
+            break;
+
+            case 2008;
+                $title ="Error!";
+                $msg ="Please select valid file.";
+                $css = "alert-danger";
+            break;
+
+            case 2009;
+                $title ="Error!";
+                $msg ="Account Topup failed, try again later";
+                $css = "alert-danger";
+            break;
+
+            case 2010;
+                $title ="Success";
+                $msg ="Topup account successful.";
+                $css = "alert-success";
+            break;
+        }
+        $MsgBox ="
+            <div class='alert $css solid alert-dismissible fade show'>
+                <svg viewBox='0 0 24 24' width='24' height='24' stroke='currentColor' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round' class='me-2'><circle cx='12' cy='12' r='10'></circle><path d='M8 14s1.5 2 4 2 4-2 4-2'></path><line x1='9' y1='9' x2='9.01' y2='9'></line><line x1='15' y1='9' x2='15.01' y2='9'></line></svg>
+                <strong>$title</strong> $msg
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='btn-close'>
+                </button>
+            </div>
+        ";
+    }
+
+    return $MsgBox;
 }
 
 ?>
