@@ -49,6 +49,15 @@ function cmbGroupContact($list){
 
 }
 
+function format_mobile_num($list){
+
+    $n ="";
+    foreach($list as $i){
+        $n.=$i['mobile'].",";
+    }
+    return $n;
+}
+
 function profile($list){
 
     $data ="";

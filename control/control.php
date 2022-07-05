@@ -49,5 +49,11 @@ function user_session(){
 
 }
 
+function send_sms(){
 
+}
+
+function schudel_sms(){
+    
+}
 ?>

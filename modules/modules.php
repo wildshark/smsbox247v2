@@ -69,6 +69,26 @@ switch($_REQUEST['submit']){
         }
     break;
 
+    case"update-profile";
+        
+        $q[] = $_REQUEST['full_name'];
+        $q[] = $_REQUEST['mobile'];
+        $q[] = $_REQUEST['address'];
+        $q[] = $_REQUEST['company'];
+        $q[] = $_REQUEST['country'];
+        $q[] = $_REQUEST['city'];
+        $q[] = $_REQUEST['zip'];
+        $q[] = $_SESSION['uID'];
+        $response = UserAccount::UpdateProfile($_CONN,$q);
+        if($response == false){
+            $url['client'] = "profile";
+            $url['err'] = 2013;
+        }else{
+            $url['client'] = "profile";
+            $url['err'] = 2014;
+        }
+    break;
+
     case"change-password";
         $_PWD[] = $_REQUEST['password'];
         $_PWD[] = $_SESSION['uID'];
@@ -77,7 +97,7 @@ switch($_REQUEST['submit']){
             $url['err'] = 2001;
         }else{
             $url['client'] = "profile";
-            $url['err'] = 2001;
+            $url['err'] = 2002;
 
             $_LOG[] = $_SESSION['uID'];
             $_LOG[] = "Change Password";
@@ -102,7 +122,7 @@ switch($_REQUEST['submit']){
             $m = explode(",",$to_mobile);
             $total = count($m);
         }elseif(preg_match('/;/', $to_mobile)){
-            $m = explode(",",$to_mobile);
+            $m = explode(";",$to_mobile);
             $total = count($m);
         }else{
             $m = $_REQUEST['to-mobile'];
@@ -149,13 +169,44 @@ switch($_REQUEST['submit']){
         $_ID = $_REQUEST['to-group'];
         $msg = $_REQUEST['message'];
         $sender = $_REQUEST['sender-id'];
-        $data = Contact::View($_CONN,$_ID);
-        $total = count($data);
-        $n ="";
-        foreach($data as $i){
-            $n.=$i['mobile'].",";
-        }
+        $mobile = Contact::View($_CONN,$_REQUEST['to-group']);
+        $total = count($mobile);
         //sms gatewaye
+        $legder = Transaction::balance($_CONN,$_SESSION['uID']);
+        if($legder['bal'] < 1){
+            $url['client'] = "dashboard";
+            $url['err'] = 2003;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "insfu funds to send sms";
+            $_LOG[] = "warning";
+        }else{
+            $price = config("price");
+            $amt = $total * $price;
+            $CR[] = $_SESSION['uID'];
+            $CR[] = time();
+            $CR[] = "Send $total SMS @ $price GHS";
+            $CR[] = $amt;
+            $legder = Transaction::credit($_CONN,$CR);
+            if($legder == false){
+                $url['client'] = "dashboard";
+                $url['err'] = 2004;
+            }else{
+                echo"send sms";
+                $_SMS[] = $_SESSION['uID'];
+                $_SMS[] = format_mobile_num($mobile);
+                $_SMS[] = $msg;
+                $smslog = Message::Log($_CONN,$_SMS);
+                
+                $_LOG[] = $_SESSION['uID'];
+                $_LOG[] = "Send SMS unsccessful";
+                $_LOG[] = "success"; 
+                
+                $url['client'] = "dashboard";
+                $url['err'] = 2005;
+            }
+        }    
+        $log = UserAccount::AddEventLog($_CONN,$_LOG);
     break;
 
     case"add-contact";
@@ -249,11 +300,42 @@ switch($_REQUEST['submit']){
             $url['cp']="ledger-details";
             $url['u'] = $_SESSION['uID'];
             $url['err'] = 2010;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "TopUp Account";
+            $_LOG[] = "success"; 
+            $log = UserAccount::AddEventLog($_CONN,$_LOG);
         }
     break;
 
-    case"";
+    case"schedule-sms";
+        
+        $mobile = Contact::View($_CONN,$_REQUEST['to-group']);
+        $total = count($mobile);
+        $total_chr = strlen($_REQUEST['message']);
 
+        $q[] = $_SESSION['uID'];
+        $q[] = $ref = uniqid();
+        $q[] = $_REQUEST['schedule-date'];
+        $q[] = $_REQUEST['schedule-time'];
+        $q[] = format_mobile_num($mobile);
+        $q[] = $_REQUEST['message'];
+        $q[] = $_REQUEST['sender-id'];
+        $q[] = $total;
+        $q[] = $total_chr;
+        $response = Message::AddSchedule($_CONN,$q);
+        if($response == false){
+            $url['client']="schedule";
+            $url['err']=2011;
+        }else{
+            $url['client']="schedule";
+            $url['err']=2012;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "Schedule $ref Created";
+            $_LOG[] = "success"; 
+            $log = UserAccount::AddEventLog($_CONN,$_LOG);
+        }
     break;
 }
 

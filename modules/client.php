@@ -29,6 +29,25 @@ switch($_REQUEST['client']){
     case"profile";
         $title = "Profile";
         $profile  = UserAccount::profile($_CONN,$_SESSION['uID']);
+        if($profile == false){
+            $profile['account'] = "";
+            $profile['full_name'] = "";
+            $profile['company'] = "";
+            $profile['mobile'] = "";
+            $profile['email'] = "";
+            $profile['address'] = "";
+            $profile['country'] = "";
+            $profile['city'] = "";
+            $profile['zip'] = "";
+            $profile['username'] = "";
+            $profile['password'] = "";
+        }
+        $btn['action']="update-profile";
+        $btn['caption']="Save";
+
+        $btn2['action']="change-password";
+        $btn2['caption']="Save";
+
         $view = "client/profile.php";
         require($_PAGE['form']);
     break;

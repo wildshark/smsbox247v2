@@ -17,6 +17,19 @@ switch($_REQUEST['cp']){
         require($_PAGE['dashboard']);
     break;
 
+    case"profile";
+        if($_GET['ui'] == "create"){
+            $title ="Create Account";
+            $view = "admin/profile.details.php";
+        }elseif($_GET['ui'] == "update"){
+            $title ="User Profile";
+            $profile  = UserAccount::profile($_CONN,"*.all");
+            $view = "admin/profile.details.php";
+        }
+    
+        require($_PAGE['form']);
+    break;
+
     case"user";
         $title ="User Profile";
         $profile  = UserAccount::profile($_CONN,"*.all");

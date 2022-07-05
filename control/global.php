@@ -23,6 +23,24 @@ $_MODULES = [
     "modules"=>"modules/modules.php"
 ];
 
+$profile['account'] = "";
+$profile['full_name'] = "";
+$profile['company'] = "";
+$profile['mobile'] = "";
+$profile['email'] = "";
+$profile['address'] = "";
+$profile['country'] = "";
+$profile['state'] = "";
+$profile['zip'] = "";
+$profile['username'] = "";
+$profile['password'] = "";
+
+$btn['action'] = "";
+$btn['caption'] = "";
+
+$btn2['action'] = "";
+$btn2['caption'] = "";
+
 function UserMenu(){
 
     $user = $_COOKIE['username'];
@@ -116,6 +134,30 @@ function MessageBox(){
             case 2010;
                 $title ="Success";
                 $msg ="Topup account successful.";
+                $css = "alert-success";
+            break;
+
+            case 2011;
+                $title ="Error!";
+                $msg ="System fail creating schedule. Try again later";
+                $css = "alert-danger";
+            break;
+
+            case 2012;
+                $title ="Success!";
+                $msg ="Schedule created successful.";
+                $css = "alert-success";
+            break;
+
+            case 2013;
+                $title ="Error!";
+                $msg ="Update profile failed.";
+                $css = "alert-success";
+            break;
+
+            case 2014;
+                $title ="Success!";
+                $msg ="Update profile successful.";
                 $css = "alert-success";
             break;
         }

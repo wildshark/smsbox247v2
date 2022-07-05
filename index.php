@@ -13,9 +13,13 @@ include("modules/message.php");
 
 $_URL = config("api");
 
-$_CONN = connection($_HOST);
+//$_CONN = connection($_HOST);
+$host ="localhost";
+$username =  "root";
+$password = "";
+$dbname = "sms247box";
 try {
-    //$_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
     if(!isset($_REQUEST['submit'])){
         if(!isset($_REQUEST['page'])){

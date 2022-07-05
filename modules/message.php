@@ -20,7 +20,7 @@ class Message{
 
     public static function AddSchedule($conn,$request){
 
-        $sql = "INSERT INTO `sms_schedule`(`userID`, `schedule_date`, `schedule_time`, `sms_mobile`, `sms_msg`, `sender`) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO `sms_schedule`(`userID`,`schedule_ref`, `schedule_date`, `schedule_time`, `sms_mobile`, `sms_msg`, `sender`,`total_number`,`total_sms`) VALUES (?,?,?,?,?,?,?,?,?)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
     }

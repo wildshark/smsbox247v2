@@ -3,6 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Basic Datatable</h4>
+                <button type="button" class="btn btn-primary btn-rounded" data-bs-toggle="modal" data-bs-target="#ScheduleBulkSMS" class="ai-icon" aria-expanded="false"> + Add Schedule </button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

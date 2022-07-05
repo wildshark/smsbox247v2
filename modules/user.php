@@ -94,7 +94,14 @@ class UserAccount{
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return $data;
-    }  
+    }
+    
+    public static function UpdateProfile($conn,$request){
+
+        $sql = "UPDATE `user_account` SET `full_name` = ?, `mobile` = ?, `address` = ?, `company` = ?, `country` = ?, `city` = ?, `zip` = ? WHERE `userID` = ?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
     
     public static function ChangePassword($conn,$request){
 
