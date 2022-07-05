@@ -40,6 +40,14 @@ function config($str){
             case"price";
                 return $j->setup->price;
             break;
+
+            case"domain";
+                return $j->setup->domain;
+            break;
+
+            case"setup";
+                return $j->setup;
+            break;
         }
 
     }

@@ -1,5 +1,7 @@
 <?php
 
+$domain = config("domain");
+
 $_HOST  = [
     "host" => "localhost",//"sql.qshark.ml",
     "user" => "root",//"quaye",
@@ -13,7 +15,9 @@ $_PAGE = [
     "reset"=>"frame/reset.php",
     "dashboard"=>"frame/dashboard.php",
     "table"=>"frame/table.php",
-    "form"=>"frame/form.php"
+    "form"=>"frame/form.php",
+    "403"=>"frame/403.php",
+    "404"=>"frame/404.php"
 ];
 
 $_MODULES = [
@@ -22,6 +26,12 @@ $_MODULES = [
     "page"=>"modules/page.php",
     "modules"=>"modules/modules.php"
 ];
+
+$_SMS[
+    "url"=>"",
+    "username"=>"",
+    "password"=>""
+]
 
 $profile['account'] = "";
 $profile['full_name'] = "";
@@ -35,6 +45,7 @@ $profile['zip'] = "";
 $profile['username'] = "";
 $profile['password'] = "";
 
+$btn['goback'] = "?".$_SESSION['portal']."=dashboard";
 $btn['action'] = "";
 $btn['caption'] = "";
 

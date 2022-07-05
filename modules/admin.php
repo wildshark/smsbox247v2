@@ -26,7 +26,6 @@ switch($_REQUEST['cp']){
             $profile  = UserAccount::profile($_CONN,"*.all");
             $view = "admin/profile.details.php";
         }
-    
         require($_PAGE['form']);
     break;
 
@@ -53,6 +52,13 @@ switch($_REQUEST['cp']){
         $view = "admin/ledger.details.php";
         require($_PAGE['table']);
     break;
+
+    case"api-token";
+        require($_PAGE['403']);
+    break;
+
+    default:
+        require($_PAGE['404']);
 }
 
 ?>

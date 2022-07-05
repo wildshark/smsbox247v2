@@ -12,6 +12,7 @@
         "password":"admin"
     },
     "setup":{
+        "domain":"http://localhost/smsbox247v2/",
         "api":"rrrrfgdfgdgdfgdgdgdfgdfgdfgdfgdf",
         "sender_id":"",
         "price":"0.22"

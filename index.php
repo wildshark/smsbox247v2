@@ -2,9 +2,9 @@
 date_default_timezone_set('UTC');
 session_start();
 
-include("control/global.php");
 include("control/control.php");
 include("control/function.php");
+include("control/global.php");
 
 include("modules/user.php");
 include("modules/transaction.php");
@@ -12,7 +12,6 @@ include("modules/contact.php");
 include("modules/message.php");
 
 $_URL = config("api");
-
 //$_CONN = connection($_HOST);
 $host ="localhost";
 $username =  "root";

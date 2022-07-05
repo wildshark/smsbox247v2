@@ -24,8 +24,13 @@ switch($_REQUEST['submit']){
                 $_LOG[] = "User Logged In";
                 $_LOG[] = "info";
                 $log = UserAccount::AddEventLog($_CONN,$_LOG);
-                $url['client'] = "dashboard";
-                $url['token'] = md5($token); 
+                if($response['role'] === "admin"){
+                    $url['cp'] = "dashboard";
+                    $url['token'] = md5($token); 
+                }else{
+                    $url['client'] = "dashboard";
+                    $url['token'] = md5($token); 
+                }
             } 
         }else{
             $json = [
