@@ -20,13 +20,28 @@ switch($_REQUEST['cp']){
     case"profile";
         if($_GET['ui'] == "create"){
             $title ="Create Account";
+           
             $view = "admin/profile.details.php";
+            require($_PAGE['form']);
         }elseif($_GET['ui'] == "update"){
             $title ="User Profile";
             $profile  = UserAccount::profile($_CONN,"*.all");
             $view = "admin/profile.details.php";
+            require($_PAGE['form']);
+        }elseif($_GET['ui'] ==="client"){
+            $title ="User Profile";
+            $AddButton="<a href='javascript:void(0)' data-bs-toggle='modal' data-bs-target='#TopUpAccount' class='btn btn-primary'> + Add New</a>";
+            $profile  = UserAccount::profile($_CONN,"client");
+            $view = "admin/profile.php";
+            require($_PAGE['table']);
+        }elseif($_GET['ui'] ==="administrator"){
+            $title ="Administrator Profile";
+            $AddButton="<a href='javascript:void(0)' data-bs-toggle='modal' data-bs-target='#TopUpAccount' class='btn btn-primary'> + Add New</a>";
+            $profile  = UserAccount::profile($_CONN,"admin");
+            $view = "admin/profile.php";
+            require($_PAGE['table']);
         }
-        require($_PAGE['form']);
+        
     break;
 
     case"user";

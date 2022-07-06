@@ -27,11 +27,11 @@ $_MODULES = [
     "modules"=>"modules/modules.php"
 ];
 
-$_SMS[
+$_SMS = [
     "url"=>"",
     "username"=>"",
     "password"=>""
-]
+];
 
 $profile['account'] = "";
 $profile['full_name'] = "";

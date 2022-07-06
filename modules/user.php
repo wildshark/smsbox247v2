@@ -85,6 +85,16 @@ class UserAccount{
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }elseif($id === "client"){
+            $sql = "SELECT user_account.* FROM user_account WHERE user_account.role LIKE '%client%'";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }elseif($id ==="admin"){
+            $sql = "SELECT user_account.* FROM user_account WHERE user_account.role LIKE '%admin%'";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }else{
             $sql = "SELECT * FROM `user_account` WHERE `userID`= :id";
             $stmt = $conn->prepare($sql);

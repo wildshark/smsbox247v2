@@ -14,12 +14,12 @@
             <span class="nav-text">Oreders</span>
         </a>
     </li>
-    <li><a href="?cp=account&ui=administrator" class="ai-icon" aria-expanded="false">
+    <li><a href="?cp=profile&ui=administrator" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
             <span class="nav-text">Admin Account</span>
         </a>
     </li>
-    <li><a href="?cp=account&ui=client" class="ai-icon" aria-expanded="false">
+    <li><a href="?cp=profile&ui=client" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
             <span class="nav-text">User Account</span>
         </a>
