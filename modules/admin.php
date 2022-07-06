@@ -20,7 +20,6 @@ switch($_REQUEST['cp']){
     case"profile";
         if($_GET['ui'] == "create"){
             $title ="Create Account";
-           
             $view = "admin/profile.details.php";
             require($_PAGE['form']);
         }elseif($_GET['ui'] == "update"){
@@ -41,7 +40,6 @@ switch($_REQUEST['cp']){
             $view = "admin/profile.php";
             require($_PAGE['table']);
         }
-        
     break;
 
     case"user";
