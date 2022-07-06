@@ -13,7 +13,11 @@
     },
     "setup":{
         "domain":"http://localhost/smsbox247v2/",
-        "api":"rrrrfgdfgdgdfgdgdgdfgdfgdfgdfgdf",
+        "api":{
+            "host":"rslr.connectbind.com:8080/bulksms/bulksms?",
+            "user":"bsgh-iquipe",
+            "pwd":"@PassWD8"
+        },
         "sender_id":"",
         "price":"0.22"
     }

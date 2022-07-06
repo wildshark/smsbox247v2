@@ -27,12 +27,6 @@ $_MODULES = [
     "modules"=>"modules/modules.php"
 ];
 
-$_SMS = [
-    "url"=>"",
-    "username"=>"",
-    "password"=>""
-];
-
 $profile['account'] = "";
 $profile['full_name'] = "";
 $profile['company'] = "";
@@ -163,13 +157,19 @@ function MessageBox(){
             case 2013;
                 $title ="Error!";
                 $msg ="Update profile failed.";
-                $css = "alert-success";
+                $css = "alert-danger";
             break;
 
             case 2014;
                 $title ="Success!";
                 $msg ="Update profile successful.";
                 $css = "alert-success";
+            break;
+
+            case 2015;
+                $title ="Error!";
+                $msg ="System failed to send sms. Try aagain later";
+                $css = "alert-danger";
             break;
         }
         $MsgBox ="

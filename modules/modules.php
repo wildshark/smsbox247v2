@@ -117,9 +117,9 @@ switch($_REQUEST['submit']){
         $msg = $_REQUEST['message'];
 
         if(!isset($_REQUEST['sender-id'])){
-            $sender ="test";
+            $senderID ="test";
         }else{
-            $sender = $_REQUEST['sender-id'];
+            $senderID = $_REQUEST['sender-id'];
         }
          
         if (preg_match('/,/', $to_mobile)) {
@@ -154,17 +154,22 @@ switch($_REQUEST['submit']){
                 $url['client'] = "dashboard";
                 $url['err'] = 2004;
             }else{
-                echo"send sms";
-                $_SMS[] = $_SESSION['uID'];
-                $_SMS[] = $to_mobile;
-                $_SMS[] = $msg;
-                $smslog = Message::Log($_CONN,$_SMS);
-                $_LOG[] = $_SESSION['uID'];
-                $_LOG[] = "Send SMS unsccessful";
-                $_LOG[] = "success"; 
-                
-                $url['client'] = "dashboard";
-                $url['err'] = 2005;
+                //send ssms
+                if(false == __GatewaySendSMS($to_mobile,$senderID,$msg)){
+                    $url['client'] = "dashboard";
+                    $url['err'] = 2015;
+                }else{
+                    $_SMS[] = $_SESSION['uID'];
+                    $_SMS[] = $to_mobile;
+                    $_SMS[] = $msg;
+                    $smslog = Message::Log($_CONN,$_SMS);
+                    $_LOG[] = $_SESSION['uID'];
+                    $_LOG[] = "Send SMS unsccessful";
+                    $_LOG[] = "success"; 
+                    
+                    $url['client'] = "dashboard";
+                    $url['err'] = 2005;
+                }
             }
         }    
         $log = UserAccount::AddEventLog($_CONN,$_LOG);
@@ -176,6 +181,7 @@ switch($_REQUEST['submit']){
         $sender = $_REQUEST['sender-id'];
         $mobile = Contact::View($_CONN,$_REQUEST['to-group']);
         $total = count($mobile);
+        $to_mobile = format_mobile_num($mobile);
         //sms gatewaye
         $legder = Transaction::balance($_CONN,$_SESSION['uID']);
         if($legder['bal'] < 1){
@@ -197,18 +203,22 @@ switch($_REQUEST['submit']){
                 $url['client'] = "dashboard";
                 $url['err'] = 2004;
             }else{
-                echo"send sms";
-                $_SMS[] = $_SESSION['uID'];
-                $_SMS[] = format_mobile_num($mobile);
-                $_SMS[] = $msg;
-                $smslog = Message::Log($_CONN,$_SMS);
-                
-                $_LOG[] = $_SESSION['uID'];
-                $_LOG[] = "Send SMS unsccessful";
-                $_LOG[] = "success"; 
-                
-                $url['client'] = "dashboard";
-                $url['err'] = 2005;
+                //send ssms
+                if(false == __GatewaySendSMS($to_mobile,$senderID,$msg)){
+                    $url['client'] = "dashboard";
+                    $url['err'] = 2015;
+                }else{
+                    $_SMS[] = $_SESSION['uID'];
+                    $_SMS[] = $to_mobile;
+                    $_SMS[] = $msg;
+                    $smslog = Message::Log($_CONN,$_SMS);
+                    $_LOG[] = $_SESSION['uID'];
+                    $_LOG[] = "Send SMS unsccessful";
+                    $_LOG[] = "success"; 
+                    
+                    $url['client'] = "dashboard";
+                    $url['err'] = 2005;
+                }
             }
         }    
         $log = UserAccount::AddEventLog($_CONN,$_LOG);
@@ -333,6 +343,7 @@ switch($_REQUEST['submit']){
             $url['client']="schedule";
             $url['err']=2011;
         }else{
+
             $url['client']="schedule";
             $url['err']=2012;
 
