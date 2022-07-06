@@ -39,7 +39,7 @@ $profile['zip'] = "";
 $profile['username'] = "";
 $profile['password'] = "";
 
-$btn['goback'] = "?".$_SESSION['portal']."=dashboard";
+$btn['goback'] = goBack();
 $btn['action'] = "";
 $btn['caption'] = "";
 

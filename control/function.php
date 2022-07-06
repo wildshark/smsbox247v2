@@ -1,4 +1,12 @@
 <?php
+function goBack(){
+
+    if(!isset($_SESSION['portal'])){
+        return "";
+    }else{
+        return "?".$_SESSION['portal']."=dashboard";
+    }
+}
 
 function time_elapsed($datetime, $full = false) {
 
