@@ -59,38 +59,35 @@ function user_session(){
 
 function GatewayBalanceSMS(){
     
-    $sms['username'] ="bsgh-iquipe";
-    $sms['password'] ="@PassWD8";
+    $sms['username'] ="bsgh-bernserg";
+    $sms['password'] ="Kofie@12";
     
-    $url ="rslr.connectbind.com:8080/bulksms/bulksms?";
-    $postdata = http_build_query($sms);
-    $c = curl_init();
-    curl_setopt($c,CURLOPT_URL,$url);
-    curl_setopt($c,CURLOPT_POST,true);
-    curl_setopt($c,CURLOPT_POSTFIELDS, $postdata);
-    curl_setopt($c,CURLOPT_RETURNTRANSFER,true);
-    $content = curl_exec($c);
-    curl_close($c);
+    $curl = curl_init();
 
-    $str_total = strlen($content);
-    $text = 4 - $str_total;
+    curl_setopt_array($curl, array(
+    CURLOPT_URL => "rslr.connectbind.com:8080/CreditCheck/checkcredits?".http_build_query($sms),
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    ));
 
-    $msg = substr($content,0,$text);
-
-    if ($msg == 1701){
-        $d['status'] ="successful";
-        $d['error'] = 200;
-
+    $response = curl_exec($curl);
+    curl_close($curl);
+    if($response === "PERMISSION DENIED"){
+        return 0;
     }else{
-        $d['status'] ="failed";
-        $d['error'] = 404;
+        return explode(":",$response);
     }
 }
 
 function __GatewaySendSMS($destination,$sendID,$msg){
 
-    $sms['username'] ="bsgh-iquipe";
-    $sms['password'] ="@PassWD8";
+    $sms['username'] ="bsgh-bernserg";
+    $sms['password'] ="Kofie@12";
     $sms['destination'] = $destination;
     $sms['source'] = $sendID;
     $sms['message'] = $msg;
@@ -113,28 +110,25 @@ function __GatewaySendSMS($destination,$sendID,$msg){
     $msg = substr($content,0,$text);
 
     if ($msg == 1701){
-        $d['status'] ="successful";
-        $d['error'] = 200;
-
+        return TRUE;
     }else{
-        $d['status'] ="failed";
-        $d['error'] = 404;
+        return FALSE;
     }
-
-    return $d;
 }
 
-function __GatewaySchudelSMS(){
+function __GatewaySchudelSMS($destination,$sendID,$date,$time){
 
-    $sms['username'] ="bsgh-iquipe";
-    $sms['password'] ="@PassWD8";
+    $sms['username'] ="bsgh-bernserg";
+    $sms['password'] ="Kofie@12";
     $sms['destination'] = $destination;
     $sms['source'] = $sendID;
     $sms['message'] = $msg;
     $sms['type'] = 0;
-    $sms['dlr']=1;
+    $sms['date'] = $date;
+    $sms['time'] = $time;
+    $sms['gmt'] = "";
 
-    $url ="rslr.connectbind.com:8080/bulksms/bulksms?";
+    $url ="rslr.connectbind.com:8080/bulksms/schedulesms?";
     $postdata = http_build_query($sms);
     $c = curl_init();
     curl_setopt($c,CURLOPT_URL,$url);
@@ -150,14 +144,10 @@ function __GatewaySchudelSMS(){
     $msg = substr($content,0,$text);
 
     if ($msg == 1701){
-        $d['status'] ="successful";
-        $d['error'] = 200;
-
+        return TRUE;
     }else{
-        $d['status'] ="failed";
-        $d['error'] = 404;
-    }
-    
+        return FALSE;
+    }   
 }
  
 ?>

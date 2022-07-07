@@ -171,6 +171,12 @@ function MessageBox(){
                 $msg ="System failed to send sms. Try aagain later";
                 $css = "alert-danger";
             break;
+
+            case 2016;
+                $title ="Error!";
+                $msg ="Process sms schedule failed. Try aagain later";
+                $css = "alert-danger";
+            break;
         }
         $MsgBox ="
             <div class='alert $css solid alert-dismissible fade show'>

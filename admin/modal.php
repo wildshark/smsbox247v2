@@ -23,3 +23,37 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="CreateAccount">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="index.php">
+                    <div class="form-group">
+                        <label class="text-black font-w500">Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-black font-w500">Password</label>
+                        <input type="text" name="password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-black font-w500">Email</label>
+                        <input type="text" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-black font-w500">Mobile</label>
+                        <input type="text" name="mobile" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="submit" value="create-user" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

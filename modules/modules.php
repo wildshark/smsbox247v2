@@ -74,6 +74,24 @@ switch($_REQUEST['submit']){
         }
     break;
 
+    case"create-user";
+        $json = [
+            "username"=>$_REQUEST['email'],
+            "password"=>$_REQUEST['password']
+        ];
+        $token = md5(json_encode($json));
+        $token = password_hash($token,PASSWORD_DEFAULT);
+
+        $q[] = $_REQUEST['username'];
+        $q[] = $_REQUEST['password'];
+        $q[] = $_REQUEST['email'];
+        $q[] = $_REQUEST['mobile'];
+        $q[] = $token;
+        
+        $response = "";
+
+    break;
+
     case"update-profile";
         
         $q[] = $_REQUEST['full_name'];
@@ -140,7 +158,7 @@ switch($_REQUEST['submit']){
             $url['err'] = 2003;
 
             $_LOG[] = $_SESSION['uID'];
-            $_LOG[] = "insfu funds to send sms";
+            $_LOG[] = "Insufficient funds";
             $_LOG[] = "warning";
         }else{
             $price = config("price");
@@ -155,16 +173,22 @@ switch($_REQUEST['submit']){
                 $url['err'] = 2004;
             }else{
                 //send ssms
-                if(false == __GatewaySendSMS($to_mobile,$senderID,$msg)){
+                $SendQuickSMS =  __GatewaySendSMS($to_mobile,$senderID,$msg);
+                if(false == $SendQuickSMS){
                     $url['client'] = "dashboard";
                     $url['err'] = 2015;
+                    $_LOG[] = $_SESSION['uID'];
+                    $_LOG[] = "Send SMS Unsuccessful";
+                    $_LOG[] = "danger"; 
                 }else{
+                    
                     $_SMS[] = $_SESSION['uID'];
                     $_SMS[] = $to_mobile;
                     $_SMS[] = $msg;
                     $smslog = Message::Log($_CONN,$_SMS);
+
                     $_LOG[] = $_SESSION['uID'];
-                    $_LOG[] = "Send SMS unsccessful";
+                    $_LOG[] = "Send SMS Successful";
                     $_LOG[] = "success"; 
                     
                     $url['client'] = "dashboard";
@@ -189,7 +213,7 @@ switch($_REQUEST['submit']){
             $url['err'] = 2003;
 
             $_LOG[] = $_SESSION['uID'];
-            $_LOG[] = "insfu funds to send sms";
+            $_LOG[] = "Insufficient funds";
             $_LOG[] = "warning";
         }else{
             $price = config("price");
@@ -207,11 +231,17 @@ switch($_REQUEST['submit']){
                 if(false == __GatewaySendSMS($to_mobile,$senderID,$msg)){
                     $url['client'] = "dashboard";
                     $url['err'] = 2015;
+
+                    $_LOG[] = $_SESSION['uID'];
+                    $_LOG[] = "Send SMS failed";
+                    $_LOG[] = "success"; 
                 }else{
                     $_SMS[] = $_SESSION['uID'];
                     $_SMS[] = $to_mobile;
                     $_SMS[] = $msg;
+
                     $smslog = Message::Log($_CONN,$_SMS);
+                    
                     $_LOG[] = $_SESSION['uID'];
                     $_LOG[] = "Send SMS unsccessful";
                     $_LOG[] = "success"; 
@@ -327,6 +357,7 @@ switch($_REQUEST['submit']){
         
         $mobile = Contact::View($_CONN,$_REQUEST['to-group']);
         $total = count($mobile);
+        $$destination = format_mobile_num($mobile);
         $total_chr = strlen($_REQUEST['message']);
 
         $q[] = $_SESSION['uID'];
@@ -343,13 +374,21 @@ switch($_REQUEST['submit']){
             $url['client']="schedule";
             $url['err']=2011;
         }else{
+            if(false == __GatewaySchudelSMS($destination,$_REQUEST['sender-id'],$_REQUEST['schedule-date'],$_REQUEST['schedule-time'])){
+                $url['client']="schedule";
+                $url['err']=201;
 
-            $url['client']="schedule";
-            $url['err']=2012;
+                $_LOG[] = $_SESSION['uID'];
+                $_LOG[] = "Schedule $ref failed";
+                $_LOG[] = "danger";
+            }else{
+                $url['client']="schedule";
+                $url['err']=2012;
 
-            $_LOG[] = $_SESSION['uID'];
-            $_LOG[] = "Schedule $ref Created";
-            $_LOG[] = "success"; 
+                $_LOG[] = $_SESSION['uID'];
+                $_LOG[] = "Schedule $ref Created";
+                $_LOG[] = "success"; 
+            }
             $log = UserAccount::AddEventLog($_CONN,$_LOG);
         }
     break;

@@ -1,4 +1,7 @@
 <?php
+if(!isset($smsBalance)){
+   $smsBalance = GatewayBalanceSMS(); 
+}
 if(!isset($_SESSION['token'])){
     $_SESSION['token'] = $_REQUEST['token'];
 }
