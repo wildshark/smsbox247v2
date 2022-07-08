@@ -13,15 +13,15 @@ include("modules/message.php");
 
 $_URL = config("api");
 //$_CONN = connection($_HOST);
-$host ="localhost";
-$username =  "root";
-$password = "";
-$dbname = "sms247box";
+//$host ="localhost";
+//$username =  "root";
+//$password = "";
+//$dbname = "sms247box";
 try {
-    //$host ="sql.qshark.ml";
-    //$username="quaye";
-    //$password="quaye8282";
-    //$dbname = "sms247box";
+    $host ="sql.qshark.ml";
+    $username="quaye";
+    $password="quaye8282";
+    $dbname = "sms247box";
     $_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
     if(!isset($_REQUEST['submit'])){
