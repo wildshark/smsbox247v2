@@ -74,22 +74,39 @@ switch($_REQUEST['submit']){
         }
     break;
 
-    case"create-user";
+    case"create-user-account";
         $json = [
             "username"=>$_REQUEST['email'],
             "password"=>$_REQUEST['password']
         ];
         $token = md5(json_encode($json));
         $token = password_hash($token,PASSWORD_DEFAULT);
-
-        $q[] = $_REQUEST['username'];
-        $q[] = $_REQUEST['password'];
-        $q[] = $_REQUEST['email'];
-        $q[] = $_REQUEST['mobile'];
-        $q[] = $token;
         
-        $response = "";
+        $verifyMobile = UserAccount::VerifyProfile($_CONN,"mobile",$_REQUEST['mobile']);
+        $verifyEmail = UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['email']);
 
+        if(($verifyEmail == TRUE)||($verifyMobile == TRUE)){
+            $url['cp'] = "profile";
+            $url['ui'] = $_SESSION['ui'];
+            $url['err'] = 2018;
+        }else{
+            $q[] = time();
+            $q[] = $_REQUEST['username'];
+            $q[] = $_REQUEST['password'];
+            $q[] = $_REQUEST['email'];
+            $q[] = $_REQUEST['mobile'];
+            $q[] = $token;
+            $q[] = $_REQUEST['account-type'];
+            if(false == UserAccount::AddProfile($_CONN,$q)){
+                $url['cp'] = "profile";
+                $url['ui'] = $_SESSION['ui'];
+                $url['err'] = 2020;
+            }else{
+                $url['cp'] = "profile";
+                $url['ui'] = $_SESSION['ui'];
+                $url['err'] = 2019;
+            }
+        }
     break;
 
     case"update-profile";
@@ -127,6 +144,23 @@ switch($_REQUEST['submit']){
             $_LOG[] = "info";
             $log = UserAccount::AddEventLog($_CONN,$_LOG);
         }
+    break;
+
+    case"quuick-topup-account";
+        $verifyMobile = UserAccount::VerifyProfile($_CONN,"mobile",$_REQUEST['account']);
+        $verifyEmail = UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['account']);
+        $verifyAccount = UserAccount::VerifyProfile($_CONN,"account",$_REQUEST['account']);
+
+        if(($verifyMobile == false)||($verifyEmail == false)||($verifyAccount ==false)){
+
+        }else{
+            $q[] = $_SESSION['verifyID'];
+            $q[] = $_REQUEST['detail'];
+            $q[] = $_REQUEST['amount'];
+        }
+
+       
+
     break;
 
     case"quick-sms";
@@ -297,7 +331,6 @@ switch($_REQUEST['submit']){
                 // Close opened CSV file    
                 fclose($csvFile);
 
-                
                 if($result == false){
                     $url['client'] = "contact";
                     $url['contact'] = $response;
@@ -376,14 +409,14 @@ switch($_REQUEST['submit']){
         }else{
             if(false == __GatewaySchudelSMS($destination,$_REQUEST['sender-id'],$_REQUEST['schedule-date'],$_REQUEST['schedule-time'])){
                 $url['client']="schedule";
-                $url['err']=201;
+                $url['err']=2016;
 
                 $_LOG[] = $_SESSION['uID'];
                 $_LOG[] = "Schedule $ref failed";
                 $_LOG[] = "danger";
             }else{
                 $url['client']="schedule";
-                $url['err']=2012;
+                $url['err']=2017;
 
                 $_LOG[] = $_SESSION['uID'];
                 $_LOG[] = "Schedule $ref Created";

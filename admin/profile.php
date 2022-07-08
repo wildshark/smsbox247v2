@@ -2,6 +2,7 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Profile Datatable</h4>
+            <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#CreateAccount" class="btn btn-primary">+ Add Profile</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

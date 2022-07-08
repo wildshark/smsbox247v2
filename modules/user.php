@@ -78,6 +78,35 @@ class UserAccount{
         return $data;
     }
 
+    public static function AddProfile($conn,$request){
+        
+        $sql ="INSERT INTO `user_account`(`account`,`username`, `passwd`, `email`,`mobile`, `api_key`,`role`) VALUES (?,?,?,?,?,?,?)";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
+
+    public static function VerifyProfile($conn,$action,$verify){
+
+        if($action === "email"){
+            $sql = "SELECT user_account.* FROM user_account WHERE user_account.email LIKE :id";
+        }elseif($action === "mobile"){
+            $sql = "SELECT user_account.* FROM user_account WHERE user_account.mobile LIKE :id";
+        }elseif($action === "account"){
+            $sql = "SELECT user_account.* FROM user_account WHERE user_account.account LIKE :id";
+        }
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            ":id"=>"%$verify%"
+        ]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC)
+        if(false == $data){
+            return FALSE;
+        }else{
+            $_SESSION['verifyID'] = $data['userID'];
+            return TRUE;
+        }
+    }
+
     public static function profile($conn,$id){
 
         if($id === "*.all"){

@@ -132,7 +132,7 @@ function MessageBox(){
 
             case 2009;
                 $title ="Error!";
-                $msg ="Account Topup failed, try again later";
+                $msg ="Account Topup failed, try again later.";
                 $css = "alert-danger";
             break;
 
@@ -144,7 +144,7 @@ function MessageBox(){
 
             case 2011;
                 $title ="Error!";
-                $msg ="System fail creating schedule. Try again later";
+                $msg ="System fail creating schedule. Try again later.";
                 $css = "alert-danger";
             break;
 
@@ -168,14 +168,38 @@ function MessageBox(){
 
             case 2015;
                 $title ="Error!";
-                $msg ="System failed to send sms. Try aagain later";
+                $msg ="System failed to send sms. Try aagain later.";
                 $css = "alert-danger";
             break;
 
             case 2016;
                 $title ="Error!";
-                $msg ="Process sms schedule failed. Try aagain later";
+                $msg ="Process sms schedule failed. Try aagain later.";
                 $css = "alert-danger";
+            break;
+
+            case 2017;
+                $title ="Success!";
+                $msg ="Process sms schedule successful.";
+                $css = "alert-success";
+            break;
+
+            case 2018;
+                $title ="Error!";
+                $msg ="User Already Exist.";
+                $css = "alert-warning";
+            break;
+
+            case 2019;
+                $title ="Success!";
+                $msg ="Account created successful.";
+                $css = "alert-success";
+            break;
+
+            case 2020;
+                $title ="Error!";
+                $msg ="Can not create account. Try again later.";
+                $css = "alert-success";
             break;
         }
         $MsgBox ="

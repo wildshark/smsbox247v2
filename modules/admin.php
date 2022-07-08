@@ -30,15 +30,15 @@ switch($_REQUEST['cp']){
             $profile  = UserAccount::profile($_CONN,"*.all");
             $view = "admin/profile.details.php";
             require($_PAGE['form']);
-        }elseif($_GET['ui'] ==="client"){
+        }elseif($_GET['ui'] ==="client"){ 
             $title ="User Profile";
-            $AddButton="<a href='javascript:void(0)' data-bs-toggle='modal' data-bs-target='#TopUpAccount' class='btn btn-primary'> + Add New</a>";
+            $_SESSION['ui'] ="client";
             $profile  = UserAccount::profile($_CONN,"client");
             $view = "admin/profile.php";
             require($_PAGE['table']);
-        }elseif($_GET['ui'] ==="administrator"){
+        }elseif($_GET['ui'] ==="admin"){
             $title ="Administrator Profile";
-            $AddButton="<a href='javascript:void(0)' data-bs-toggle='modal' data-bs-target='#TopUpAccount' class='btn btn-primary'> + Add New</a>";
+            $_SESSION['ui'] = "admin";
             $profile  = UserAccount::profile($_CONN,"admin");
             $view = "admin/profile.php";
             require($_PAGE['table']);

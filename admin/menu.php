@@ -4,9 +4,9 @@
             <span class="nav-text">Dashboard</span>
         </a>
     </li>
-    <li><a href="?cp=topup" class="ai-icon" aria-expanded="false">
+    <li><a  href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#QuickTopUpAccount" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
-            <span class="nav-text">Topup Account</span>
+            <span class="nav-text">Quick Topup</span>
         </a>
     </li>
     <li><a href="?cp=orders" class="ai-icon" aria-expanded="false">
@@ -14,7 +14,7 @@
             <span class="nav-text">Oreders</span>
         </a>
     </li>
-    <li><a href="?cp=profile&ui=administrator" class="ai-icon" aria-expanded="false">
+    <li><a href="?cp=profile&ui=admin" class="ai-icon" aria-expanded="false">
             <i class="flaticon-admin"></i>
             <span class="nav-text">Admin Account</span>
         </a>

@@ -49,7 +49,6 @@ function config($str){
                 return $j->setup;
             break;
         }
-
     }
 }
 
