@@ -53,11 +53,37 @@ switch($_REQUEST['cp']){
     break;
 
     case"orders";
-        $title ="Orders";
-        $pending = Transaction::ListOrders($_CONN,"pending",false);
-        $aproved = Transaction::ListOrders($_CONN,"approved",false);
-        $view = "admin/orders.php";
-        require($_PAGE['table']);
+        if(!isset($_GET['action'])){
+            $title ="Orders";
+            $pending = Transaction::ListOrders($_CONN,"pending",false);
+            $aproved = Transaction::ListOrders($_CONN,"approved",false);
+            $view = "admin/orders.php";
+            require($_PAGE['table']);
+        }else{
+            if($_GET['action'] === "aprove"){
+                $order = Transaction::ViewOrder($_CONN,$_GET['id']);
+                if($order == false){
+                    header("location: ?cp=orders&err=2022");                  
+                }else{
+                    $_RER[] = $_GET['id'];
+                    $_RER[] = $order['ref'];
+                    $_RER[] = "Make payment";
+                    $_RER[] = $order['amount']; 
+                    if(TRUE == Transaction::debit($_CONN,$_RER)){
+                        if(FALSE == Transaction::ApproveOrders($_CONN,$_GET['id'])){
+                            header("location: ?cp=orders&err=2022");                  
+                        }else{
+                            header("location: ?cp=orders&err=2023");                  
+                        }
+                    }else{
+                        header("location: ?cp=orders&err=2022");
+                    }
+                }
+            }elseif($_GET['action'] ==="remove"){
+
+            }
+        }
+        
     break;
 
     case"ledger";

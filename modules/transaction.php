@@ -116,8 +116,19 @@ class Transaction{
         return $data;
     }
 
-    public static function ApproveOrders(){
+    public static function ViewOrder($conn,$id){
 
+        $sql ="SELECT orders.* FROM orders WHERE orders.orderID =:id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([":id"=>$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function ApproveOrders($conn,$id){
+
+        $sql ="UPDATE `orders` SET `statusID` =2 WHERE `orderID` =:id";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([":id"=>$id]);
     }
 
     public static function PendingOrders(){

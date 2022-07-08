@@ -5,8 +5,8 @@
             <div class="card-body box-style">
                 <div class="media align-items-center">
                     <div class="media-body me-3">
-                        <h2 class="num-text text-black font-w700"><?=$client?></h2>
-                        <span class="fs-14">Total Client</span>
+                        <h2 class="num-text text-black font-w700"><?=$clientBal?></h2>
+                        <span class="fs-14">Renven</span>
                     </div>
                     <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -23,8 +23,8 @@
             <div class="card-body box-style">
                 <div class="media align-items-center">
                     <div class="media-body me-3">
-                        <h2 class="num-text text-black font-w700"><?=$clientBal?></h2>
-                        <span class="fs-14">client balance</span>
+                        <h2 class="num-text text-black font-w700"><?=$client?></h2>
+                        <span class="fs-14">User(s)</span>
                     </div>
                     <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

@@ -1,8 +1,8 @@
 <div class="col-12">
     <div class="card">
-        <div class="card-header">
+        <!--div class="card-header">
             <h4 class="card-title">Custom Tab 1</h4>
-        </div>
+        </div-->
         <div class="card-body">
             <!-- Nav tabs -->
             <div class="custom-tab-1">
@@ -51,11 +51,10 @@
                                             <th>Account</th>
                                             <th>Username</th>
                                             <th>Amount</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?=AdminOrdersList($aproved)?>
+                                        <?=AdminOrdersApproved($aproved)?>
                                     </tbody>
                                 </table>
                             </div>

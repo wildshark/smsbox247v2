@@ -228,6 +228,16 @@ function AdminOrdersList($list){
         }else{
             $n = $n + 1;
         }
+        $q = "X".uniqid();
+        $id = $r['orderID'];
+        $date = $r['tranDate'];
+        $ref = $r['ref'];
+        $fname = $r['full_name'];
+        $mobile = $r['mobile'];
+        $email = $r['email'];
+        $account = $r['account'];
+        $username = $r['username'];
+        $amount = number_format($r['amount'],2);
 
         $data.="
         <tr>
@@ -239,11 +249,76 @@ function AdminOrdersList($list){
             <td>{$r['amount']}</td>
             <td>
                 <div class='d-flex'>
-                    <a href='javascript:void(0);' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
-                    <a href='javascript:void(0);' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                    <a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#$q' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
                 </div>												
             </td>												
-        </tr>";
+        </tr>
+        <div class='modal fade' id='$q'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h5 class='modal-title'>Order Details #$ref</h5>
+                                    <button type='button' class='btn-close' data-bs-dismiss='modal'></button>
+                                </div>
+                                <div class='modal-body'>
+                                    <div class='row'>
+                                        <div class='col-md-7'>Date: $date</div>
+                                        <div class='col-md-4'>Invoice: $ref</div>
+                                    </div>
+                                    <br/>
+                                    <div class='row'>
+                                        <div class='col-md-12ms-auto'>Name: $fname</div>
+                                        <div class='col-md-12 ms-auto'>Email: $email</div>
+                                        <div class='col-md-12 ms-auto'>Mobile: $mobile</div>
+                                    </div>
+                                    <div class='row'>
+                                        <div class='col-md-7'></div>
+                                        <div class='col-md-4'><b>Paid: $amount</b></div>
+                                    </div>
+                                </div>
+                                <div class='modal-footer'>
+                                    <a href='?cp=orders&action=aprove&id=$id' class='btn btn-primary'>Aprove</a>
+                                    <a href='?cp=orsers&action=remove&id=$id' class='btn btn-danger'>Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        ";
+    }
+
+    return $data;
+}
+
+function AdminOrdersApproved($list){
+    $data ="";
+    foreach($list as $r){
+
+        if(!isset($n)){
+            $n = 1;
+        }else{
+            $n = $n + 1;
+        }
+        $q = "X".uniqid();
+        $id = $r['orderID'];
+        $date = $r['tranDate'];
+        $ref = $r['ref'];
+        $fname = $r['full_name'];
+        $mobile = $r['mobile'];
+        $email = $r['email'];
+        $account = $r['account'];
+        $username = $r['username'];
+        $amount = number_format($r['amount'],2);
+
+        $data.="
+            <tr>
+                <td>{$n}</td>
+                <td>{$r['tranDate']}</td>
+                <td>{$r['ref']}</td>
+                <td>{$r['account']}</td>
+                <td>{$r['username']}</td>
+                <td>{$r['amount']}</td>							
+            </tr>
+        ";
     }
 
     return $data;
