@@ -442,12 +442,31 @@ switch($_REQUEST['submit']){
         }elseif($_REQUEST['payment-method'] === "araknet"){
             $curr = "GHS";
         }
-        $url['ref'] = time();
-        $url['method'] = $_REQUEST['payment-method'];
-        $url['currency'] = $curr;
-        $url['amt'] = $_REQUEST['amount'];
-        var_dump($url);
-        exit;
+        $ref =time();
+        $q[] = $_SESSION['uID'];
+        $q[] = $ref;
+        $q[] = $curr;
+        $q[] = $_REQUEST['amount'];
+        $q[] = $_REQUEST['payment-method'];
+        $response = Transaction::AddOrders($_CONN,$q);
+        if($response === false){
+            $url['client'] = "ledger";
+            $url['err'] = 2022;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "Order $ref failed";
+            $_LOG[] = "danger";
+
+        }else{
+            $url['client'] = "pos-terminal";
+            $url['ref'] = $ref;
+            $url['or'] = $response;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "Place Order $ref Success";
+            $_LOG[] = "success"; 
+        }
+        $log = UserAccount::AddEventLog($_CONN,$_LOG);
     break;
 }
 

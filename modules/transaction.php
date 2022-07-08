@@ -88,9 +88,13 @@ class Transaction{
     
     public static function AddOrders($conn,$request){
 
-        $sql="INSERT INTO `orders`(`userID`, `ref`, `amount`) VALUES (?,?,?)";
+        $sql="INSERT INTO `orders`(`userID`, `ref`, `currency`, `amount`, `wallet`) VALUES (?,?,?,?,?)";
         $stmt = $conn->prepare($sql);
-        return $stmt->execute($request);
+        if(false == $stmt->execute($request)){
+            return false;
+        }else{
+            return $conn->lastInsertId();
+        }
     }
 
     public static function ListOrders($conn,$action,$id){
@@ -118,7 +122,7 @@ class Transaction{
 
     public static function ViewOrder($conn,$id){
 
-        $sql ="SELECT orders.* FROM orders WHERE orders.orderID =:id";
+        $sql ="SELECT orders.*, user_account.account, user_account.full_name, user_account.username, user_account.mobile, user_account.email FROM orders INNER JOIN user_account ON orders.userID = user_account.userID WHERE orders.orderID =:id";
         $stmt = $conn->prepare($sql);
         $stmt->execute([":id"=>$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);

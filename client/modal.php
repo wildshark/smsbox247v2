@@ -142,7 +142,7 @@
                     <div class="form-group">
                         <label class="text-black font-w500">Payment Method</label>
                         <select name="payment-method" class="form-control">
-                            <option value="araknet">Araknet Wallet</option>
+                            <option value="araknet">Mobile Money</option>
                             <option value="card">Visa/Master Card</option>
                         </select>
                     </div>

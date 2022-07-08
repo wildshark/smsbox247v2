@@ -105,6 +105,18 @@ switch($_REQUEST['client']){
             }
         }
     break;
+
+    case"pos-terminal";
+        $or = Transaction::ViewOrder($_CONN,$_GET['or']);
+        $id = $_GET['or'];
+        $name = $or['full_name'];
+        $email = $or['email'];
+        $mobile = $or['mobile'];
+        $ref = $or['ref'];
+        $currency = $or['currency'];
+        $amt = $or['amount'];
+        require("control/payment.php");
+    break;
 }
 
 ?>
