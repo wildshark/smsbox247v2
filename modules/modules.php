@@ -435,6 +435,20 @@ switch($_REQUEST['submit']){
             $log = UserAccount::AddEventLog($_CONN,$_LOG);
         }
     break;
+
+    case"make-payment";
+        if($_REQUEST['payment-method'] === "card"){
+            $curr = "USD";
+        }elseif($_REQUEST['payment-method'] === "araknet"){
+            $curr = "GHS";
+        }
+        $url['ref'] = time();
+        $url['method'] = $_REQUEST['payment-method'];
+        $url['currency'] = $curr;
+        $url['amt'] = $_REQUEST['amount'];
+        var_dump($url);
+        exit;
+    break;
 }
 
 header("location: ?".http_build_query($url));

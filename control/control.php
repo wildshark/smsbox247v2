@@ -15,7 +15,6 @@ function connection($r){
             "msg"=>'PDO Connection: ',  $e->getMessage(), "\n"
         ); 
     }
-
     return $conn;
 }
 
@@ -47,6 +46,14 @@ function config($str){
 
             case"setup";
                 return $j->setup;
+            break;
+
+            case"payment";
+                return $j->setup->payment;
+            break;
+
+            case"currency";
+                return $j->setup->currency;
             break;
         }
     }

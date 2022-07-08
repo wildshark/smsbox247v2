@@ -23,7 +23,8 @@ try {
     $password="quaye8282";
     $dbname = "sms247box";
     $_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
+    
+    $_CONBO_WALLET = "";
     if(!isset($_REQUEST['submit'])){
         if(!isset($_REQUEST['page'])){
             if(!isset($_REQUEST['cp'])){

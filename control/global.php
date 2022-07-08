@@ -1,7 +1,8 @@
 <?php
 
 $domain = config("domain");
-
+//$_CONBO_CURR = currencies(config("currency"));
+//$_CONBO_WALLET = wallet(config("wallet"));
 $_HOST  = [
     "host" => "localhost",//"sql.qshark.ml",
     "user" => "root",//"quaye",
@@ -73,6 +74,12 @@ function UserMenu(){
             <span class='ms-2'>Logout </span>
         </a>
     </div>";
+}
+
+function currency(){
+
+    $currencies =["USD","GHC"];
+
 }
 
 function MessageBox(){

@@ -1,4 +1,18 @@
 <?php
+
+function currencies($list){
+
+}
+
+function wallet($wallets){
+    $out ="";
+    foreach($list as $wallets){
+        $r = explode("-",$wallets);
+        $out .= "<option value='$r[0]'>$r[1]<option>";
+    } 
+    return $out; 
+} 
+
 function goBack(){
 
     if(!isset($_SESSION['portal'])){
@@ -387,7 +401,8 @@ function ClientTransaction($list){
                     <td>{$n}</td>
                     <td>{$date}</td>
                     <td>{$ref}</td>
-                    <td>{$amount}</td>											
+                    <td>{$amount}</td>
+                    <td></td>
                 </tr>";
         }
     }

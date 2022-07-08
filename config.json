@@ -19,6 +19,16 @@
             "pwd":"@PassWD8"
         },
         "sender_id":"",
-        "price":"0.22"
+        "price":"0.22",
+        "payment":[
+            "Card-VISA/Master Card",
+            "Araket-Araknet Wallet",
+            "Momo-Mobile Momey"
+        ],
+        "currency":[
+            "USD-Us Dollar",
+            "GHS-Ghana Cedis",
+            "GHSw-Ghana"
+        ]
     }
 }
