@@ -186,7 +186,7 @@ function MessageBox(){
 
             case 2018;
                 $title ="Error!";
-                $msg ="User Already Exist.";
+                $msg ="User already exist.";
                 $css = "alert-warning";
             break;
 
@@ -199,6 +199,24 @@ function MessageBox(){
             case 2020;
                 $title ="Error!";
                 $msg ="Can not create account. Try again later.";
+                $css = "alert-warning";
+            break;
+
+            case 2021;
+                $title ="Error!";
+                $msg ="User account do not exist.";
+                $css = "alert-danger";
+            break;
+
+            case 2022;
+                $title ="Error!";
+                $msg ="Transaction failed. Try again later.";
+                $css = "alert-danger";
+            break;
+
+            case 2023;
+                $title ="Success!";
+                $msg ="Transaction successful.";
                 $css = "alert-success";
             break;
         }

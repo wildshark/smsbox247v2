@@ -219,6 +219,36 @@ function ContactFileSheet($list){
 
 }
 
+function AdminOrdersList($list){
+    $data ="";
+    foreach($list as $r){
+
+        if(!isset($n)){
+            $n = 1;
+        }else{
+            $n = $n + 1;
+        }
+
+        $data.="
+        <tr>
+            <td>{$n}</td>
+            <td>{$r['tranDate']}</td>
+            <td>{$r['ref']}</td>
+            <td>{$r['account']}</td>
+            <td>{$r['username']}</td>
+            <td>{$r['amount']}</td>
+            <td>
+                <div class='d-flex'>
+                    <a href='javascript:void(0);' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
+                    <a href='javascript:void(0);' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                </div>												
+            </td>												
+        </tr>";
+    }
+
+    return $data;
+}
+
 function BulkContact($list){
     $data ="";
     foreach($list as $r){

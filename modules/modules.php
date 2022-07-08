@@ -147,20 +147,30 @@ switch($_REQUEST['submit']){
     break;
 
     case"quuick-topup-account";
-        $verifyMobile = UserAccount::VerifyProfile($_CONN,"mobile",$_REQUEST['account']);
-        $verifyEmail = UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['account']);
-        $verifyAccount = UserAccount::VerifyProfile($_CONN,"account",$_REQUEST['account']);
-
-        if(($verifyMobile == false)||($verifyEmail == false)||($verifyAccount ==false)){
-
-        }else{
-            $q[] = $_SESSION['verifyID'];
-            $q[] = $_REQUEST['detail'];
-            $q[] = $_REQUEST['amount'];
+        if(false == UserAccount::VerifyProfile($_CONN,"mobile",$_REQUEST['account'])){
+            if(false ==UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['account'])){
+                if(false == UserAccount::VerifyProfile($_CONN,"account",$_REQUEST['account'])){
+                    $url['cp'] = "dashboard";
+                    $url['err'] = 2021;
+                    header("location: ?".http_build_query($url));
+                    exit;
+                }
+            }
         }
 
-       
-
+        $ref = time();
+        $q[] = $_SESSION['verifyID'];
+        $q[] = $ref;
+        $q[] = $_REQUEST['details'];
+        $q[] = $_REQUEST['amount'];
+        $response = Transaction::debit($_CONN,$q);
+        if($response === false){
+            $url['cp'] = "dashboard";
+            $url['err'] = 2022;
+        }else{
+            $url['cp'] = "ledger";
+            $url['err'] = 2023;
+        }
     break;
 
     case"quick-sms";

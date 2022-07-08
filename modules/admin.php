@@ -52,6 +52,14 @@ switch($_REQUEST['cp']){
         require($_PAGE['table']);
     break;
 
+    case"orders";
+        $title ="Orders";
+        $pending = Transaction::ListOrders($_CONN,"pending",false);
+        $aproved = Transaction::ListOrders($_CONN,"approved",false);
+        $view = "admin/orders.php";
+        require($_PAGE['table']);
+    break;
+
     case"ledger";
         $title ="User Account";
         $ledger = Transaction::balance($_CONN,"*.all");

@@ -38,7 +38,7 @@ class Transaction{
 
     public static function credit($conn,$request){
 
-        $sql = "INSERT INTO `sms247box`.`ledger`(`userID`, `ref`, `details`, `spend`) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO `ledger`(`userID`, `ref`, `details`, `spend`) VALUES (?,?,?,?)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
 
@@ -84,6 +84,48 @@ class Transaction{
            }
         }
         return $data;
+    }
+    
+    public static function AddOrders($conn,$request){
+
+        $sql="INSERT INTO `orders`(`userID`, `ref`, `amount`) VALUES (?,?,?)";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
+
+    public static function ListOrders($conn,$action,$id){
+
+        if((!isset($id))||($id == false)){
+            if($action === "approved"){
+                $sql = "SELECT orders.*, user_account.account, user_account.full_name, user_account.username, user_account.mobile, user_account.email FROM orders INNER JOIN user_account ON orders.userID = user_account.userID WHERE orders.statusID = 2";
+            }elseif($action === "pending"){
+                $sql = "SELECT orders.*, user_account.account, user_account.full_name, user_account.username, user_account.mobile, user_account.email FROM orders INNER JOIN user_account ON orders.userID = user_account.userID WHERE orders.statusID = 1";
+            }elseif($action ==="delete"){
+                $sql = "SELECT orders.*, user_account.account, user_account.full_name, user_account.username, user_account.mobile, user_account.email FROM orders INNER JOIN user_account ON orders.userID = user_account.userID WHERE orders.statusID = 3";
+            }
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        }else{
+            $sql = "SELECT orders.*, user_account.account, user_account.full_name, user_account.username, user_account.mobile, user_account.email FROM orders INNER JOIN user_account ON orders.userID = user_account.userID WHERE orders.userID = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute($i[]=$id);
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return $data;
+    }
+
+    public static function ApproveOrders(){
+
+    }
+
+    public static function PendingOrders(){
+
+    }
+
+    public static function DelOrder(){
+
     }
 }
 ?>

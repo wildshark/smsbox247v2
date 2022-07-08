@@ -98,7 +98,7 @@ class UserAccount{
         $stmt->execute([
             ":id"=>"%$verify%"
         ]);
-        $data = $stmt->fetch(PDO::FETCH_ASSOC)
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
         if(false == $data){
             return FALSE;
         }else{
