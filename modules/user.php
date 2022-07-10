@@ -149,5 +149,12 @@ class UserAccount{
         return $stmt->execute($request);
     }
 
+    public static function RemoveProfile($conn,$request){
+
+        $sql="UPDATE `user_account` SET `statusID` = 2 WHERE `userID` =?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
+
 }
 ?>

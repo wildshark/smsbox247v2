@@ -2,6 +2,17 @@
 
 switch($_REQUEST['submit']){
 
+    case"activition";
+        $ref = "ACTIVE-".time();
+        $amt = 200;
+        $currency ="USD";
+        $id = 100;
+        $email = $_REQUEST['email'];
+        $mobile = $_REQUEST['mobile'];
+        $name = $_REQUEST['name'];
+        require("control/payment.php");
+    break;
+
     case'login';
         $admin = config("admin");
         if(($_REQUEST['username'] != $admin->username) ||($_REQUEST['password'] != $admin->password)){
@@ -334,7 +345,7 @@ switch($_REQUEST['submit']){
                 // Parse data from CSV file line by line
                 while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE){
                     // Get row data
-                    $result = Contact::addList($_CONN,$response,$getData);
+                    $result = Contact::addList($_CONN,$response,$getData,$_SESSION['uID']);
                         
                 }
         

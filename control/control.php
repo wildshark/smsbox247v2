@@ -1,22 +1,12 @@
 <?php
 
-function connection($r){
+define("HOST_DB","localhost");
+define("USR_DB","root");
+define("PWD_DB","");
+define("NAME_DB","sms247box");
 
-    $host = $r['host'];
-    $dbname = $r['dbname'];
-    $username = $r['user'];
-    $password = $r['pwd'];
-
-    try {
-        $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    }catch(PDOException $e) {
-        $conn = array(
-            "status"=>5000,
-            "msg"=>'PDO Connection: ',  $e->getMessage(), "\n"
-        ); 
-    }
-    return $conn;
-}
+define("SMS_API_USER","bsgh-bernserg");
+define("SMS_API_PWD","Kofie@12");
 
 function config($str){
 
@@ -55,7 +45,20 @@ function config($str){
             case"currency";
                 return $j->setup->currency;
             break;
+
+            case"key";
+                return md5(sha1(time().uniqid()));
+            break;
         }
+    }
+}
+
+function __VerifyApplication($action,$request){
+
+    if($action === "active"){
+
+    }elseif($action === "verification"){
+
     }
 }
 
@@ -65,8 +68,8 @@ function user_session(){
 
 function GatewayBalanceSMS(){
     
-    $sms['username'] ="bsgh-bernserg";
-    $sms['password'] ="Kofie@12";
+    $sms['username'] = SMS_API_USER;
+    $sms['password'] = SMS_API_PWD;
     
     $curl = curl_init();
 
@@ -92,8 +95,8 @@ function GatewayBalanceSMS(){
 
 function __GatewaySendSMS($destination,$sendID,$msg){
 
-    $sms['username'] ="bsgh-bernserg";
-    $sms['password'] ="Kofie@12";
+    $sms['username'] = SMS_API_USER;
+    $sms['password'] = SMS_API_PWD;
     $sms['destination'] = $destination;
     $sms['source'] = $sendID;
     $sms['message'] = $msg;
@@ -124,8 +127,8 @@ function __GatewaySendSMS($destination,$sendID,$msg){
 
 function __GatewaySchudelSMS($destination,$sendID,$date,$time){
 
-    $sms['username'] ="bsgh-bernserg";
-    $sms['password'] ="Kofie@12";
+    $sms['username'] = SMS_API_USER;
+    $sms['password'] = SMS_API_PWD;
     $sms['destination'] = $destination;
     $sms['source'] = $sendID;
     $sms['message'] = $msg;

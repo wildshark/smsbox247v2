@@ -18,7 +18,9 @@ $_PAGE = [
     "table"=>"frame/table.php",
     "form"=>"frame/form.php",
     "403"=>"frame/403.php",
-    "404"=>"frame/404.php"
+    "404"=>"frame/404.php",
+    "503"=>"frame/503.php",
+    "activition"=>"frame/activition.php"
 ];
 
 $_MODULES = [
@@ -224,6 +226,18 @@ function MessageBox(){
             case 2023;
                 $title ="Success!";
                 $msg ="Transaction successful.";
+                $css = "alert-success";
+            break;
+
+            case 2024;
+                $title ="Success!";
+                $msg ="System failure. Try again later.";
+                $css = "alert-success";
+            break;
+
+            case 2025;
+                $title ="Success!";
+                $msg ="Profile removed";
                 $css = "alert-success";
             break;
         }

@@ -14,6 +14,10 @@ switch($_REQUEST['page']){
         require($_PAGE['reset']);
     break;
 
+    case"activition";
+        require($_PAGE['activition']);
+    break;
+
 }
 
 ?>

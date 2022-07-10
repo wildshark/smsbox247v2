@@ -14,8 +14,10 @@ switch($_REQUEST['cp']){
     case"dashboard";
         $title ="Dashboard";
         $client = UserAccount::total($_CONN);
+        $order = Transaction::totalOrder($_CONN);
         $clientBal = Transaction::balance($_CONN,"global-balance");
         $clientBal =  $clientBal['bal'];
+        $NewOrders = Transaction::ListOrders($_CONN,"pending",false);
         $view ="admin/dashboard.php";
         require($_PAGE['dashboard']);
     break;
@@ -42,6 +44,12 @@ switch($_REQUEST['cp']){
             $profile  = UserAccount::profile($_CONN,"admin");
             $view = "admin/profile.php";
             require($_PAGE['table']);
+        }elseif($_GET['ui'] === "delete"){
+            if(false == UserAccount::RemoveProfile($_CONN,$_GET['id'])){
+                header("location: ?cp=profile&err=2024&ui=".$_SESSION['ui']);
+            }else{
+                header("location: ?cp=profile&err=2025&ui=".$_SESSION['ui']);
+            }
         }
     break;
 

@@ -44,8 +44,8 @@
             <div class="card-body box-style">
                 <div class="media align-items-center">
                     <div class="media-body me-3">
-                        <h2 class="num-text text-black font-w700">93</h2>
-                        <span class="fs-14">Total Unfinished Task</span>
+                        <h2 class="num-text text-black font-w700"><?=$order?></h2>
+                        <span class="fs-14">Order(s)</span>
                     </div>
                     <svg class="primary-icon" width="36" height="36" viewBox="0 0 36 36" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -128,4 +128,32 @@
             </div>
         </div>
     </div>
+</div>
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">New Orders</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Time</th>
+                            <th>Ref#</th>
+                            <th>Account</th>
+                            <th>username</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?=DeskboardOrdersList($NewOrders)?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /# card -->
 </div>

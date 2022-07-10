@@ -28,7 +28,7 @@ class Contact{
         return $stmt->execute([':id'=>$request]);
     }
 
-    public static function addList($conn,$id,$r){
+    public static function addList($conn,$id,$r,$uID){
 
         if(!isset($r[0])){
             return false;
@@ -48,9 +48,10 @@ class Contact{
             $network = $r[2];
         }
         
-        $sql = "INSERT INTO `sms247box`.`contact_details`(`addressID`, `mobile`, `cname`, `network`) VALUES (:id,:mobile,:cname,:network)";
+        $sql = "INSERT INTO `contact_details`(`userID`,`addressID`, `mobile`, `cname`, `network`) VALUES (:uuID,:id,:mobile,:cname,:network)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute([
+            ":uuID"=>$uID,
             ":id"=>$id,
             ":mobile"=>$mobile,
             ":cname"=>$name,

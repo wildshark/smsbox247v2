@@ -85,6 +85,22 @@ class Transaction{
         }
         return $data;
     }
+
+    public static function totalOrder($conn){
+
+        $sql = "SELECT count(orders.orderID) as total FROM orders WHERE orders.statusID = 1";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($data == false){
+            $data = 0;
+        }else{
+            $data = $data['total'];
+        }
+
+        return $data;
+
+    }
     
     public static function AddOrders($conn,$request){
 
