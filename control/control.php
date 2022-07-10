@@ -8,6 +8,10 @@ define("NAME_DB","sms247box");
 define("SMS_API_USER","bsgh-bernserg");
 define("SMS_API_PWD","Kofie@12");
 
+function UserSession(){
+
+}
+
 function config($str){
 
     if(!file_exists("config.json")){
@@ -60,10 +64,6 @@ function __VerifyApplication($action,$request){
     }elseif($action === "verification"){
 
     }
-}
-
-function user_session(){
-
 }
 
 function GatewayBalanceSMS(){
@@ -158,5 +158,5 @@ function __GatewaySchudelSMS($destination,$sendID,$date,$time){
         return FALSE;
     }   
 }
- 
+
 ?>
