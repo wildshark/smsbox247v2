@@ -3,7 +3,7 @@
 define("HOST_DB","localhost");
 define("USR_DB","root");
 define("PWD_DB","");
-define("NAME_DB","sms247box");
+define("NAME_DB","sms7");//"sms247box");
 
 define("SMS_API_USER","bsgh-bernserg");
 define("SMS_API_PWD","Kofie@12");

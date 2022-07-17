@@ -12,6 +12,13 @@
         "password":"admin"
     },
     "setup":{
+        "connection":{
+            "host":"",
+            "user":"",
+            "pwd":"",
+            "port":"",
+            "dbname":""
+        },
         "domain":"http://localhost/smsbox247v2/",
         "api":{
             "host":"rslr.connectbind.com:8080/bulksms/bulksms?",
