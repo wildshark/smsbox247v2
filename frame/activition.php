@@ -34,7 +34,7 @@
 										<img src="images/logo-full.png" alt="">
 									</div>
                                     <h4 class="text-center mb-4">Activition</h4>
-                                    <form method="post" action="index.php">
+                                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Client Name</strong></label>
                                             <input type="text" name="name" class="form-control" placeholder="username">

@@ -1,27 +1,33 @@
 <?php
-include("../control/control.php");
-$host = HOST_DB;
-$username = USR_DB;
-$password = PWD_DB;
-$dbname = NAME_DB;
-try {
-   // $host ="sql.qshark.ml";
-   // $username="quaye";
-   // $password="quaye8282";
-   // $dbname = "sms247box";
-    $conn = new PDO("mysql:host=$host;
-        dbname=$dbname", 
-        $username,
-        $password
-    );
+include("../route.inc");
+if(!isset($_REQUEST['install'])){
+    header("location: phpliteadmin.php");
+}else{
+    $host = HOST_DB;
+    $username = USR_DB;
+    $password = PWD_DB;
+    $dbname = NAME_DB;
+    
+    try {
 
-$file = file_get_contents("db.sql");
-$stmt = $conn->prepare($file);
-$data =$stmt->execute();
-var_dump($data);
+        $conn = new PDO("mysql:host=$host;
+            dbname=$dbname", 
+            $username,
+            $password
+        );
 
-}catch(PDOException $e) {
-    echo 'PDO Connection: ',  $e->getMessage();
+        $file = file_get_contents("db.sql");
+        $stmt = $conn->prepare($file);
+        if(false == $stmt->execute()){
+            
+        }else{
+
+        }
+    }catch(PDOException $e) {
+        echo 'PDO Connection: ',  $e->getMessage();
+    }
+
 }
+
 
 ?>

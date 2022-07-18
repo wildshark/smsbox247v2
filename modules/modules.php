@@ -21,7 +21,7 @@ switch($_REQUEST['submit']){
                $url['_user'] = "user-zero"; 
             }else{
                 $json = [
-                    "username"=>$_REQUEST['email'],
+                    "username"=>$_REQUEST['username'],
                     "password"=>$_REQUEST['password']
                 ];
                 $_SESSION['uID'] = $response['userID'];
@@ -157,7 +157,7 @@ switch($_REQUEST['submit']){
         }
     break;
 
-    case"quuick-topup-account";
+    case"quick-topup-account";
         if(false == UserAccount::VerifyProfile($_CONN,"mobile",$_REQUEST['account'])){
             if(false ==UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['account'])){
                 if(false == UserAccount::VerifyProfile($_CONN,"account",$_REQUEST['account'])){
@@ -170,6 +170,7 @@ switch($_REQUEST['submit']){
         }
 
         $ref = time();
+        $q[] = date("Y-m-d H:i:s");
         $q[] = $_SESSION['verifyID'];
         $q[] = $ref;
         $q[] = $_REQUEST['details'];
@@ -218,6 +219,7 @@ switch($_REQUEST['submit']){
         }else{
             $price = config("price");
             $amt = $total * $price;
+            $CR[] = date("Y-m-d H:i:s");
             $CR[] = $_SESSION['uID'];
             $CR[] = time();
             $CR[] = "Send $total SMS @ $price GHS";
@@ -414,6 +416,7 @@ switch($_REQUEST['submit']){
         $$destination = format_mobile_num($mobile);
         $total_chr = strlen($_REQUEST['message']);
 
+        $q[] = date("Y-m-d H:i:s");
         $q[] = $_SESSION['uID'];
         $q[] = $ref = uniqid();
         $q[] = $_REQUEST['schedule-date'];

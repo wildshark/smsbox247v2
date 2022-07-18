@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="post" action="index.php">
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                         <div class="mb-3 row">
                             <label class="col-sm-3 col-form-label">To Mobile</label>
                             <div class="col-sm-9">

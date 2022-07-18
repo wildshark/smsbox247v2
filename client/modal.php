@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="form-group">
                         <label class="text-black font-w500">To Mobile Number</label>
                         <input type="text" name="to-mobile" class="form-control">
@@ -36,7 +36,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="form-group">
                         <label class="text-black font-w500">To Mobile Number</label>
                         <select name="to-group" class="default-select form-control">
@@ -68,7 +68,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php" enctype="multipart/form-data">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="text-black font-w500">Group Name</label>
                         <input type="text" name="group-name" class="form-control">
@@ -94,7 +94,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="form-group">
                         <label class="text-black font-w500">To Mobile Number</label>
                         <select name="to-group" class="default-select form-control">
@@ -134,7 +134,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="form-group">
                         <label class="text-black font-w500">Amount</label>
                         <input type="text" name="amount" class="form-control">

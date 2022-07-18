@@ -34,7 +34,7 @@
 										<img src="images/logo-full.png" alt="">
 									</div>
                                     <h4 class="text-center mb-4">Sign up your account</h4>
-                                    <form method="post" action="index.php">
+                                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Username</strong></label>
                                             <input type="text" name="username" class="form-control" placeholder="username">

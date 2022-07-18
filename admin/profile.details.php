@@ -7,7 +7,7 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="post" action="index.php">
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Full Name</label>
@@ -58,7 +58,7 @@
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form method="post" action="index.php">
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Username</label>

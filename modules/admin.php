@@ -9,6 +9,7 @@ $_SESSION['portal'] ="cp";
 $_PAGE['menu'] = "admin/menu.php";
 $_PAGE['modal'] = "admin/modal.php";
 $balance ="0.00 GHS";
+
 switch($_REQUEST['cp']){
 
     case"dashboard";
@@ -91,7 +92,6 @@ switch($_REQUEST['cp']){
 
             }
         }
-        
     break;
 
     case"ledger";

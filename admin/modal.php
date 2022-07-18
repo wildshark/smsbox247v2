@@ -6,9 +6,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="form-group">
-                        <label class="text-black font-w500">Account/Email or Mobile</label>
+                        <label class="text-black font-w500">AccountID /Email or Mobile</label>
                         <input type="text" name="account" class="form-control">
                     </div>
                     <div class="form-group">
@@ -20,7 +20,7 @@
                         <input type="text" name="amount" class="form-control" placeholder="0.00">
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="submit" value="quuick-topup-account" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="submit" value="quick-topup-account" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
@@ -36,7 +36,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="form-group">
                         <label class="text-black font-w500">Details</label>
                         <input type="text" name="details" class="form-control">
@@ -62,7 +62,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <input type="hidden" name="account-type" value="<?=$_SESSION['ui']?>" class="form-control" required>
                     <div class="form-group">
                         <label class="text-black font-w500">Username</label>

@@ -30,7 +30,7 @@ class Transaction{
 
     public static function debit($conn,$request){
 
-        $sql ="INSERT INTO `ledger`(`userID`, `ref`, `details`, `paid`) VALUES (?,?,?,?)";
+        $sql ="INSERT INTO `ledger`(`tranDate`,`userID`, `ref`, `details`, `paid`) VALUES (?,?,?,?,?)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
 
@@ -38,7 +38,7 @@ class Transaction{
 
     public static function credit($conn,$request){
 
-        $sql = "INSERT INTO `ledger`(`userID`, `ref`, `details`, `spend`) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO `ledger`(`tranDate`,`userID`, `ref`, `details`, `spend`) VALUES (?,?,?,?,?)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
 

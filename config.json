@@ -19,14 +19,12 @@
             "port":"",
             "dbname":""
         },
-        "domain":"http://localhost/smsbox247v2/",
-        "api":{
-            "host":"rslr.connectbind.com:8080/bulksms/bulksms?",
-            "user":"bsgh-iquipe",
-            "pwd":"@PassWD8"
-        },
-        "sender_id":"",
+        "external_dbmode":false,
+        "domain":"sms.bernsergsolutions.com",
+        "sender_id":"bernserg",
         "price":"0.22",
+        "":"",
+
         "payment":[
             "Card-VISA/Master Card",
             "Araket-Araknet Wallet",

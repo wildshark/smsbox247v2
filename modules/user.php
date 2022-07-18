@@ -19,7 +19,8 @@ class UserAccount{
 
     public static function AddEventLog($conn,$request){
 
-        $sql ="INSERT INTO `event`(`userID`, `details`,`badge_color`) VALUES (?,?,?)";
+        $request[] = date("Y-m-d H:i:s");
+        $sql ="INSERT INTO `event`(`userID`, `details`,`badge_color`,`cDate`) VALUES (?,?,?,?)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
     }
@@ -105,6 +106,14 @@ class UserAccount{
             $_SESSION['verifyID'] = $data['userID'];
             return TRUE;
         }
+    }
+
+    public static function SearchProfile($conn,$string){
+
+        $sql = "SELECT user_account.* FROM user_account WHERE user_account.username LIKE :string OR user_account.mobile LIKE :string OR user_account.email LIKE :string";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([":string"=>"%$verify%"]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function profile($conn,$id){

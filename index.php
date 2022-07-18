@@ -2,6 +2,7 @@
 date_default_timezone_set('UTC');
 session_start();
 
+include("route.inc");
 include("control/control.php");
 include("control/function.php");
 include("control/global.php");
@@ -17,42 +18,27 @@ $username = USR_DB;
 $password = PWD_DB;
 $dbname = NAME_DB;
 try {
-   // $host ="sql.qshark.ml";
-   // $username="quaye";
-   // $password="quaye8282";
-   // $dbname = "sms247box";
-    $_CONN = new PDO("mysql:host=$host;
-        dbname=$dbname", 
-        $username,
-        $password
-    );
-    
+
+    if(false == config("connection")){
+        $_CONN = new PDO('sqlite:install/sms.db');
+    }else{
+        $_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username,$password);
+    }
     $_CONBO_WALLET = "";
     if(!isset($_REQUEST['submit'])){
         if(!isset($_REQUEST['page'])){
-            if($_SERVER['HTTP'] === config("domain")){
-                if(!isset($_REQUEST['cp'])){
-                    if(!isset($_REQUEST['client'])){
-                        session_destroy();
-                        unset($_COOKIE);
-                        require($_PAGE['login']);
-                        exit(0);
-                    }else{
-                        require($_MODULES['client']);
-                    }
+            if(!isset($_REQUEST['cp'])){
+                if(!isset($_REQUEST['client'])){
+                    session_destroy();
+                    unset($_COOKIE);
+                    require($_PAGE['login']);
+                    exit(0);
                 }else{
-                    require($_MODULES['admin']);
-                } 
+                    require($_MODULES['client']);
+                }
             }else{
-                $json = array(
-                    "time"=>time(),
-                    "site"=>$_SERVER['HTTP_HOST'],
-                    "key"=>config("key")
-
-                );
-                require($_PAGE['503']);
-                exit(0);
-            }
+                require($_MODULES['admin']);
+            } 
         }else{
             require($_MODULES['page']);
         }

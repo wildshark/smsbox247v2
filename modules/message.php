@@ -4,10 +4,10 @@ class Message{
 
     public static function Log($conn,$request){
 
-        $sql = "INSERT INTO `sms_log`(`userID`, `sms_to`, `sms_msg`) VALUES (?,?,?)";
+        $request[] = date("Y-m-d H:i:s");
+        $sql = "INSERT INTO `sms_log`(`userID`, `sms_to`, `sms_msg`,`create_date`) VALUES (?,?,?,?)";
         $stmt = $conn->prepare($sql);
         return  $stmt->execute($request);
-
     }
 
     public static function ViewLog($conn,$request){;
@@ -20,7 +20,7 @@ class Message{
 
     public static function AddSchedule($conn,$request){
 
-        $sql = "INSERT INTO `sms_schedule`(`userID`,`schedule_ref`, `schedule_date`, `schedule_time`, `sms_mobile`, `sms_msg`, `sender`,`total_number`,`total_sms`) VALUES (?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO `sms_schedule`(`created_date`,`userID`,`schedule_ref`, `schedule_date`, `schedule_time`, `sms_mobile`, `sms_msg`, `sender`,`total_number`,`total_sms`) VALUES (?,?,?,?,?,?,?,?,?,?)";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
     }
