@@ -96,7 +96,7 @@
                                 <?=date('D d, M Y')?>
 							</li>
                             <li class="nav-item dropdown header-profile">
-                                <?=UserMenu()?>
+                                <?=$uMenu?>
                             </li>
                         </ul>
                     </div>
