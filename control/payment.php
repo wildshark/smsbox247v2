@@ -19,7 +19,7 @@
             },
             customizations: {
                 title: "SMS BOX",
-                description: "Payment for an awesome cruise",
+                description: "Payment for bulksms",
                 logo: "",
             },
         });
