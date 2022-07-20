@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                     <div class="form-group">
-                        <label class="text-black font-w500">AccountID /Email or Mobile</label>
+                        <label class="text-black font-w500">AccountID/Mobile</label>
                         <input type="text" name="account" class="form-control">
                     </div>
                     <div class="form-group">

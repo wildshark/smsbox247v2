@@ -3,7 +3,6 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Account <?=$profile['account'];?></h4>
-                <?=$AddButton?>
             </div>
             <div class="card-body">
                 <div class="basic-form">

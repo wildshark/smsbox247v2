@@ -16,6 +16,7 @@ $cmbGroupContact = Contact::List($_CONN,$_SESSION['uID']);
 
 $t = Transaction::balance($_CONN,$_SESSION['uID']);
 $balance ="Available SMS " .number_format($t['bal'],2)." GHS";
+$uMenu = UserMenu();
 
 switch($_REQUEST['client']){
 

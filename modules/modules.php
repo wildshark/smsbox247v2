@@ -134,11 +134,35 @@ switch($_REQUEST['submit']){
         if($response == false){
             $url['client'] = "profile";
             $url['err'] = 2013;
+            $url['id'] = $_SESSION['uID'];
         }else{
             $url['client'] = "profile";
             $url['err'] = 2014;
+            $url['id'] = $_SESSION['uID'];
         }
     break;
+
+    case"update-client-profile";
+        $q[] = $_REQUEST['full_name'];
+        $q[] = $_REQUEST['mobile'];
+        $q[] = $_REQUEST['address'];
+        $q[] = $_REQUEST['company'];
+        $q[] = $_REQUEST['country'];
+        $q[] = $_REQUEST['city'];
+        $q[] = $_REQUEST['zip'];
+        $q[] = $_SESSION['uID'];
+        $response = UserAccount::UpdateProfile($_CONN,$q);
+        if($response == false){
+            $url['cp'] = "profile";
+            $url['err'] = 2013;
+            $url['id'] = $_SESSION['uID'];
+        }else{
+            $url['cp'] = "profile";
+            $url['err'] = 2014;
+            $url['id'] = $_SESSION['uID'];
+        }
+    break;
+
 
     case"change-password";
         $_PWD[] = $_REQUEST['password'];
@@ -157,9 +181,23 @@ switch($_REQUEST['submit']){
         }
     break;
 
+    case"change-client-password";
+        $_PWD[] = $_REQUEST['password'];
+        $_PWD[] = $_SESSION['uID'];
+        if(false == UserAccount::ChangePassword($_CONN,$_PWD)){
+            $url['cp'] = "profile";
+            $url['ui'] ="update";
+            $url['err'] = 2001;
+        }else{
+            $url['cp'] = "profile";
+            $url['ui'] ="update";
+            $url['err'] = 2002;
+        }
+    break;
+
     case"quick-topup-account";
         if(false == UserAccount::VerifyProfile($_CONN,"mobile",$_REQUEST['account'])){
-            if(false ==UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['account'])){
+            if(false == UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['account'])){
                 if(false == UserAccount::VerifyProfile($_CONN,"account",$_REQUEST['account'])){
                     $url['cp'] = "dashboard";
                     $url['err'] = 2021;

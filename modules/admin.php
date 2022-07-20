@@ -1,14 +1,17 @@
 <?php
+
 if(!isset($smsBalance)){
    $smsBalance = GatewayBalanceSMS(); 
 }
 if(!isset($_SESSION['token'])){
     $_SESSION['token'] = $_REQUEST['token'];
 }
+
 $_SESSION['portal'] ="cp";
 $_PAGE['menu'] = "admin/menu.php";
 $_PAGE['modal'] = "admin/modal.php";
 $balance ="0.00 GHS";
+$uMenu = AdminMenu();
 
 switch($_REQUEST['cp']){
 
@@ -30,7 +33,18 @@ switch($_REQUEST['cp']){
             require($_PAGE['form']);
         }elseif($_GET['ui'] == "update"){
             $title ="User Profile";
-            $profile  = UserAccount::profile($_CONN,"*.all");
+            if($_GET['id'] == "admin"){
+                $profile  = UserAccount::profile($_CONN,$_SESSION['uID']);
+            }else{
+                $profile  = UserAccount::profile($_CONN,$_GET['id']);
+            }
+            $btn['action'] = "update-client-profile";
+            $btn['caption'] = "Save";
+
+            $btn2['action'] = "change-client-password";
+            $btn2['caption'] = "Save";
+
+            $_SESSION['uID'] = $_GET['id'];
             $view = "admin/profile.details.php";
             require($_PAGE['form']);
         }elseif($_GET['ui'] ==="client"){ 

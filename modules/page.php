@@ -15,6 +15,7 @@ switch($_REQUEST['page']){
     break;
 
     case"activition";
+        $uid = TokenKey();
         require($_PAGE['activition']);
     break;
 

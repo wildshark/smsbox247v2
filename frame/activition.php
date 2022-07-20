@@ -34,7 +34,7 @@
 										<img src="images/logo-full.png" alt="">
 									</div>
                                     <h4 class="text-center mb-4">Activition</h4>
-                                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                                    <form method="post" action="index.php">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Client Name</strong></label>
                                             <input type="text" name="name" class="form-control" placeholder="username">
@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Activtion Key</strong></label>
-                                            <input type="text" name="key" class="form-control" value="<?=?>">
+                                            <input type="text" name="key" class="form-control" value="<?=$uid?>">
                                         </div>
                                         <div class="text-center mt-4">
                                             <button type="submit" name="submit" value="activition" class="btn btn-primary btn-block">Proceed</button>
@@ -75,8 +75,8 @@
 <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="js/custom.min.js"></script>
 <script src="js/deznav-init.js"></script>
-	<script src="js/demo.js"></script>
-    <script src="js/styleSwitcher.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/styleSwitcher.js"></script>
 </body>
 
 </html>

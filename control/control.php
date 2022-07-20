@@ -1,26 +1,7 @@
 <?php
-define("SMS_API_PWD","");
+
 define("SMS_API_USER","bsgh-bernserg");
 define("SMS_API_PWD","Kofie@12");
-
-
-function UserSession($uID){
-
-    if(!isset($uID)){
-        return = 120;
-    }else{
-        if(!isset($_SESSION['uLAP'])){
-            return 120;
-        }else{
-            $uID = md5($uID);
-            if($uID === $_SESSION['uLAP'])
-                return 200;
-            }else{
-                
-            }return 404;
-        }
-    }
-}
 
 function config($str){
 
@@ -67,18 +48,23 @@ function config($str){
     }
 }
 
-function __AutoStart(){
-        
+function TokenKey(){
+ 
+    return md5($_SERVER['HTTP_HOST']);
 }
 
-function __VerifyApplication($action,$request){
+function UserSession($uID){
 
-    if($action === "active"){
-
-    }elseif($action === "verification"){
-
+    if(!file_exists("eula")){
+        header("location: ?page=eula-user-zero");
+    }else{
+        $eula = file_get_contents("eula");
+        $uID = md5($uID);
+        if(false == password_verify($uID,$eula)){
+            header("location: ?page=activition");
+        }
     }
-}
+}    
 
 function GatewayBalanceSMS(){
     

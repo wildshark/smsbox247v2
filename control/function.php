@@ -106,7 +106,11 @@ function profile($list){
         if(!isset($r['email'])){
             $r['email'] ="Null";
         }
-
+        if(!isset($r['userID'])){
+            $id = "javascript:void(0);";
+        }else{
+            $id = "?cp=profile&ui=update&id=".$r['userID'];
+        }
         $data.="
         <tr>
             <td>{$n}</td>
@@ -116,7 +120,7 @@ function profile($list){
             <td>{$r['email']}</td>
             <td>
                 <div class='d-flex'>
-                    <a href='javascript:void(0);' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
+                    <a href='$id' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
                     <a href='javascript:void(0);' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
                 </div>												
             </td>												

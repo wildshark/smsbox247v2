@@ -17,6 +17,7 @@ $host = HOST_DB;
 $username = USR_DB;
 $password = PWD_DB;
 $dbname = NAME_DB;
+
 try {
 
     if(false == config("connection")){
@@ -27,6 +28,7 @@ try {
     $_CONBO_WALLET = "";
     if(!isset($_REQUEST['submit'])){
         if(!isset($_REQUEST['page'])){
+           // UserSession($_SERVER['HTTP_HOST']);
             if(!isset($_REQUEST['cp'])){
                 if(!isset($_REQUEST['client'])){
                     session_destroy();

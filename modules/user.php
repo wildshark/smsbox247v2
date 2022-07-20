@@ -136,9 +136,7 @@ class UserAccount{
         }else{
             $sql = "SELECT * FROM `user_account` WHERE `userID`= :id";
             $stmt = $conn->prepare($sql);
-            $stmt->execute([
-                ":id"=>$id
-            ]);
+            $stmt->execute([":id"=>$id]);
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return $data;
