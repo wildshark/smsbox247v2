@@ -1,11 +1,14 @@
 {
     "portal":{
-        "company":"",
+        "account":"SuperAdmin",
+        "full_name":"Super Administrator",
+        "company":"bernsergsolutions",
         "country":"Ghana",
         "city":"Accra",
         "address":"",
         "email":"",
-        "mobile":""             
+        "mobile":"",
+        "zip":""             
     },
     "admin":{
         "username":"admin@admin.com",
@@ -22,9 +25,7 @@
         "external_dbmode":false,
         "domain":"sms.bernsergsolutions.com",
         "sender_id":"bernserg",
-        "price":"0.22",
-        "":"",
-
+        "price":"0.053",
         "payment":[
             "Card-VISA/Master Card",
             "Araket-Araknet Wallet",

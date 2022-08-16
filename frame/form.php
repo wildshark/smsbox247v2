@@ -19,7 +19,38 @@
     <!-- Custom Stylesheet -->
     	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
+    <call-us 
+phonesystem-url="https://bernsergpbx.3cx.sc:5001" 
+style="position:fixed;font-family: Arial;z-index: 99999;--call-us-form-header-background:#9494f4;--call-us-main-button-background:#1305d6;--call-us-client-text-color:#d4d4d4;--call-us-agent-text-color:#eeeeee;--call-us-form-height:28.5vh;right: 20px; bottom: 20px;" 
+id="wp-live-chat-by-3CX" 
+minimized="true" 
+animation-style="noanimation" 
+party="LiveChat247777" 
+minimized-style="BubbleRight" 
+allow-call="true" 
+allow-video="false" 
+allow-soundnotifications="true" 
+enable-mute="true" 
+enable-onmobile="true" 
+offline-enabled="true" 
+enable="true" 
+ignore-queueownership="false" 
+authentication="both" 
+show-operator-actual-name="true" 
+channel="phone" 
+aknowledge-received="true" 
+gdpr-enabled="false" 
+message-userinfo-format="both" 
+message-dateformat="both" 
+lang="browser" 
+button-icon-type="default" 
+greeting-visibility="none" 
+greeting-offline-visibility="none" 
+chat-delay="2000" 
+enable-direct-call="true" 
+enable-ga="false" 
+></call-us>
+<script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js"></script>
 </head>
 
 <body>

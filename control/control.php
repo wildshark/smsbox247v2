@@ -17,6 +17,10 @@ function config($str){
                 return $j->admin;
             break;
 
+            case"profile";
+                return $j->portal;
+            break;
+
             case"price";
                 return $j->setup->price;
             break;

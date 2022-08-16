@@ -33,10 +33,15 @@ switch($_REQUEST['cp']){
             require($_PAGE['form']);
         }elseif($_GET['ui'] == "update"){
             $title ="User Profile";
-            if($_GET['id'] == "admin"){
-                $profile  = UserAccount::profile($_CONN,$_SESSION['uID']);
-            }else{
+            //stop  here to cont
+            if($_GET['id'] !== "admin"){
                 $profile  = UserAccount::profile($_CONN,$_GET['id']);
+            }else{
+                if($_SESSION['uID'] !== "admin"){
+                    $profile  = UserAccount::profile($_CONN,$_SESSION['uID']);
+                }else{
+                    $profile = config("profile"); 
+                }
             }
             $btn['action'] = "update-client-profile";
             $btn['caption'] = "Save";
