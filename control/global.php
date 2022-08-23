@@ -4,9 +4,9 @@ $domain = config("domain");
 //$_CONBO_CURR = currencies(config("currency"));
 //$_CONBO_WALLET = wallet(config("wallet"));
 $_HOST  = [
-    "host" => "localhost",//"sql.qshark.ml",
-    "user" => "root",//"quaye",
-    "pwd" => "",//"quaye8282",
+    "host" => "localhost",
+    "user" => "root",
+    "pwd" => "",
     "dbname" => "sms247box"
 ];
 
