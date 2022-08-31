@@ -79,7 +79,7 @@ enable-ga="false"
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
+            <a href="<?=goBack()?>" class="brand-logo">
                 <img src="images/logo2.png" alt="logo">
             </a>
 

@@ -25,6 +25,8 @@ switch($_REQUEST['submit']){
                     "password"=>$_REQUEST['password']
                 ];
                 $_SESSION['uID'] = $response['userID'];
+                $_SESSION['username'] = $response['username'];
+                $_SESSION['account'] = $response['account'];
                 $token = md5(json_encode($json));
                 $token = password_hash($token,PASSWORD_DEFAULT);
                 setcookie("token",$token);
@@ -49,6 +51,8 @@ switch($_REQUEST['submit']){
                 "password"=>$_REQUEST['password']
             ];
             $_SESSION['uID'] = "admin";
+            $_SESSION['username'] = "admin";
+            $_SESSION['account'] = "Admin Portal";
             $token = md5(json_encode($json));
             $token = password_hash($token,PASSWORD_DEFAULT);
             setcookie("token",$token);

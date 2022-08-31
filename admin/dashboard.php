@@ -85,7 +85,7 @@
 <div class="row">
     <div class="col-xl-6 col-xxl-12">
         <div class="card">
-            <div class="card-header d-block border-0 pb-0">
+            <!--div class="card-header d-block border-0 pb-0">
                 <div class="d-flex justify-content-between pb-3">
                     <h4 class="mb-0 text-black fs-20">Project Created</h4>
                     <div class="dropdown">
@@ -122,10 +122,10 @@
                         <span>last month $563,443</span>
                     </div>
                 </div>
-            </div>
-            <div class="card-body pb-0 px-2 pt-2">
+            </div-->
+            <!--div class="card-body pb-0 px-2 pt-2">
                 <div id="chartTimeline" class="timeline-chart"></div>
-            </div>
+            </div-->
         </div>
     </div>
 </div>

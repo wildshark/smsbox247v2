@@ -51,8 +51,8 @@ $btn2['caption'] = "";
 
 function AdminMenu(){
 
-    $user = $_COOKIE['username'];
-    $account = $_COOKIE['account'];
+    $user = $_SESSION['username'];
+    $account = $_SESSION['account'];
     $portal = $_SESSION['portal'];
     return"
     <a class='nav-link' href='javascript:void(0);' role='button' data-bs-toggle='dropdown'>
@@ -80,8 +80,8 @@ function AdminMenu(){
 
 function UserMenu(){
 
-    $user = $_COOKIE['username'];
-    $account = $_COOKIE['account'];
+    $user = $_SESSION['username'];
+    $account = $_SESSION['account'];
     $portal = $_SESSION['portal'];
     return"
     <a class='nav-link' href='javascript:void(0);' role='button' data-bs-toggle='dropdown'>

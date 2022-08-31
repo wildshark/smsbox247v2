@@ -122,7 +122,7 @@ function profile($list){
             <td>{$r['email']}</td>
             <td>
                 <div class='d-flex'>
-                    <a href='$id' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
+                    <a href='$view' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
                     <a href='$delete' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
                 </div>												
             </td>												
