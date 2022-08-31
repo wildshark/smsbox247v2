@@ -473,7 +473,7 @@ switch($_REQUEST['submit']){
             $url['client']="schedule";
             $url['err']=2011;
         }else{
-            if(false == __GatewaySchudelSMS($destination,$_REQUEST['sender-id'],$_REQUEST['schedule-date'],$_REQUEST['schedule-time'])){
+            if(false == __GatewaySchudelSMS($destination,$_REQUEST['sender-id'],$_REQUEST['schedule-date'],$_REQUEST['schedule-time'],$_REQUEST['message'])){
                 $url['client']="schedule";
                 $url['err']=2016;
 

@@ -129,7 +129,7 @@ function __GatewaySendSMS($destination,$sendID,$msg){
     }
 }
 
-function __GatewaySchudelSMS($destination,$sendID,$date,$time){
+function __GatewaySchudelSMS($destination,$sendID,$date,$time,$msg){
 
     $sms['username'] = SMS_API_USER;
     $sms['password'] = SMS_API_PWD;
