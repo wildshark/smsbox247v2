@@ -109,7 +109,7 @@
                                 <?=date('D d, M Y')?>
 							</li>
                             <li class="nav-item dropdown header-profile">
-                                <?=$uMenu?>
+                                <?php include("user.menu.php")?>
                             </li>
                         </ul>
                     </div>
