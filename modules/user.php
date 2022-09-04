@@ -112,7 +112,7 @@ class UserAccount{
 
         $sql = "SELECT user_account.* FROM user_account WHERE user_account.username LIKE :string OR user_account.mobile LIKE :string OR user_account.email LIKE :string";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([":string"=>"%$verify%"]);
+        $stmt->execute([":string"=>"%$string%"]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -157,6 +157,13 @@ class UserAccount{
     }
 
     public static function RemoveProfile($conn,$request){
+
+        $sql="UPDATE `user_account` SET `statusID` = 3 WHERE `userID` =?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
+
+    public static function BlockProfile($conn,$request){
 
         $sql="UPDATE `user_account` SET `statusID` = 2 WHERE `userID` =?";
         $stmt = $conn->prepare($sql);

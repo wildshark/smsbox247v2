@@ -13,7 +13,7 @@
 				bars: {
 					show: true,
 					lineWidth: 0,
-					fillColor: '#43DC80'
+					fillColor: '#4273C5'
 				}
 			},
 			grid: {
@@ -43,7 +43,7 @@
 			bars: {
 				show: true,
 				lineWidth: 0,
-				fillColor: '#43DC80'
+				fillColor: '#4273C5'
 			}
 		}, {
 			data: [[1, 5], [3, 7], [5, 10], [7, 7], [9, 9], [11, 5], [13, 4], [15, 6]],
@@ -83,7 +83,7 @@
 			{
 				data: newCust,
 				label: 'New Customer',
-				color: '#43DC80'
+				color: '#4273C5'
 			},
 			{
 				data: retCust,
@@ -141,7 +141,7 @@
 			{
 				data: newCust,
 				label: 'New Customer',
-				color: '#43DC80'
+				color: '#4273C5'
 			},
 			{
 				data: retCust,
@@ -204,7 +204,7 @@
 			{
 				data: newCust2,
 				label: 'New Customer',
-				color: '#43DC80'
+				color: '#4273C5'
 			},
 			{
 				data: retCust2,
@@ -262,7 +262,7 @@
 			{
 				data: newCust,
 				label: 'New Customer',
-				color: '#43DC80'
+				color: '#4273C5'
 			},
 			{
 				data: retCust,
@@ -321,7 +321,7 @@
 			{
 				data: newCust,
 				label: 'New Customer',
-				color: '#43DC80'
+				color: '#4273C5'
 			},
 			{
 				data: retCust,
@@ -445,7 +445,7 @@
 		var updateInterval = 1000;
 
 		var plot4 = $.plot('#flotRealtime1', [getRandomData()], {
-			colors: ['#43DC80'],
+			colors: ['#4273C5'],
 			series: {
 				lines: {
 					show: true,
@@ -510,7 +510,7 @@
 		var updateInterval = 1000;
 		
 		var plot5 = $.plot('#flotRealtime2', [getRandomData()], {
-			colors: ['#43DC80'],
+			colors: ['#4273C5'],
 			series: {
 				lines: {
 					show: true,

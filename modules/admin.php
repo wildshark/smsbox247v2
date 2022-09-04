@@ -20,7 +20,11 @@ switch($_REQUEST['cp']){
         $client = UserAccount::total($_CONN);
         $order = Transaction::totalOrder($_CONN);
         $clientBal = Transaction::balance($_CONN,"global-balance");
-        $clientBal =  $clientBal['bal'];
+        if($clientBal == false){
+            $clientBal = 0;
+        }else{
+            $clientBal =  $clientBal['bal']; 
+        }
         $NewOrders = Transaction::ListOrders($_CONN,"pending",false);
         $view ="admin/dashboard.php";
         require($_PAGE['dashboard']);
@@ -69,6 +73,27 @@ switch($_REQUEST['cp']){
                 header("location: ?cp=profile&err=2024&ui=".$_SESSION['ui']);
             }else{
                 header("location: ?cp=profile&err=2025&ui=".$_SESSION['ui']);
+            }
+        }elseif($_GET['ui'] ==="messages"){
+            $title ="Account : ". $_GET['usrn'];
+            $all_msg= Message::fetch_message($_CONN,$_GET['id']);
+            $all_pending_msg="";
+            $all_sent_msg="";
+            $view = "admin/message.php";
+            require($_PAGE['form']);
+        }elseif($_GET['ui'] ==="block-account"){
+            if($_GET['block'] == 1){
+                $block = 2;
+            }else{
+                $block = 1;
+            }
+
+            $_BLOCK[] = $block;
+            $_BLOCK[] = $_GET['id'];
+            if(false == UserAccount::BlockProfile($_CONN,$_BLOCK)){
+                header("location: ?cp=profile&ui=client&err=2024&ui=".$_SESSION['ui']);
+            }else{
+                header("location: ?cp=profile&ui=client&block=$block&err=2026&ui=".$_SESSION['ui']);
             }
         }
     break;
@@ -128,6 +153,15 @@ switch($_REQUEST['cp']){
         $title ="Account : ". $profile['account'];
         $view = "admin/ledger.details.php";
         require($_PAGE['table']);
+    break;
+
+    case"messages";
+        $title ="All Message";
+        $all_msg = Message::fetch_message($_CONN,false);
+        $all_pending_msg="";
+        $all_sent_msg="";
+        $view = "admin/message.php";
+        require($_PAGE['form']);
     break;
 
     case"api-token";

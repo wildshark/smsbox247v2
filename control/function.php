@@ -4,7 +4,7 @@ function currencies($list){
 
 }
 
-function wallet($wallets){
+function wallet($list){
     $out ="";
     foreach($list as $wallets){
         $r = explode("-",$wallets);
@@ -109,10 +109,15 @@ function profile($list){
         if(!isset($r['userID'])){
             $view = "javascript:void(0);";
             $delete = "javascript:void(0);";
+            $msg = "javascript:void(0);";
         }else{
+            $user = $r['full_name'];
+            $status = $r['statusID'];
             $view = "?cp=profile&ui=update&id=".$r['userID'];
-            $delete = "?cp=profile&ui=delete&id=".$r['userID'];
+            $msg = "?cp=profile&ui=messages&usrn=$user&id=".$r['userID'];
+            $block = "?cp=profile&ui=block-account&block=$status&id=".$r['userID'];
         }
+        
         $data.="
         <tr>
             <td>{$n}</td>
@@ -123,7 +128,8 @@ function profile($list){
             <td>
                 <div class='d-flex'>
                     <a href='$view' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
-                    <a href='$delete' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                    <a href='$msg' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-eye'></i></a>
+                    <a href='$block' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
                 </div>												
             </td>												
         </tr>";
@@ -631,5 +637,31 @@ function sms_schedule($list){
     }
 
     return $data;
+}
+
+function all_message($list){
+
+    $output ="";
+    if((!isset($list))||($list == false)){
+        $output ="";
+    }else{
+        foreach($list as $r){
+
+            $time = time_elapsed($r['date_created'], $full = false);
+            $msg = $r['message'];
+            $sender  = $r['sender_id'];
+            $output .="
+            <div class='media chat-list-area'>
+                <div class='media-body'>
+                    <div class='d-flex mb-sm-2 mb-0'>
+                        <h6 class='text-black mb-0 font-w600 fs-16'>$sender</h6>
+                        <span class='ms-auto fs-14'>$time</span>
+                    </div>
+                    <p class='text-black'>$msg</p>
+                </div>
+            </div>";
+        }
+    }
+    return $output;
 }
 ?>

@@ -47,7 +47,7 @@
 				},
 				distributed: true
 			},
-			colors:['#43DC80'],
+			colors:['#4273C5'],
 			grid: {
 				show: false,
 			},
@@ -142,7 +142,7 @@
         stroke: {
           curve: 'smooth'
         },
-		colors:['#43DC80'],
+		colors:['#4273C5'],
         title: {
           text: undefined,
           align: 'left'
@@ -236,7 +236,7 @@
           }
         },
         fill: {
-            colors: ['#43DC80'],
+            colors: ['#4273C5'],
         },
         stroke: {
         },
@@ -271,7 +271,7 @@
 			
 		},
 		
-		colors:['#43DC80'],
+		colors:['#4273C5'],
 		dataLabels: {
 		  enabled: false,
 		},
@@ -286,7 +286,7 @@
 		  show: true,
 		  width: 4,
 		  curve:'smooth',
-		  colors:['#43DC80'],
+		  colors:['#4273C5'],
 		},
 		
 		grid: {

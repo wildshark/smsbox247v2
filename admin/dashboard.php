@@ -69,8 +69,8 @@
             <div class="card-body box-style">
                 <div class="media align-items-center">
                     <div class="media-body me-3">
-                        <h2 class="num-text text-black font-w700">12</h2>
-                        <span class="fs-14">Unread Messages</span>
+                        <h2 class="num-text text-black font-w700">0</h2>
+                        <span class="fs-14">Messages</span>
                     </div>
                     <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

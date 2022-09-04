@@ -269,6 +269,19 @@ function MessageBox(){
                 $msg ="Profile removed";
                 $css = "alert-success";
             break;
+
+            case 2026;
+                if($_REQUEST['block'] == 1){
+                    $title ="Success!";
+                    $msg ="User Account has be unblock";
+                    $css = "alert-success";
+                }elseif($_REQUEST['block'] == 2){
+                    $title ="Success!";
+                    $msg ="User Account has be block";
+                    $css = "alert-success";
+                }
+            break;
+
         }
         $MsgBox ="
             <div class='alert $css solid alert-dismissible fade show'>

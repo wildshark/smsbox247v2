@@ -167,7 +167,6 @@ switch($_REQUEST['submit']){
         }
     break;
 
-
     case"change-password";
         $_PWD[] = $_REQUEST['password'];
         $_PWD[] = $_SESSION['uID'];
@@ -233,11 +232,17 @@ switch($_REQUEST['submit']){
         $msg = $_REQUEST['message'];
 
         if(!isset($_REQUEST['sender-id'])){
-            $senderID ="test";
+            $senderID ="smsbox";
         }else{
             $senderID = $_REQUEST['sender-id'];
         }
-         
+        $sms[] = $_SESSION['uID'];
+        $sms[] = date("d-m-y H:i:s");
+        $sms[] = $_REQUEST['to-mobile'];
+        $sms[] = $_REQUEST['sender-id'];
+        $sms[] = $_REQUEST['message'];
+        $sms[] = "pending"; 
+        $sms = Message::add_message($conn,$sms); 
         if (preg_match('/,/', $to_mobile)) {
             // string contains characters other than |
             $m = explode(",",$to_mobile);
