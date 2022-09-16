@@ -13,7 +13,7 @@
 	<meta property="og:description" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
 	<meta property="og:image" content="page-error-404.html"/>
 	<meta name="format-detection" content="telephone=no">
-    <title>BernsergSolutionsSMS</title>
+    <title><?=$_portal->company?></title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.ico">
     <link href="css/style.css" rel="stylesheet">
