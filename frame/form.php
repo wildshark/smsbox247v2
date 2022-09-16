@@ -175,7 +175,7 @@ enable-ga="false"
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                 <p>Licensed to  Bernserg Solutions  2022 &amp; Developed by <a href="https://iquipedigital/" target="_blank">iQuipe Digital</a></p>
+                <p>Licensed to  <?=$_portal->company?>  2022 &amp; Developed by <a href="https://iquipedigital/" target="_blank">iQuipe Digital</a></p>
             </div>
         </div>
         <!--**********************************
