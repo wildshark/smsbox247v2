@@ -34,10 +34,10 @@
                                         <img src="images/logo-full.png" alt="">
                                     </div>
                                     <h4 class="text-center mb-4">Account Locked</h4>
-                                    <p class="text-center"> Enter 6-digit code sent to you as sms.</p>
+                                    <p class="text-center"> Please enter the OTP sent to your email address or phone number </p>
                                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                     <div class="form-group">
-                                        <label><strong>Enter code</strong></label>
+                                        <label><strong>Enter OTP Code</strong></label>
                                         <input type="text" name="auth-code" class="form-control" value="">
                                     </div>
                                     <div class="text-center">

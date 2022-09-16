@@ -13,6 +13,7 @@ include("modules/contact.php");
 include("modules/message.php");
 
 $_URL = config("api");
+
 $host = HOST_DB;
 $username = USR_DB;
 $password = PWD_DB;
@@ -25,7 +26,10 @@ try {
     }else{
         $_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username,$password);
     }
+    
     $_CONBO_WALLET = "";
+    $_portal = config("profile");
+
     if(!isset($_REQUEST['submit'])){
         if(!isset($_REQUEST['page'])){
            // UserSession($_SERVER['HTTP_HOST']);
