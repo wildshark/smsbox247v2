@@ -19,8 +19,7 @@
             "host":"",
             "user":"",
             "pwd":"",
-            "port":"",
-            "dbname":""
+            "port":""
         },
         "external_dbmode":false,
         "domain":"sms.bernsergsolutions.com",
