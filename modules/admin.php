@@ -82,18 +82,12 @@ switch($_REQUEST['cp']){
             $view = "admin/message.php";
             require($_PAGE['form']);
         }elseif($_GET['ui'] ==="block-account"){
-            if($_GET['block'] == 1){
-                $block = 2;
-            }else{
-                $block = 1;
-            }
-
-            $_BLOCK[] = $block;
+            $_BLOCK[] = $_GET['block'];
             $_BLOCK[] = $_GET['id'];
             if(false == UserAccount::BlockProfile($_CONN,$_BLOCK)){
                 header("location: ?cp=profile&ui=client&err=2024&ui=".$_SESSION['ui']);
             }else{
-                header("location: ?cp=profile&ui=client&block=$block&err=2026&ui=".$_SESSION['ui']);
+                header("location: ?cp=profile&ui=client&block={$_GET['block']}&err=2026&ui=".$_SESSION['ui']);
             }
         }
     break;

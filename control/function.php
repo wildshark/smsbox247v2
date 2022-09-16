@@ -106,13 +106,25 @@ function profile($list){
         if(!isset($r['email'])){
             $r['email'] ="Null";
         }
+
+        if($r['statusID'] == 1){
+            $fa = "fa fa-unlock";
+            $css ="btn btn-success shadow btn-xs sharp me-1";
+            $status = 2;
+        }else{
+            $fa ="fa fa-lock";
+            $css="btn btn-danger shadow btn-xs sharp me-1";
+            $status = 1;
+
+        }
         if(!isset($r['userID'])){
             $view = "javascript:void(0);";
             $delete = "javascript:void(0);";
             $msg = "javascript:void(0);";
+            $block = "javascript:void(0);";
         }else{
             $user = $r['full_name'];
-            $status = $r['statusID'];
+            //$status = $r['statusID'];
             $view = "?cp=profile&ui=update&id=".$r['userID'];
             $msg = "?cp=profile&ui=messages&usrn=$user&id=".$r['userID'];
             $block = "?cp=profile&ui=block-account&block=$status&id=".$r['userID'];
@@ -129,7 +141,7 @@ function profile($list){
                 <div class='d-flex'>
                     <a href='$view' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
                     <a href='$msg' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-eye'></i></a>
-                    <a href='$block' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                    <a href='$block' class='$css'><i class='$fa'></i></a>
                 </div>												
             </td>												
         </tr>";
@@ -594,9 +606,7 @@ function sms_schedule($list){
         }else{
             $status = "waiting";
         }
-
-       
-
+        
         $data.="
         <tr>
             <td>{$n}</td>

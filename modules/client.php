@@ -20,6 +20,15 @@ $uMenu = UserMenu();
 
 switch($_REQUEST['client']){
 
+    case"auth";
+        if(!isset($_SESSION['authID'])){
+            header("location: ?user=auth-zero");
+            exit(0);
+        }
+        ///echo $_SESSION['authID'];
+        require($_PAGE['auth']);
+    break;
+
     case"dashboard";
         $title = "Dashboard";
         $logs = UserAccount::EventLogs($_CONN,$_SESSION['uID']);

@@ -56,13 +56,14 @@ class UserAccount{
 
     public static function register($conn,$r){
 
-        $sql ="INSERT INTO `user_account`(`account`,`username`, `passwd`, `email`, `api_key`) VALUES (:account, :user, :pwd, :email, :ukey)";
+        $sql ="INSERT INTO `user_account`(`account`,`username`, `passwd`, `email`,`mobile`, `api_key`) VALUES (:account, :user, :pwd, :email, :mobile,:ukey)";
         $stmt = $conn->prepare($sql);
         $data = $stmt->execute([
             ':account' => time(),
             ':user' => $r['username'],
             ':pwd' => $r['password'],
             ':email' => $r['email'],
+            ':mobile'=>$r['mobile'],
             ':ukey' => md5($r['email']."$".$r['password'])
         ]);
 
@@ -116,9 +117,9 @@ class UserAccount{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function profile($conn,$id){
+    public static function profile($conn,$id = false){
 
-        if($id === "*.all"){
+        if($id === false){
             $sql = "SELECT * FROM `user_account` ORDER BY `userID` DESC LIMIT 0,1000";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
@@ -156,6 +157,26 @@ class UserAccount{
         return $stmt->execute($request);
     }
 
+    public static function ForgetPassword($conn,$pwd,$email){
+
+        $sql = "UPDATE user_account SET `passwd` = :pwd WHERE user_account.email LIKE :email";
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute([
+            "pwd"=>$pwd,
+            ":email"=>"%$email%"
+        ]);
+        if($result == false){
+            return false;
+        }else{
+            $sql = "SELECT user_account.* FROM user_account WHERE user_account.email LIKE :email"; 
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([":email"=>"%$email%"]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        
+
+    }
+
     public static function RemoveProfile($conn,$request){
 
         $sql="UPDATE `user_account` SET `statusID` = 3 WHERE `userID` =?";
@@ -165,7 +186,7 @@ class UserAccount{
 
     public static function BlockProfile($conn,$request){
 
-        $sql="UPDATE `user_account` SET `statusID` = 2 WHERE `userID` =?";
+        $sql="UPDATE `user_account` SET `statusID` = ? WHERE `userID` =?";
         $stmt = $conn->prepare($sql);
         return $stmt->execute($request);
     }

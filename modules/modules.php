@@ -13,7 +13,7 @@ switch($_REQUEST['submit']){
         require("control/payment.php");
     break;
 
-    case'login';
+    case"login";
         $admin = config("admin");
         if(($_REQUEST['username'] != $admin->username) ||($_REQUEST['password'] != $admin->password)){
             $response = UserAccount::login($_CONN,$_REQUEST);
@@ -41,7 +41,9 @@ switch($_REQUEST['submit']){
                     $url['cp'] = "dashboard";
                     $url['token'] = md5($token); 
                 }else{
-                    $url['client'] = "dashboard";
+                    $_SESSION['authID'] = time();
+                    __GatewaySendSMS($response['mobile'],"bernserg","Your access code: ".$_SESSION['authID']);
+                    $url['client'] = "auth";
                     $url['token'] = md5($token); 
                 }
             } 
@@ -63,29 +65,86 @@ switch($_REQUEST['submit']){
         }
     break;
 
-    case'signup';
-        $response = UserAccount::register($_CONN,$_REQUEST);
-        if($response == false){
-            $url['_user'] = "signup-failed";
+    case"auth";
+        if(!isset($_SESSION['authID'])){
+            $url['user'] = "auth";
+            $url['status'] = false;
         }else{
-            $json = [
-                "username"=>$response['email'],
-                "password"=>$response['password']
-            ];
-            $_SESSION['uID'] = $response['userID'];
-            $token = md5(json_encode($json));
-            $token = password_hash($token,PASSWORD_DEFAULT);
-            setcookie("token",$token);
-            setcookie("username",$response['username']);
-            setcookie("account",$response['account']);
+            if($_SESSION['authID'] != $_REQUEST['auth-code']){
+                $url['user'] = "auth";
+                $url['status'] = "no-match";
+            }else{
+                $url['client'] = "dashboard";
+                $url['token'] = md5($_COOKIE['token']);
+            }
+        }
+    break;
 
-            $_LOG[] = $_SESSION['uID'];
-            $_LOG[] = "User Sign Up";
-            $_LOG[] = "info";
-            $log = UserAccount::AddEventLog($_CONN,$_LOG);
+    case"reset-password";
+        if(!isset($_REQUEST['email'])){
+            $url['page'] = "reset";
+        }else{
+            if(false == UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['email'])){
+                $url['page'] = "reset";
+                $url['status'] = "email-verify-false";
+            }else{
+                $pwd = uniqid();
+                $email = $_REQUEST['email'];
+                if(false == UserAccount::VerifyProfile($conn,"email",$email)){
+                    $url['page'] = "reset";
+                    $url['status'] = "password-reset-false";
+                }else{
+                    $response = UserAccount::ForgetPassword($conn,$pwd,$email);
+                    $destination = $response['mobile'];
+                    $sendID = "benseg";
+                    $msg = "Your new password ".$pwd;
+                    if(false == __GatewaySendSMS($destination,$sendID,$msg)){
+                        $url['page'] = "login";
+                        $url['status'] ="sms-0";
+                    }else{
+                        $url['page'] = "login";
+                        $url['status'] ="password-reset";
+                    }
+                }
+            }
+        }
+    break;
 
-            $url['client'] = "dashboard";
-            $url['token'] = md5($token); 
+    case"signup";
+        if(false == UserAccount::VerifyProfile($_CONN,"mobile",$_REQUEST['mobile'])){
+            if(false == UserAccount::VerifyProfile($_CONN,"email",$_REQUEST['email'])){
+                $response = UserAccount::register($_CONN,$_REQUEST);
+                if($response == false){
+                    $url['_user'] = "signup-failed";
+                }else{
+                    $json = [
+                        "username"=>$response['email'],
+                        "password"=>$response['password']
+                    ];
+                    $_SESSION['uID'] = $response['userID'];
+                    $_SESSION['username'] = $response['username'];
+                    $_SESSION['account'] = $response['account'];
+                    $token = md5(json_encode($json));
+                    $token = password_hash($token,PASSWORD_DEFAULT);
+                    setcookie("token",$token);
+                    setcookie("username",$response['username']);
+                    setcookie("account",$response['account']);
+
+                    $_LOG[] = $_SESSION['uID'];
+                    $_LOG[] = "User Sign Up";
+                    $_LOG[] = "info";
+                    $log = UserAccount::AddEventLog($_CONN,$_LOG);
+
+                    $url['client'] = "dashboard";
+                    $url['token'] = md5($token); 
+                }
+            }else{
+                $url['page'] = "register";
+                $url['err'] = "your already exist";
+            }
+        }else{
+            $url['page'] = "register";
+            $url['err'] = "your already exist";
         }
     break;
 
@@ -190,10 +249,12 @@ switch($_REQUEST['submit']){
         if(false == UserAccount::ChangePassword($_CONN,$_PWD)){
             $url['cp'] = "profile";
             $url['ui'] ="update";
+            $url['id'] = $_SESSION['uID'];
             $url['err'] = 2001;
         }else{
             $url['cp'] = "profile";
             $url['ui'] ="update";
+            $url['id'] = $_SESSION['uID'];
             $url['err'] = 2002;
         }
     break;
@@ -277,7 +338,7 @@ switch($_REQUEST['submit']){
                 $url['err'] = 2004;
             }else{
                 //send ssms
-                $SendQuickSMS =  __GatewaySendSMS($to_mobile,$senderID,$msg);
+                $SendQuickSMS = __GatewaySendSMS($to_mobile,$senderID,$msg);
                 if(false == $SendQuickSMS){
                     $url['client'] = "dashboard";
                     $url['err'] = 2015;

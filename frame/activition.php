@@ -18,7 +18,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.ico">
 	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
 </head>
 
 <body class="vh-100">
@@ -34,7 +33,7 @@
 										<img src="images/logo2.png" alt="">
 									</div>
                                     <h4 class="text-center mb-4">Activition</h4>
-                                    <form method="post" action="index.php">
+                                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Client Name</strong></label>
                                             <input type="text" name="name" class="form-control" placeholder="username">

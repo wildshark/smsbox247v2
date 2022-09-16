@@ -1,6 +1,7 @@
 <?php
 
 $domain = config("domain");
+$senderID = "";
 //$_CONBO_CURR = currencies(config("currency"));
 //$_CONBO_WALLET = wallet(config("wallet"));
 $_HOST  = [
@@ -20,7 +21,8 @@ $_PAGE = [
     "403"=>"frame/403.php",
     "404"=>"frame/404.php",
     "503"=>"frame/503.php",
-    "activition"=>"frame/activition.php"
+    "activition"=>"frame/activition.php",
+    "auth"=>"frame/auth.php"
 ];
 
 $_MODULES = [

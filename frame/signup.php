@@ -40,6 +40,10 @@
                                             <input type="text" name="username" class="form-control" placeholder="username">
                                         </div>
                                         <div class="form-group">
+                                            <label class="mb-1"><strong>Mobile</strong></label>
+                                            <input type="text" name="mobile" class="form-control" placeholder="233540000000">
+                                        </div>
+                                        <div class="form-group">
                                             <label class="mb-1"><strong>Email</strong></label>
                                             <input type="email" name="email" class="form-control" placeholder="hello@example.com">
                                         </div>

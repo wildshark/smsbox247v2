@@ -34,15 +34,18 @@
 										<img src="images/logo2.png" alt="">
 									</div>
                                     <h4 class="text-center mb-4">Forgot Password</h4>
-                                    <form method="post" action="index.php">
+                                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
-                                            <input type="email" class="form-control" value="hello@example.com">
+                                            <input type="email"  name="email" class="form-control" placeholder="hello@example.com">
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
+                                            <button type="submit" name="submit" value="reset-password" class="btn btn-primary btn-block">SUBMIT</button>
                                         </div>
                                     </form>
+                                </div>
+                                <div class="new-account mt-3">
+                                    <p>sign into account <a class="text-primary" href="?page=login">Sign in</a></p>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +54,6 @@
             </div>
         </div>
     </div>
-
 
     <!--**********************************
         Scripts
