@@ -2,14 +2,9 @@
 
 $domain = config("domain");
 $senderID = "";
+
 //$_CONBO_CURR = currencies(config("currency"));
 //$_CONBO_WALLET = wallet(config("wallet"));
-$_HOST  = [
-    "host" => "localhost",
-    "user" => "root",
-    "pwd" => "",
-    "dbname" => "sms247box"
-];
 
 $_PAGE = [
     "login"=>"frame/login.php",
