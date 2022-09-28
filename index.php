@@ -2,7 +2,7 @@
 date_default_timezone_set('UTC');
 session_start();
 
-include("route.inc");
+include("route.php");
 include("control/control.php");
 include("control/function.php");
 include("control/global.php");
