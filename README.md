@@ -19,3 +19,5 @@ Credits:
 1. Template By DexignZone http://www.dexignzone.com/
 2. Payment API By Flutterwave https://flutterwave.com/
 3. SMS API By Routemobile https://routemobile.com/
+
+iqteam@iquipedigital.com
