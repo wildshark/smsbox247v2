@@ -45,7 +45,7 @@ switch($_REQUEST['submit']){
                     __GatewaySendSMS($response['mobile'],"bernserg","Your access code: ".$_SESSION['authID']);
                     $url['client'] = "auth";
                     $url['token'] = md5($token); 
-                    //$url['u'] = $_SESSION['authID'];
+                    $url['u'] = $_SESSION['authID'];
                 }
             } 
         }else{
@@ -91,11 +91,11 @@ switch($_REQUEST['submit']){
             }else{
                 $pwd = uniqid();
                 $email = $_REQUEST['email'];
-                if(false == UserAccount::VerifyProfile($conn,"email",$email)){
+                if(false == UserAccount::VerifyProfile($_CONN,"email",$email)){
                     $url['page'] = "reset";
                     $url['status'] = "password-reset-false";
                 }else{
-                    $response = UserAccount::ForgetPassword($conn,$pwd,$email);
+                    $response = UserAccount::ForgetPassword($_CONN,$pwd,$email);
                     $destination = $response['mobile'];
                     $sendID = "benseg";
                     $msg = "Your new password ".$pwd;
@@ -304,7 +304,7 @@ switch($_REQUEST['submit']){
         $sms[] = $_REQUEST['sender-id'];
         $sms[] = $_REQUEST['message'];
         $sms[] = "pending"; 
-        $sms = Message::add_message($conn,$sms); 
+        $sms = Message::add_message($_CONN,$sms); 
         if (preg_match('/,/', $to_mobile)) {
             // string contains characters other than |
             $m = explode(",",$to_mobile);
