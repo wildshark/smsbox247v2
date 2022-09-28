@@ -12,3 +12,8 @@ Why SMS Box 247 Verision 2?
 7. Client sign up and forget password
 8. SMS balance. 
 9. Support online payment.
+
+Credits:
+Template By DexignZone http://www.dexignzone.com/
+Payment API By Flutterwave https://flutterwave.com/
+SMS API By Routemobile https://routemobile.com/
