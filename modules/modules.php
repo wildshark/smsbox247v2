@@ -41,10 +41,11 @@ switch($_REQUEST['submit']){
                     $url['cp'] = "dashboard";
                     $url['token'] = md5($token); 
                 }else{
-                    $_SESSION['authID'] = time();
+                    $_SESSION['authID'] = rand(1000,9999);
                     __GatewaySendSMS($response['mobile'],"bernserg","Your access code: ".$_SESSION['authID']);
                     $url['client'] = "auth";
                     $url['token'] = md5($token); 
+                    //$url['u'] = $_SESSION['authID'];
                 }
             } 
         }else{
