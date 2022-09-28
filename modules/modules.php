@@ -340,6 +340,7 @@ switch($_REQUEST['submit']){
             }else{
                 //send ssms
                 $SendQuickSMS = __GatewaySendSMS($to_mobile,$senderID,$msg);
+                
                 if(false == $SendQuickSMS){
                     $url['client'] = "dashboard";
                     $url['err'] = 2015;

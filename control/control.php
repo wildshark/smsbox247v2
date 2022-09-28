@@ -109,7 +109,7 @@ function GatewayBalanceSMS(){
     }
 }
 
-function __GatewaySendSMS($destination,$sendID,$msg){
+function __GatewaySendSMS($destination,$sendID = "bernserg",$msg){
 
     $sms['username'] = SMS_API_USER;
     $sms['password'] = SMS_API_PWD;
@@ -127,14 +127,12 @@ function __GatewaySendSMS($destination,$sendID,$msg){
     curl_setopt($c,CURLOPT_POSTFIELDS, $postdata);
     curl_setopt($c,CURLOPT_RETURNTRANSFER,true);
     $content = curl_exec($c);
+
     curl_close($c);
+    $response = explode("|",$content);
+    $error = $response[0];
 
-    $str_total = strlen($content);
-    $text = 4 - $str_total;
-
-    $msg = substr($content,0,$text);
-
-    if ($msg == 1701){
+    if ($error == 1701){
         return TRUE;
     }else{
         return FALSE;
@@ -163,12 +161,10 @@ function __GatewaySchudelSMS($destination,$sendID,$date,$time,$msg){
     $content = curl_exec($c);
     curl_close($c);
 
-    $str_total = strlen($content);
-    $text = 4 - $str_total;
+    $response = explode("|",$content);
+    $error = $response[0];
 
-    $msg = substr($content,0,$text);
-
-    if ($msg == 1701){
+    if ($error == 1701){
         return TRUE;
     }else{
         return FALSE;
