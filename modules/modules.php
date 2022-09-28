@@ -326,6 +326,7 @@ switch($_REQUEST['submit']){
             $_LOG[] = "Insufficient funds";
             $_LOG[] = "warning";
         }else{
+            
             $price = config("price");
             $amt = $total * $price;
             $CR[] = date("Y-m-d H:i:s");
@@ -340,7 +341,7 @@ switch($_REQUEST['submit']){
             }else{
                 //send ssms
                 $SendQuickSMS = __GatewaySendSMS($to_mobile,$senderID,$msg);
-                
+
                 if(false == $SendQuickSMS){
                     $url['client'] = "dashboard";
                     $url['err'] = 2015;
