@@ -20,4 +20,5 @@ Credits:
 2. Payment API By Flutterwave https://flutterwave.com/
 3. SMS API By Routemobile https://routemobile.com/
 
-iqteam@iquipedigital.com
+Author:
+iQ Team iqteam@iquipedigital.com
