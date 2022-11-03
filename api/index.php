@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-define("SMS_API_USER","bsgh-bernserg");
-define("SMS_API_PWD","Kofie@12");
+define("SMS_API_USER","");
+define("SMS_API_PWD","");
 
 include("../modules/user.php");
 include("../modules/transaction.php");
