@@ -71,7 +71,20 @@ class Transaction{
                  ];
             }
         }else{
-            $sql = "SELECT ledger.userID, sum(ledger.paid) AS paid, sum(ledger.spend) AS spend, sum(ledger.paid - ledger.spend) AS bal FROM ledger INNER JOIN user_account ON ledger.userID = user_account.userID WHERE ledger.userID =:id";
+            $sql = "SELECT
+            ledger.userID, 
+            sum(ledger.paid) AS paid, 
+            sum(ledger.spend) AS spend, 
+            sum(ledger.paid - ledger.spend) AS bal, 
+            user_account.account
+        FROM
+            ledger
+            INNER JOIN
+            user_account
+            ON 
+                ledger.userID = user_account.userID
+        WHERE
+            ledger.userID =:id";
             $stmt = $conn->prepare($sql);
             $stmt->execute([":id"=>$request]);
             $data = $stmt->fetch(PDO::FETCH_ASSOC);

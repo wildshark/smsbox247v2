@@ -114,7 +114,7 @@ switch($_REQUEST['client']){
                 header("location: ?client=group&err=success");
             }
         }
-    break;
+    break; 
 
     case"pos-terminal";
         $or = Transaction::ViewOrder($_CONN,$_GET['or']);
