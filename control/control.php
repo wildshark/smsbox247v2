@@ -1,8 +1,5 @@
 <?php
 
-define("SMS_API_USER","bsgh-bernserg");
-define("SMS_API_PWD","Kofie@12");
-
 function config($str){
 
     if(!file_exists("config.json")){
@@ -177,8 +174,8 @@ function mailer($post_data = null){
         $mail = false;
 
         $mailgun = [
-            'apiKey' => '197c93e0de23255e56e436ef5a40107f-78651cec-38c1a4b3',
-            'domain' => 'mg.iqserver.ml'
+            'apiKey' => '',
+            'domain' => ''
         ];
         
         $ch = curl_init();

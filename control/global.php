@@ -1,13 +1,31 @@
 <?php
+
+define("SMS_API_USER","");
+
+define("SMS_API_PWD","");
+
+define("MAIL_API_KEY","");
+
+define("MAIL_DOMAIN","");
+
+define("PS_KEY","");
+
+define("FLWS_KEY","");
+
+define("FLWP_KEY","");
+
 $_PAGE_TITLE ="BernsergSolutionsSMS";
+
 $_PAGE_LOGO = "";
+
 $_PAGE_META =  "fasto : sass Admin Dashboard  Bootstrap 5 Template";
+
 $_PAGE_CR = "Licensed to  Bernserg Solutions  2022 &amp; Developed by <a href='https://iquipedigital/' target='_blank'>iQuipe Digital</a>";
 
 $domain = config("domain");
+
 $senderID = "";
-//$_CONBO_CURR = currencies(config("currency"));
-//$_CONBO_WALLET = wallet(config("wallet"));
+
 $_HOST  = [
     "host" => "localhost",
     "user" => "root",
