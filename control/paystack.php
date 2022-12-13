@@ -7,7 +7,7 @@
 <script>
 function payWithPaystack() {
   let handler = PaystackPop.setup({
-    key: "<?=$_PAYSTACK_KEY?>", 
+    key: "<?=PS_KEY?>", 
     first_name: "<?=$fname?>",
     last_name: "<?=$sname?>",
     email: "<?=$email?>",
