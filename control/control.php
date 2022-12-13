@@ -1,19 +1,7 @@
 <?php
 
-// inactive in seconds
-$inactive = 10 * 60;
-if( !isset($_SESSION['timeout']) )
-
-$_SESSION['timeout'] = time() + $inactive; 
-
-$session_life = time() - $_SESSION['timeout'];
-
-if($session_life > $inactive){  
-    session_destroy(); 
-    header("Location:index.php");     
-}
-
-$_SESSION['timeout']=time();
+define("SMS_API_USER","bsgh-bernserg");
+define("SMS_API_PWD","Kofie@12");
 
 function config($str){
 
@@ -109,7 +97,7 @@ function GatewayBalanceSMS(){
     }
 }
 
-function __GatewaySendSMS($destination,$sendID = "bernserg",$msg){
+function __GatewaySendSMS($destination,$sendID,$msg){
 
     $sms['username'] = SMS_API_USER;
     $sms['password'] = SMS_API_PWD;
@@ -127,12 +115,14 @@ function __GatewaySendSMS($destination,$sendID = "bernserg",$msg){
     curl_setopt($c,CURLOPT_POSTFIELDS, $postdata);
     curl_setopt($c,CURLOPT_RETURNTRANSFER,true);
     $content = curl_exec($c);
-
     curl_close($c);
-    $response = explode("|",$content);
-    $error = $response[0];
 
-    if ($error == 1701){
+    $str_total = strlen($content);
+    $text = 4 - $str_total;
+
+    $msg = substr($content,0,$text);
+
+    if ($msg == 1701){
         return TRUE;
     }else{
         return FALSE;
@@ -161,14 +151,57 @@ function __GatewaySchudelSMS($destination,$sendID,$date,$time,$msg){
     $content = curl_exec($c);
     curl_close($c);
 
-    $response = explode("|",$content);
-    $error = $response[0];
+    $str_total = strlen($content);
+    $text = 4 - $str_total;
 
-    if ($error == 1701){
+    $msg = substr($content,0,$text);
+
+    if ($msg == 1701){
         return TRUE;
     }else{
         return FALSE;
     }   
+}
+
+function mailer($post_data = null){
+    $post_data = [
+        'from' => "Bankash <noreply@email.mg.iqserver.ml>",
+        'to' => "",
+        'subject' => "",
+        'text' => ""
+    ];
+
+    if(is_null($post_data)){
+        $mail = false;
+    }else{
+        $mail = false;
+
+        $mailgun = [
+            'apiKey' => '197c93e0de23255e56e436ef5a40107f-78651cec-38c1a4b3',
+            'domain' => 'mg.iqserver.ml'
+        ];
+        
+        $ch = curl_init();
+    
+        curl_setopt( $ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC );
+        curl_setopt( $ch, CURLOPT_USERPWD, "api:{$mailgun['apiKey']}" );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+    
+        curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'POST' );
+        curl_setopt( $ch, CURLOPT_URL, "https://api.mailgun.net/v3/{$mailgun['domain']}/messages" );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS,$post_data);
+    
+        $result = curl_exec( $ch ); 
+        curl_close( $ch );
+        $json = json_decode($result,true);
+        if(!isset($json['message'])){
+            $mail = "message-successful";
+        }else{   
+            $mail = "message-failed"; 
+        }
+    }
+
+    return $mail;
 }
 
 ?>

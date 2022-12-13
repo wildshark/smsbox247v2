@@ -12,11 +12,12 @@ if(!isset($_SESSION['uID'])){
 $_SESSION['portal'] = "client";
 $_PAGE['menu'] = "client/menu.php";
 $_PAGE['modal'] = "client/modal.php";
-$cmbGroupContact = Contact::List($_CONN,$_SESSION['uID']);
+$cmbGroupContact = Contact::AddressList($_CONN,$_SESSION['uID']);
 
 $t = Transaction::balance($_CONN,$_SESSION['uID']);
 $balance ="Available SMS " .number_format($t['bal'],2)." GHS";
 $uMenu = UserMenu();
+$user_profile_menu = "user.menu.php";
 
 switch($_REQUEST['client']){
 
@@ -25,7 +26,7 @@ switch($_REQUEST['client']){
             header("location: ?user=auth-zero");
             exit(0);
         }
-        ///echo $_SESSION['authID'];
+        echo $_SESSION['authID'];
         require($_PAGE['auth']);
     break;
 
@@ -62,17 +63,32 @@ switch($_REQUEST['client']){
         require($_PAGE['form']);
     break;
 
+    case"topup";
+        $title = "Topup";
+        $ref = time();
+        $orders = Transaction::getOreder($_CONN,$_SESSION['uID']);
+        $view = "client/topup.php";
+        require($_PAGE['form']);
+    break;
+
     case"group";
         $title = "Group Contact";
-        $group = Contact::List($_CONN,$_SESSION['uID']);
+        $group = Contact::AddressList($_CONN,$_SESSION['uID']);
         $view = "client/group.php";
         require($_PAGE['table']);
     break;
 
     case"contact";
         $title ="Contact  List";
-        $_SESSION['gID'] = $_GET['contact'];
-        $contact = Contact::View($_CONN,$_GET['contact']);
+        if(!isset($_GET['contact'])){
+            $_GET['contact'] = null;
+        }else{
+             $_SESSION['gID'] = $_GET['contact'];
+        }
+        $myContact = Contact::View($_CONN,$_GET['contact']);
+        if($myContact == false){
+            $myContact = null;
+        }
         $view = "client/contact.php";
         require($_PAGE['table']);
     break;
@@ -98,34 +114,44 @@ switch($_REQUEST['client']){
         require($_PAGE['table']);
     break;
 
+    case"token";
+        $title = "API Token";
+        $data = tokenz::getList($_CONN,$_SESSION['uID']);
+        $view = "client/token.php";
+        require($_PAGE['table']);
+    break;
+
     case"delete";
         if($_REQUEST['ui'] === "group"){
             $delete = Contact::delete($_CONN,$_REQUEST['id']);
             if($delete == false){
-                header("location: ?client=group&err=fail");
+                header("location: ?client=group&err=2028");
             }else{
-                header("location: ?client=group&err=success");
+                header("location: ?client=group&err=2027");
             }
         }elseif($_REQUEST['ui'] === "contact"){
             $delete = Contact::updateList($_CONN,"delete",$_REQUEST['id']);
             if($delete == false){
-                header("location: ?client=group&err=fail");
+                header("location: ?client=group&err=2028");
             }else{
-                header("location: ?client=group&err=success");
+                header("location: ?client=group&err=2027");
             }
         }
-    break; 
+    break;
 
     case"pos-terminal";
         $or = Transaction::ViewOrder($_CONN,$_GET['or']);
         $id = $_GET['or'];
-        $name = $or['full_name'];
+        $name = $or['full_name']; 
+        $name = explode(" ",$name);
+        $fname = $name[0];
+        $sname = $name[1];
         $email = $or['email'];
         $mobile = $or['mobile'];
-        $ref = $or['ref'];
+        $ref = "SMS-".$or['ref'];
         $currency = $or['currency'];
         $amt = $or['amount'];
-        require("control/payment.php");
+        require("control/paystack.php");
     break;
 }
 

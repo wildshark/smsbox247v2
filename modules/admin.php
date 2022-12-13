@@ -10,6 +10,8 @@ if(!isset($_SESSION['token'])){
 $_SESSION['portal'] ="cp";
 $_PAGE['menu'] = "admin/menu.php";
 $_PAGE['modal'] = "admin/modal.php";
+$user_profile_menu = "cp.menu.php";
+
 $balance ="0.00 GHS";
 $uMenu = AdminMenu();
 
@@ -38,15 +40,8 @@ switch($_REQUEST['cp']){
         }elseif($_GET['ui'] == "update"){
             $title ="User Profile";
             //stop  here to cont
-            if($_GET['id'] !== "admin"){
-                $profile  = UserAccount::profile($_CONN,$_GET['id']);
-            }else{
-                if($_SESSION['uID'] !== "admin"){
-                    $profile  = UserAccount::profile($_CONN,$_SESSION['uID']);
-                }else{
-                    $profile = config("profile"); 
-                }
-            }
+            $profile  = UserAccount::profile($_CONN,$_GET['id']);
+          
             $btn['action'] = "update-client-profile";
             $btn['caption'] = "Save";
 
@@ -159,7 +154,10 @@ switch($_REQUEST['cp']){
     break;
 
     case"api-token";
-        require($_PAGE['403']);
+        $title = "Token List";
+        $data = tokenz::getList($_CONN);
+        $view = "admin/token.php";
+        require($_PAGE['form']);
     break;
 
     default:

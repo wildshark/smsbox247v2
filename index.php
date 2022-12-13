@@ -1,8 +1,6 @@
 <?php
 date_default_timezone_set('UTC');
 session_start();
-
-include("route.php");
 include("control/control.php");
 include("control/function.php");
 include("control/global.php");
@@ -11,13 +9,12 @@ include("modules/user.php");
 include("modules/transaction.php");
 include("modules/contact.php");
 include("modules/message.php");
-
+include("modules/token.php");
 $_URL = config("api");
-
-$host = HOST_DB;
-$username = USR_DB;
-$password = PWD_DB;
-$dbname = NAME_DB;
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "";
 
 try {
 
@@ -26,10 +23,7 @@ try {
     }else{
         $_CONN = new PDO("mysql:host=$host;dbname=$dbname", $username,$password);
     }
-    
     $_CONBO_WALLET = "";
-    $_portal = config("profile");
-
     if(!isset($_REQUEST['submit'])){
         if(!isset($_REQUEST['page'])){
            // UserSession($_SERVER['HTTP_HOST']);

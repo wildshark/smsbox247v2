@@ -41,11 +41,11 @@ switch($_REQUEST['submit']){
                     $url['cp'] = "dashboard";
                     $url['token'] = md5($token); 
                 }else{
-                    $_SESSION['authID'] = rand(1000,9999);
-                    __GatewaySendSMS($response['mobile'],"bernserg","Your access code: ".$_SESSION['authID']);
+                    $_SESSION['authID'] = time();
+                   
+                    __GatewaySendSMS($response['mobile'],"smsbox","Your access code: ".$_SESSION['authID']);
                     $url['client'] = "auth";
                     $url['token'] = md5($token); 
-                    $url['u'] = $_SESSION['authID'];
                 }
             } 
         }else{
@@ -91,11 +91,11 @@ switch($_REQUEST['submit']){
             }else{
                 $pwd = uniqid();
                 $email = $_REQUEST['email'];
-                if(false == UserAccount::VerifyProfile($_CONN,"email",$email)){
+                if(false == UserAccount::VerifyProfile($conn,"email",$email)){
                     $url['page'] = "reset";
                     $url['status'] = "password-reset-false";
                 }else{
-                    $response = UserAccount::ForgetPassword($_CONN,$pwd,$email);
+                    $response = UserAccount::ForgetPassword($conn,$pwd,$email);
                     $destination = $response['mobile'];
                     $sendID = "benseg";
                     $msg = "Your new password ".$pwd;
@@ -185,7 +185,6 @@ switch($_REQUEST['submit']){
     break;
 
     case"update-profile";
-        
         $q[] = $_REQUEST['full_name'];
         $q[] = $_REQUEST['mobile'];
         $q[] = $_REQUEST['address'];
@@ -218,10 +217,12 @@ switch($_REQUEST['submit']){
         $response = UserAccount::UpdateProfile($_CONN,$q);
         if($response == false){
             $url['cp'] = "profile";
+            $url['ui'] = "update";
             $url['err'] = 2013;
             $url['id'] = $_SESSION['uID'];
         }else{
             $url['cp'] = "profile";
+            $url['ui'] = "update";
             $url['err'] = 2014;
             $url['id'] = $_SESSION['uID'];
         }
@@ -304,7 +305,7 @@ switch($_REQUEST['submit']){
         $sms[] = $_REQUEST['sender-id'];
         $sms[] = $_REQUEST['message'];
         $sms[] = "pending"; 
-        $sms = Message::add_message($_CONN,$sms); 
+        $sms = Message::add_message($conn,$sms); 
         if (preg_match('/,/', $to_mobile)) {
             // string contains characters other than |
             $m = explode(",",$to_mobile);
@@ -326,7 +327,6 @@ switch($_REQUEST['submit']){
             $_LOG[] = "Insufficient funds";
             $_LOG[] = "warning";
         }else{
-            
             $price = config("price");
             $amt = $total * $price;
             $CR[] = date("Y-m-d H:i:s");
@@ -341,7 +341,6 @@ switch($_REQUEST['submit']){
             }else{
                 //send ssms
                 $SendQuickSMS = __GatewaySendSMS($to_mobile,$senderID,$msg);
-
                 if(false == $SendQuickSMS){
                     $url['client'] = "dashboard";
                     $url['err'] = 2015;
@@ -423,9 +422,12 @@ switch($_REQUEST['submit']){
     break;
 
     case"add-contact";
-        $R[] = $_SESSION['uID'];
-        $R[] = $_REQUEST['group-name'];
-        $response = Contact::addFileName($_CONN,$R);
+        $ADD[] = $_SESSION['uID'];
+        $ADD[] = date("y-m-d");
+        $ADD[] = $_REQUEST['group-name'];
+        $ADD[] = 0;
+        $ADD[] = 1;
+        $response = Contact::addFileName($_CONN,$ADD);
         if($response == false){
             $url['client'] = "group";
             $url['err'] = 4004;
@@ -444,22 +446,16 @@ switch($_REQUEST['submit']){
                 'application/vnd.msexcel',
                 'text/plain'
             );
-        
             // Validate whether selected file is a CSV file
-            if (!empty($_FILES['upload-file']['name']) && in_array($_FILES['upload-file']['type'], $fileMimes))
-            {
-        
+            if (!empty($_FILES['upload-file']['name']) && in_array($_FILES['upload-file']['type'], $fileMimes)){
                 // Open uploaded CSV file with read-only mode
                 $csvFile = fopen($_FILES['upload-file']['tmp_name'], 'r');
-        
                 // Skip the first line
                 fgetcsv($csvFile);
-        
                 // Parse data from CSV file line by line
                 while (($getData = fgetcsv($csvFile, 10000, ",")) !== FALSE){
                     // Get row data
                     $result = Contact::addList($_CONN,$response,$getData,$_SESSION['uID']);
-                        
                 }
         
                 // Close opened CSV file    
@@ -474,15 +470,19 @@ switch($_REQUEST['submit']){
                     $_LOG[] = "Upload Contact file failed";
                     $_LOG[] = "warning";
                 }else{
+                    $totalContact = Contact::totalContact($_CONN,$response); 
+                    $addTotal = Contact::addTotalContact($_CONN,$totalContact,$response);
+                    sleep(4);
                     $url['client'] = "contact";
                     $url['contact'] = $response;
                     $url['err'] = 2007;
-
+ 
                     $_LOG[] = $_SESSION['uID'];
                     $_LOG[] = "Upload Contact file successful";
                     $_LOG[] = "success";
                 }
             }else{
+               
                 $url['client'] = "contact";
                 $url['contact'] = $_SESSION['gID'];
                 $url['err'] = 2008;
@@ -562,17 +562,14 @@ switch($_REQUEST['submit']){
     break;
 
     case"make-payment";
-        if($_REQUEST['payment-method'] === "card"){
-            $curr = "USD";
-        }elseif($_REQUEST['payment-method'] === "araknet"){
-            $curr = "GHS";
-        }
-        $ref =time();
+        
         $q[] = $_SESSION['uID'];
-        $q[] = $ref;
-        $q[] = $curr;
+        $q[] = date("Y-m-d H:i:s");
+        $q[] = $_REQUEST['ref'];
+        $q[] = $_REQUEST['currency'];
         $q[] = $_REQUEST['amount'];
-        $q[] = $_REQUEST['payment-method'];
+        $q[] = "paystack";
+        $q[] = 1;
         $response = Transaction::AddOrders($_CONN,$q);
         if($response === false){
             $url['client'] = "ledger";
@@ -584,7 +581,7 @@ switch($_REQUEST['submit']){
 
         }else{
             $url['client'] = "pos-terminal";
-            $url['ref'] = $ref;
+            $url['ref'] = $_REQUEST['ref'];
             $url['or'] = $response;
 
             $_LOG[] = $_SESSION['uID'];
@@ -592,6 +589,77 @@ switch($_REQUEST['submit']){
             $_LOG[] = "success"; 
         }
         $log = UserAccount::AddEventLog($_CONN,$_LOG);
+    break;
+
+    case"add-token";
+        $ADD[] = $_SESSION['uID'];
+        $ADD[] = date("Y-m-d H:i:s");
+        $ADD[] = "$2k_".md5(uniqid($_REQUEST['name']).time());
+        $ADD[] = $_REQUEST['website'];
+        $ADD[] = "Active";
+        $response = tokenz::add($_CONN,$ADD);
+        if($response === false){
+            $url['client'] = "token";
+            $url['err'] = 2030;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "Create Token failed";
+            $_LOG[] = "danger";
+
+        }else{
+            $url['client'] = "token";
+            $url['err'] = 2029;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "Create Token was Success";
+            $_LOG[] = "success"; 
+        }
+        $log = UserAccount::AddEventLog($_CONN,$_LOG);
+    break;
+
+    case"del-token";
+        $response = tokenz::delete($_CONN,$_REQUEST['id']);
+        if($response === false){
+            $url['client'] = "token";
+            $url['err'] = 2031;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "failed to delete token";
+            $_LOG[] = "danger";
+
+        }else{
+            $url['client'] = "token";
+            $url['err'] = 2032;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "Token deleted successful";
+            $_LOG[] = "success"; 
+        }
+        $log = UserAccount::AddEventLog($_CONN,$_LOG);
+    break;
+
+    case"status-token";
+        $q[] = $_REQUEST['status'];
+        $q[] = $_REQUEST['id'];
+        $response = tokenz::change_status($_CONN,$q);
+        if($response === false){
+            $url['client'] = "token";
+            $url['err'] = 2031;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "failed to delete token";
+            $_LOG[] = "danger";
+
+        }else{
+            $url['client'] = "token";
+            $url['err'] = 2032;
+
+            $_LOG[] = $_SESSION['uID'];
+            $_LOG[] = "Token deleted successful";
+            $_LOG[] = "success"; 
+        }
+        $log = UserAccount::AddEventLog($_CONN,$_LOG);
+
     break;
 }
 

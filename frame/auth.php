@@ -8,12 +8,12 @@
     <meta name="author" content="DexignZone" />
     <meta name="robots" content="index, follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
-    <meta property="og:title" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
-    <meta property="og:description" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
+    <meta name="description" content="<?=$_PAGE_META?>" />
+    <meta property="og:title" content="<?=$_PAGE_META?>" />
+    <meta property="og:description" content="<?=$_PAGE_META?>" />
     <meta property="og:image" content="page-error-404.html" />
     <meta name="format-detection" content="telephone=no">
-    <title><?=$_portal->company?></title>
+    <title><?=$_PAGE_TITLE?></title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
@@ -34,10 +34,10 @@
                                         <img src="images/logo-full.png" alt="">
                                     </div>
                                     <h4 class="text-center mb-4">Account Locked</h4>
-                                    <p class="text-center"> Please enter the OTP sent to your email address or phone number </p>
+                                    <p class="text-center"> Enter 6-digit code sent to you as sms.</p>
                                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                                     <div class="form-group">
-                                        <label><strong>Enter OTP Code</strong></label>
+                                        <label><strong>Enter code</strong></label>
                                         <input type="text" name="auth-code" class="form-control" value="">
                                     </div>
                                     <div class="text-center">

@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?=BulkContact($contact)?>
+                        <?=BulkContact($myContact)?>
                         </tbody>
                     </table>
                 </div>

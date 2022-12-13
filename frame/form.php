@@ -8,12 +8,12 @@
 	<meta name="author" content="DexignZone" />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
-	<meta property="og:title" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
-	<meta property="og:description" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
+	<meta name="description" content="<?=$_PAGE_META?>" />
+	<meta property="og:title" content="<?=$_PAGE_META?>" />
+	<meta property="og:description" content="<?=$_PAGE_META?>" />
 	<meta property="og:image" content="page-error-404.html"/>
 	<meta name="format-detection" content="telephone=no">
-    <title><?=$_portal->company?></title>
+    <title><?=$_PAGE_TITLE?></title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.ico">
     <!-- Custom Stylesheet -->
@@ -112,7 +112,7 @@ enable-ga="false"
                                 <?=date('D d, M Y')?>   
 							</li>
                             <li class="nav-item dropdown header-profile">
-                                <?php include("user.menu.php")?>
+                                <?php include($user_profile_menu )?>
                             </li>
                         </ul>
                     </div>
@@ -175,7 +175,7 @@ enable-ga="false"
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Licensed to  <?=$_portal->company?>  2022 &amp; Developed by <a href="https://iquipedigital/" target="_blank">iQuipe Digital</a></p>
+                 <p><title><?=$_PAGE_CR?></title></p>
             </div>
         </div>
         <!--**********************************

@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
+
+<!-- Mirrored from fasto.dexignzone.com/xhtml/page-error-400.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jun 2022 09:05:34 GMT -->
 <head>
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +11,12 @@
 	<meta name="author" content="DexignZone" />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
-	<meta property="og:title" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
-	<meta property="og:description" content="fasto : sass Admin Dashboard  Bootstrap 5 Template" />
+	<meta name="description" content="<?=$_PAGE_META?>" />
+	<meta property="og:title" content="<?=$_PAGE_META?>" />
+	<meta property="og:description" content="<?=$_PAGE_META?>" />
 	<meta property="og:image" content="page-error-404.html"/>
 	<meta name="format-detection" content="telephone=no">
-    <title><?=$_portal->company?></title>
+    <title><?=$_PAGE_TITLE?></title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.ico">
     <link href="css/style.css" rel="stylesheet">
@@ -48,4 +50,5 @@
 <script src="js/deznav-init.js"></script>
 </body>
 
+<!-- Mirrored from fasto.dexignzone.com/xhtml/page-error-400.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jun 2022 09:05:34 GMT -->
 </html>

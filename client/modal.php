@@ -74,7 +74,7 @@
                         <input type="text" name="group-name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="text-black font-w500">Upload csv or execl</label>
+                        <label class="text-black font-w500">Upload CSV or Click <a href="download/sample.csv">here</a> to downlaod template</label>
                         <input type="file" name="upload-file" class="form-control">
                     </div>
                     <div class="form-group">
@@ -90,7 +90,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Bulk SMS</h5>
+                <h5 class="modal-title">Create SMS Schedule</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">

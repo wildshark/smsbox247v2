@@ -71,20 +71,7 @@ class Transaction{
                  ];
             }
         }else{
-            $sql = "SELECT
-            ledger.userID, 
-            sum(ledger.paid) AS paid, 
-            sum(ledger.spend) AS spend, 
-            sum(ledger.paid - ledger.spend) AS bal, 
-            user_account.account
-        FROM
-            ledger
-            INNER JOIN
-            user_account
-            ON 
-                ledger.userID = user_account.userID
-        WHERE
-            ledger.userID =:id";
+            $sql = "SELECT ledger.userID, sum(ledger.paid) AS paid, sum(ledger.spend) AS spend, sum(ledger.paid - ledger.spend) AS bal FROM ledger INNER JOIN user_account ON ledger.userID = user_account.userID WHERE ledger.userID =:id";
             $stmt = $conn->prepare($sql);
             $stmt->execute([":id"=>$request]);
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -117,7 +104,7 @@ class Transaction{
     
     public static function AddOrders($conn,$request){
 
-        $sql="INSERT INTO `orders`(`userID`, `ref`, `currency`, `amount`, `wallet`) VALUES (?,?,?,?,?)";
+        $sql="INSERT INTO `orders` (`userID`, `tranDate`, `ref`, `currency`, `amount`, `wallet`, `statusID`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         if(false == $stmt->execute($request)){
             return false;
@@ -164,8 +151,12 @@ class Transaction{
         return $stmt->execute([":id"=>$id]);
     }
 
-    public static function PendingOrders(){
+    public static function getOreder($conn,$id){
 
+        $sql ="SELECT orders.* FROM orders WHERE orders.userID =:id ORDER BY orders.orderID DESC";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([':id'=>$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function DelOrder(){

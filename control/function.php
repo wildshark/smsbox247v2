@@ -434,43 +434,47 @@ function AdminOrdersApproved($list){
     return $data;
 }
 
-function BulkContact($list){
+function BulkContact($myContactList = null){
     $data ="";
-    foreach($list as $r){
+    if(is_null($myContactList)){
+        $data = "";
+    }else{
+        foreach($myContactList as $r){
 
-        if(!isset($n)){
-            $n = 1;
-        }else{
-            $n = $n + 1;
+            if(!isset($n)){
+                $n = 1;
+            }else{
+                $n = $n + 1;
+            }
+
+            if(!isset($r['mobile'])){
+                $r['mobile'] ="Null";
+            }
+
+            if(!isset($r['cname'])){
+                $r['cname'] ="Null";
+            }
+
+            if(!isset($r['network'])){
+                $r['network'] ="Null";
+            }
+
+            $data.="
+            <tr>
+                <td>{$n}</td>
+                <td>{$r['mobile']}</td>
+                <td>{$r['cname']}</td>
+                <td>{$r['network']}</td>
+                <td>
+                    <div class='d-flex'>
+                        <a href='javascript:void(0);' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
+                        <a href='javascript:void(0);' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                    </div>												
+                </td>												
+            </tr>";
         }
-
-        if(!isset($r['mobile'])){
-            $r['mobile'] ="Null";
-        }
-
-        if(!isset($r['cname'])){
-            $r['cname'] ="Null";
-        }
-
-        if(!isset($r['network'])){
-            $r['network'] ="Null";
-        }
-
-        $data.="
-        <tr>
-            <td>{$n}</td>
-            <td>{$r['mobile']}</td>
-            <td>{$r['cname']}</td>
-            <td>{$r['network']}</td>
-            <td>
-                <div class='d-flex'>
-                    <a href='javascript:void(0);' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
-                    <a href='javascript:void(0);' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
-                </div>												
-            </td>												
-        </tr>";
     }
-
+   
     return $data;
 }
 
@@ -529,6 +533,72 @@ function EventLog($list){
     }
     return $data;
 
+}
+
+function ClientOrderLog($list){
+    
+    $data="";
+    if($list == false){
+        $data ="";
+    }else{
+        foreach($list as $r){
+        $date = time_elapsed($r['tranDate']);
+        $ref = $r['ref'];
+        $amt = number_format($r['amount'],2);
+        $css = "info";
+        $data.="
+            <li>
+                <div class='timeline-badge $css'></div>
+                <a class='timeline-panel text-muted' href='javascript:void(0);'>
+                    <span>$date</span>
+                    <h6 class='mb-0'>REF#: $ref GHS: $amt</h6>
+                </a>
+            </li>";
+        }
+    }
+    return $data;
+}
+
+function TokenDataSheet($list){
+    $data ="";
+    if($list == false){
+        $data="";
+    }else{
+         foreach($list as $r){
+
+            if(!isset($n)){
+                $n = 1;
+            }else{
+                $n = $n + 1;
+            }
+            $id = $r['apiID'];
+            $date = $r['date_created'];
+            $token = $r['api_token'];
+            $website = $r['website'];
+            $state = $r['status'];
+
+            if($state == "Active"){
+                $status = "Passive";
+            }else{
+                $status = "Active";
+            }
+            
+            $data.="
+                <tr>
+                    <td>{$n}</td>
+                    <td>{$token}</td>
+                    <td>{$website}</td>
+                    <td>{$state}</td>
+                    <td>
+                        <div class='d-flex'>
+                            <a href='?submit=status-token&id=$id&status=$status' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-eye'></i></a>
+                            <a href='?submit=del-token&id=$id' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                        </div>												
+                    </td>	
+                </tr>";
+        }
+    }
+    return $data;
 }
 
 function ClientSMSLog($list){

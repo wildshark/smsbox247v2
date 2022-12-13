@@ -2,9 +2,21 @@
 
 class Contact{
 
+    public static function totalContact($conn,$request){
+
+        $sql = "SELECT count(contact_details.contactID) as total FROM contact_details WHERE contact_details.addressID = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([":id"=>$request]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($data == false){
+            $data = 0;
+        }
+        return $data['total'];
+    }
+
     public static function addFileName($conn,$request){
 
-        $sql ="INSERT INTO `contact_main`(`userID`, `file_name`) VALUES (?,?)";
+        $sql ="INSERT INTO `contact_main` (`userID`, `create_date`, `file_name`, `content`, `statusID`) VALUES (?,?,?,?,?)";
         $stmt = $conn->prepare($sql);
         $data = $stmt->execute($request);
         if($data == false){
@@ -13,6 +25,18 @@ class Contact{
             return $conn->lastInsertId();
         }
     } 
+
+    public static function addTotalContact($conn,$total,$id){
+
+        $sql ="UPDATE `contact_main` SET `content` = :total WHERE addressID =:id";
+        $stmt = $conn->prepare($sql);
+        $data = $stmt->execute([
+            ":total"=>$total,
+            ":id"=>$id
+        ]);
+
+        
+    }
 
     public static function update($conn,$request){
 
@@ -74,8 +98,8 @@ class Contact{
         return $data;
     } 
 
-    public static function List($conn,$request){
-
+    public static function AddressList($conn,$request){
+        
         if($request ===  "*.all"){
             $sql ="SELECT * FROM `contact_main` WHERE `statusID`=1 ORDER BY `addressID` DESC LIMIT 0,1000";
             $stmt = $conn->prepare($sql);
@@ -92,11 +116,14 @@ class Contact{
 
     public static function View($conn,$request){
 
+        if(is_null($request)){
+            return false;
+            exit(0);
+        }
         $sql ="SELECT contact_details.* FROM contact_details WHERE contact_details.addressID = :id";
         $stmt = $conn->prepare($sql);
         $stmt->execute([":id"=>$request]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     }
 }
 

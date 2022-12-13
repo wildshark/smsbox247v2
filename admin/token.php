@@ -9,15 +9,14 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Username</th>
-                            <th>Deposite</th>
-                            <th>Spend</th>
-                            <th>Balance</th>
-                            <th>Action</th>
+                            <th>Created</th>
+                            <th>Token</th>
+                            <th>Website</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                       <?=MainLedgerSheet($ledger)?>
+                       <?=TokenDataSheet($data)?>
                     </tbody>
                 </table>
             </div>
