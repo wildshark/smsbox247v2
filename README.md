@@ -18,7 +18,7 @@ Why SMS Box 247 Verision 2?
 Credits:
 1. Template By DexignZone http://www.dexignzone.com/
 2. Payment API By Flutterwave https://flutterwave.com/
-3. SMS API By Routemobile https://routemobile.com/
+3. Payment API By Paystack https://paystack.com/
 
 Author:
 iQ Team iqteam@iquipedigital.com
