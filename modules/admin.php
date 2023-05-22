@@ -122,7 +122,11 @@ switch($_REQUEST['cp']){
                     }
                 }
             }elseif($_GET['action'] ==="remove"){
+                if(TRUE == Transaction::DelOrder($_CONN,$_GET['id'])){
+                    header("location: ?cp=dashboard");
+                }else{
 
+                }
             }
         }
     break;

@@ -153,13 +153,17 @@ class Transaction{
 
     public static function getOreder($conn,$id){
 
-        $sql ="SELECT orders.* FROM orders WHERE orders.userID =:id ORDER BY orders.orderID DESC";
+        $sql ="SELECT orders.* FROM orders WHERE `statusID` > 5 AND orders.userID =:id ORDER BY orders.orderID DESC";
         $stmt = $conn->prepare($sql);
         $stmt->execute([':id'=>$id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function DelOrder(){
+    public static function DelOrder($conn,$id){
+
+        $sql = "UPDATE `orders` SET `statusID` = 3 WHERE orderID = :id";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([':id'=>$id]);
 
     }
 }

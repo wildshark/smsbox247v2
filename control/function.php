@@ -289,7 +289,7 @@ function DeskboardOrdersList($list){
             <td>
                 <div class='d-flex'>
                     <a href='javascript:void(0);' data-bs-toggle='modal' data-bs-target='#$q' class='btn btn-primary shadow btn-xs sharp me-1'><i class='fas fa-pencil-alt'></i></a>
-                    <a href='?cp=orsers&action=remove&id=$id' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
+                    <a href='?cp=orders&action=remove&id=$id' class='btn btn-danger shadow btn-xs sharp'><i class='fa fa-trash'></i></a>
                 </div>												
             </td>												
         </tr>
@@ -318,7 +318,7 @@ function DeskboardOrdersList($list){
                                 </div>
                                 <div class='modal-footer'>
                                     <a href='?cp=orders&action=aprove&id=$id' class='btn btn-primary'>Aprove</a>
-                                    <a href='?cp=orsers&action=remove&id=$id' class='btn btn-danger'>Remove</a>
+                                    <!--a href='?cp=orders&action=remove&id=$id' class='btn btn-danger'>Remove</a-->
                                 </div>
                             </div>
                         </div>
@@ -388,7 +388,7 @@ function AdminOrdersList($list){
                                 </div>
                                 <div class='modal-footer'>
                                     <a href='?cp=orders&action=aprove&id=$id' class='btn btn-primary'>Aprove</a>
-                                    <a href='?cp=orsers&action=remove&id=$id' class='btn btn-danger'>Remove</a>
+                                    <!--a href='?cp=orders&action=remove&id=$id' class='btn btn-danger'>Remove</a-->
                                 </div>
                             </div>
                         </div>
